@@ -3,5 +3,6 @@ kind: NetworkSecurityPerimetersProfile
 metadata:
   name: sample-networksecurityperimetersprofile
 spec:
+  # Profile create body in the 2025-07-01 API spec example is intentionally minimal.
   owner:
     name: sample-networksecurityperimeter

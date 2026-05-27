@@ -3,5 +3,14 @@ kind: NetworkSecurityPerimetersProfilesAccessRule
 metadata:
   name: sample-networksecurityperimetersprofilesaccessrule
 spec:
+  addressPrefixes:
+    - 10.11.0.0/16
+    - 10.10.1.0/24
+  direction: Inbound
+  emailAddresses: []
+  fullyQualifiedDomainNames: []
   owner:
     name: sample-networksecurityperimetersprofile
+  phoneNumbers: []
+  serviceTags: []
+  subscriptions: []

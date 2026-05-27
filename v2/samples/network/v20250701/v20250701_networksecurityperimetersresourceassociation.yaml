@@ -3,5 +3,12 @@ kind: NetworkSecurityPerimetersResourceAssociation
 metadata:
   name: sample-networksecurityperimetersresourceassociation
 spec:
+  accessMode: Enforced
   owner:
     name: sample-networksecurityperimeter
+  privateLinkResource:
+    reference:
+      armId: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-paas/providers/Microsoft.Storage/storageAccounts/sampleprivateendpointresource
+  profile:
+    reference:
+      armId: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/aso-sample-rg/providers/Microsoft.Network/networkSecurityPerimeters/sample-networksecurityperimeter/profiles/sample-networksecurityperimetersprofile

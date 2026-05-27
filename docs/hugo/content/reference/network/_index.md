@@ -9,14 +9,14 @@ To install the CRDs for these resources, your ASO configuration must include `ne
 
 Development of these new resources is complete and they will be available in the next release of ASO.
 
-| Resource                                      | ARM Version | CRD Version | Supported From | Sample |
-|-----------------------------------------------|-------------|-------------|----------------|--------|
-| NetworkSecurityPerimeter                      | 2025-07-01  | v20250701   | v2.20.0        | -      |
-| NetworkSecurityPerimetersLink                 | 2025-07-01  | v20250701   | v2.20.0        | -      |
-| NetworkSecurityPerimetersLoggingConfiguration | 2025-07-01  | v20250701   | v2.20.0        | -      |
-| NetworkSecurityPerimetersProfile              | 2025-07-01  | v20250701   | v2.20.0        | -      |
-| NetworkSecurityPerimetersProfilesAccessRule   | 2025-07-01  | v20250701   | v2.20.0        | -      |
-| NetworkSecurityPerimetersResourceAssociation  | 2025-07-01  | v20250701   | v2.20.0        | -      |
+| Resource                                      | ARM Version | CRD Version | Supported From | Sample                                                                                                                                                      |
+|-----------------------------------------------|-------------|-------------|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NetworkSecurityPerimeter                      | 2025-07-01  | v20250701   | v2.20.0        | [View](https://github.com/Azure/azure-service-operator/tree/main/v2/samples/network/v20250701/v20250701_networksecurityperimeter.yaml)                      |
+| NetworkSecurityPerimetersLink                 | 2025-07-01  | v20250701   | v2.20.0        | [View](https://github.com/Azure/azure-service-operator/tree/main/v2/samples/network/v20250701/v20250701_networksecurityperimeterslink.yaml)                 |
+| NetworkSecurityPerimetersLoggingConfiguration | 2025-07-01  | v20250701   | v2.20.0        | [View](https://github.com/Azure/azure-service-operator/tree/main/v2/samples/network/v20250701/v20250701_networksecurityperimetersloggingconfiguration.yaml) |
+| NetworkSecurityPerimetersProfile              | 2025-07-01  | v20250701   | v2.20.0        | [View](https://github.com/Azure/azure-service-operator/tree/main/v2/samples/network/v20250701/v20250701_networksecurityperimetersprofile.yaml)              |
+| NetworkSecurityPerimetersProfilesAccessRule   | 2025-07-01  | v20250701   | v2.20.0        | [View](https://github.com/Azure/azure-service-operator/tree/main/v2/samples/network/v20250701/v20250701_networksecurityperimetersprofilesaccessrule.yaml)   |
+| NetworkSecurityPerimetersResourceAssociation  | 2025-07-01  | v20250701   | v2.20.0        | [View](https://github.com/Azure/azure-service-operator/tree/main/v2/samples/network/v20250701/v20250701_networksecurityperimetersresourceassociation.yaml)  |
 
 ### Latest Released Versions
 

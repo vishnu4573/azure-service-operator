@@ -3,5 +3,12 @@ kind: NetworkSecurityPerimetersLink
 metadata:
   name: sample-networksecurityperimeterslink
 spec:
+  autoApprovedRemotePerimeterResourceReference:
+    armId: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/aso-sample-rg/providers/Microsoft.Network/networkSecurityPerimeters/sample-networksecurityperimeter-remote
+  description: Auto Approved
+  localInboundProfiles:
+    - "*"
   owner:
     name: sample-networksecurityperimeter
+  remoteInboundProfiles:
+    - "*"

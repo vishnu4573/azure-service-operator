@@ -3,5 +3,8 @@ kind: NetworkSecurityPerimetersLoggingConfiguration
 metadata:
   name: sample-networksecurityperimetersloggingconfiguration
 spec:
+  enabledLogCategories:
+    - NspPublicInboundPerimeterRulesDenied
+    - NspPublicOutboundPerimeterRulesDenied
   owner:
     name: sample-networksecurityperimeter
