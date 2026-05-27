@@ -6,8 +6,7 @@ APIVersion: Enum (1 value)
 
 Factory: Resource
 ├── Owner: resources/v1apiv20191001.ResourceGroup
-├── Spec: Object (12 properties)
-│   ├── AdditionalProperties: map[string]v1.JSON
+├── Spec: Object (11 properties)
 │   ├── AzureName: Validated<string> (3 rules)
 │   │   ├── Rule 0: MaxLength: 63
 │   │   ├── Rule 1: MinLength: 3
@@ -26,14 +25,13 @@ Factory: Resource
 │   │   │   ├── "Int"
 │   │   │   ├── "Object"
 │   │   │   └── "String"
-│   │   └── Value: map[string]v1.JSON
+│   │   └── Value: *v1.JSON
 │   ├── Identity: *Object (2 properties)
 │   │   ├── Type: *Enum (3 values)
 │   │   │   ├── "SystemAssigned"
 │   │   │   ├── "SystemAssigned,UserAssigned"
 │   │   │   └── "UserAssigned"
-│   │   └── UserAssignedIdentities: Object (1 property)[]
-│   │       └── Reference: genruntime.ResourceReference
+│   │   └── UserAssignedIdentities: *v1.JSON
 │   ├── Location: *string
 │   ├── OperatorSpec: *Object (2 properties)
 │   │   ├── ConfigMapExpressions: *core.DestinationExpression[]
@@ -72,7 +70,6 @@ Factory: Resource
 │   │           └── "FactoryVSTSConfiguration"
 │   └── Tags: map[string]string
 └── Status: Object (17 properties)
-    ├── AdditionalProperties: map[string]v1.JSON
     ├── Conditions: conditions.Condition[]
     ├── CreateTime: *string
     ├── ETag: *string
@@ -90,7 +87,7 @@ Factory: Resource
     │   │   ├── "Int"
     │   │   ├── "Object"
     │   │   └── "String"
-    │   └── Value: map[string]v1.JSON
+    │   └── Value: *v1.JSON
     ├── Id: *string
     ├── Identity: *Object (4 properties)
     │   ├── PrincipalId: *string
@@ -99,7 +96,7 @@ Factory: Resource
     │   │   ├── "SystemAssigned"
     │   │   ├── "SystemAssigned,UserAssigned"
     │   │   └── "UserAssigned"
-    │   └── UserAssignedIdentities: map[string]v1.JSON
+    │   └── UserAssignedIdentities: *v1.JSON
     ├── Location: *string
     ├── Name: *string
     ├── ProvisioningState: *string
@@ -134,6 +131,21 @@ Factory: Resource
     │       ├── TenantId: *string
     │       └── Type: *Enum (1 value)
     │           └── "FactoryVSTSConfiguration"
+    ├── SystemData: *Object (6 properties)
+    │   ├── CreatedAt: *string
+    │   ├── CreatedBy: *string
+    │   ├── CreatedByType: *Enum (4 values)
+    │   │   ├── "Application"
+    │   │   ├── "Key"
+    │   │   ├── "ManagedIdentity"
+    │   │   └── "User"
+    │   ├── LastModifiedAt: *string
+    │   ├── LastModifiedBy: *string
+    │   └── LastModifiedByType: *Enum (4 values)
+    │       ├── "Application"
+    │       ├── "Key"
+    │       ├── "ManagedIdentity"
+    │       └── "User"
     ├── Tags: map[string]string
     ├── Type: *string
     └── Version: *string

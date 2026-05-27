@@ -187,11 +187,11 @@ func AddIndependentPropertyGeneratorsForDiskProperties(gens map[string]gopter.Ge
 	gens["DiskMBpsReadOnly"] = gen.PtrOf(gen.Int())
 	gens["DiskMBpsReadWrite"] = gen.PtrOf(gen.Int())
 	gens["DiskSizeGB"] = gen.PtrOf(gen.Int())
-	gens["HyperVGeneration"] = gen.PtrOf(gen.OneConstOf(HyperVGeneration_V1, HyperVGeneration_V2))
+	gens["HyperVGeneration"] = gen.PtrOf(gen.OneConstOf(CommonHyperVGeneration_V1, CommonHyperVGeneration_V2))
 	gens["MaxShares"] = gen.PtrOf(gen.Int())
 	gens["NetworkAccessPolicy"] = gen.PtrOf(gen.OneConstOf(NetworkAccessPolicy_AllowAll, NetworkAccessPolicy_AllowPrivate, NetworkAccessPolicy_DenyAll))
 	gens["OptimizedForFrequentAttach"] = gen.PtrOf(gen.Bool())
-	gens["OsType"] = gen.PtrOf(gen.OneConstOf(OperatingSystemTypes_Linux, OperatingSystemTypes_Windows))
+	gens["OsType"] = gen.PtrOf(gen.OneConstOf(CommonOperatingSystemTypes_Linux, CommonOperatingSystemTypes_Windows))
 	gens["PublicNetworkAccess"] = gen.PtrOf(gen.OneConstOf(PublicNetworkAccess_Disabled, PublicNetworkAccess_Enabled))
 	gens["SupportsHibernation"] = gen.PtrOf(gen.Bool())
 	gens["Tier"] = gen.PtrOf(gen.AlphaString())
@@ -956,6 +956,6 @@ func SupportedCapabilitiesGenerator() gopter.Gen {
 // AddIndependentPropertyGeneratorsForSupportedCapabilities is a factory method for creating gopter generators
 func AddIndependentPropertyGeneratorsForSupportedCapabilities(gens map[string]gopter.Gen) {
 	gens["AcceleratedNetwork"] = gen.PtrOf(gen.Bool())
-	gens["Architecture"] = gen.PtrOf(gen.OneConstOf(Architecture_Arm64, Architecture_X64))
+	gens["Architecture"] = gen.PtrOf(gen.OneConstOf(CommonArchitecture_Arm64, CommonArchitecture_X64))
 	gens["DiskControllerTypes"] = gen.PtrOf(gen.AlphaString())
 }

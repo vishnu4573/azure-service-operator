@@ -122,6 +122,9 @@ groupModelConfiguration:
     ManagedClusterServicePrincipalProfile:
       Secret:
         $importSecretMode: required
+    ManagedClusterAADProfile:
+      ServerAppSecret:
+        $conversionStrategy: manual
     ManagedClusterWindowsProfile:
       AdminPassword:
         $importSecretMode: required
@@ -200,6 +203,9 @@ groupModelConfiguration:
     ManagedClusterServicePrincipalProfile:
       Secret:
         $importSecretMode: required
+    ManagedClusterAADProfile:
+      ServerAppSecret:
+        $conversionStrategy: manual
     ManagedClusterWindowsProfile:
       AdminPassword:
         $importSecretMode: required

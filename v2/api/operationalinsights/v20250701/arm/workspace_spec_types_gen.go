@@ -43,7 +43,7 @@ func (workspace *Workspace_Spec) GetType() string {
 // Identity for the resource.
 type Identity struct {
 	// Type: Type of managed service identity.
-	Type                   *Identity_Type                         `json:"type,omitempty"`
+	Type                   *IdentityType                          `json:"type,omitempty"`
 	UserAssignedIdentities map[string]UserAssignedIdentityDetails `json:"userAssignedIdentities,omitempty"`
 }
 
@@ -61,10 +61,10 @@ type WorkspaceProperties struct {
 	ForceCmkForQuery *bool `json:"forceCmkForQuery,omitempty"`
 
 	// PublicNetworkAccessForIngestion: The network access type for accessing Log Analytics ingestion.
-	PublicNetworkAccessForIngestion *PublicNetworkAccessType `json:"publicNetworkAccessForIngestion,omitempty"`
+	PublicNetworkAccessForIngestion *WorkspaceProperties_PublicNetworkAccessForIngestion `json:"publicNetworkAccessForIngestion,omitempty"`
 
 	// PublicNetworkAccessForQuery: The network access type for accessing Log Analytics query.
-	PublicNetworkAccessForQuery *PublicNetworkAccessType `json:"publicNetworkAccessForQuery,omitempty"`
+	PublicNetworkAccessForQuery *WorkspaceProperties_PublicNetworkAccessForQuery `json:"publicNetworkAccessForQuery,omitempty"`
 
 	// Replication: workspace replication properties.
 	Replication *WorkspaceReplicationProperties `json:"replication,omitempty"`
@@ -80,37 +80,21 @@ type WorkspaceProperties struct {
 	WorkspaceCapping *WorkspaceCapping `json:"workspaceCapping,omitempty"`
 }
 
+// Type of managed service identity.
 // +kubebuilder:validation:Enum={"None","SystemAssigned","UserAssigned"}
-type Identity_Type string
+type IdentityType string
 
 const (
-	Identity_Type_None           = Identity_Type("None")
-	Identity_Type_SystemAssigned = Identity_Type("SystemAssigned")
-	Identity_Type_UserAssigned   = Identity_Type("UserAssigned")
+	IdentityType_None           = IdentityType("None")
+	IdentityType_SystemAssigned = IdentityType("SystemAssigned")
+	IdentityType_UserAssigned   = IdentityType("UserAssigned")
 )
 
-// Mapping from string to Identity_Type
-var identity_Type_Values = map[string]Identity_Type{
-	"none":           Identity_Type_None,
-	"systemassigned": Identity_Type_SystemAssigned,
-	"userassigned":   Identity_Type_UserAssigned,
-}
-
-// The network access type for operating on the Log Analytics Workspace. By default it is Enabled
-// +kubebuilder:validation:Enum={"Disabled","Enabled","SecuredByPerimeter"}
-type PublicNetworkAccessType string
-
-const (
-	PublicNetworkAccessType_Disabled           = PublicNetworkAccessType("Disabled")
-	PublicNetworkAccessType_Enabled            = PublicNetworkAccessType("Enabled")
-	PublicNetworkAccessType_SecuredByPerimeter = PublicNetworkAccessType("SecuredByPerimeter")
-)
-
-// Mapping from string to PublicNetworkAccessType
-var publicNetworkAccessType_Values = map[string]PublicNetworkAccessType{
-	"disabled":           PublicNetworkAccessType_Disabled,
-	"enabled":            PublicNetworkAccessType_Enabled,
-	"securedbyperimeter": PublicNetworkAccessType_SecuredByPerimeter,
+// Mapping from string to IdentityType
+var identityType_Values = map[string]IdentityType{
+	"none":           IdentityType_None,
+	"systemassigned": IdentityType_SystemAssigned,
+	"userassigned":   IdentityType_UserAssigned,
 }
 
 // Information about the user assigned identity for the resource
@@ -141,6 +125,38 @@ type WorkspaceFeatures struct {
 	ImmediatePurgeDataOn30Days *bool `json:"immediatePurgeDataOn30Days,omitempty"`
 }
 
+// +kubebuilder:validation:Enum={"Disabled","Enabled","SecuredByPerimeter"}
+type WorkspaceProperties_PublicNetworkAccessForIngestion string
+
+const (
+	WorkspaceProperties_PublicNetworkAccessForIngestion_Disabled           = WorkspaceProperties_PublicNetworkAccessForIngestion("Disabled")
+	WorkspaceProperties_PublicNetworkAccessForIngestion_Enabled            = WorkspaceProperties_PublicNetworkAccessForIngestion("Enabled")
+	WorkspaceProperties_PublicNetworkAccessForIngestion_SecuredByPerimeter = WorkspaceProperties_PublicNetworkAccessForIngestion("SecuredByPerimeter")
+)
+
+// Mapping from string to WorkspaceProperties_PublicNetworkAccessForIngestion
+var workspaceProperties_PublicNetworkAccessForIngestion_Values = map[string]WorkspaceProperties_PublicNetworkAccessForIngestion{
+	"disabled":           WorkspaceProperties_PublicNetworkAccessForIngestion_Disabled,
+	"enabled":            WorkspaceProperties_PublicNetworkAccessForIngestion_Enabled,
+	"securedbyperimeter": WorkspaceProperties_PublicNetworkAccessForIngestion_SecuredByPerimeter,
+}
+
+// +kubebuilder:validation:Enum={"Disabled","Enabled","SecuredByPerimeter"}
+type WorkspaceProperties_PublicNetworkAccessForQuery string
+
+const (
+	WorkspaceProperties_PublicNetworkAccessForQuery_Disabled           = WorkspaceProperties_PublicNetworkAccessForQuery("Disabled")
+	WorkspaceProperties_PublicNetworkAccessForQuery_Enabled            = WorkspaceProperties_PublicNetworkAccessForQuery("Enabled")
+	WorkspaceProperties_PublicNetworkAccessForQuery_SecuredByPerimeter = WorkspaceProperties_PublicNetworkAccessForQuery("SecuredByPerimeter")
+)
+
+// Mapping from string to WorkspaceProperties_PublicNetworkAccessForQuery
+var workspaceProperties_PublicNetworkAccessForQuery_Values = map[string]WorkspaceProperties_PublicNetworkAccessForQuery{
+	"disabled":           WorkspaceProperties_PublicNetworkAccessForQuery_Disabled,
+	"enabled":            WorkspaceProperties_PublicNetworkAccessForQuery_Enabled,
+	"securedbyperimeter": WorkspaceProperties_PublicNetworkAccessForQuery_SecuredByPerimeter,
+}
+
 // Workspace replication properties.
 type WorkspaceReplicationProperties struct {
 	// Enabled: Specifies whether the replication is enabled or not. When true, workspace configuration and data is replicated
@@ -158,31 +174,32 @@ type WorkspaceSku struct {
 	CapacityReservationLevel *int `json:"capacityReservationLevel,omitempty"`
 
 	// Name: The name of the SKU.
-	Name *WorkspaceSku_Name `json:"name,omitempty"`
+	Name *WorkspaceSkuNameEnum `json:"name,omitempty"`
 }
 
+// The name of the SKU.
 // +kubebuilder:validation:Enum={"CapacityReservation","Free","LACluster","PerGB2018","PerNode","Premium","Standalone","Standard"}
-type WorkspaceSku_Name string
+type WorkspaceSkuNameEnum string
 
 const (
-	WorkspaceSku_Name_CapacityReservation = WorkspaceSku_Name("CapacityReservation")
-	WorkspaceSku_Name_Free                = WorkspaceSku_Name("Free")
-	WorkspaceSku_Name_LACluster           = WorkspaceSku_Name("LACluster")
-	WorkspaceSku_Name_PerGB2018           = WorkspaceSku_Name("PerGB2018")
-	WorkspaceSku_Name_PerNode             = WorkspaceSku_Name("PerNode")
-	WorkspaceSku_Name_Premium             = WorkspaceSku_Name("Premium")
-	WorkspaceSku_Name_Standalone          = WorkspaceSku_Name("Standalone")
-	WorkspaceSku_Name_Standard            = WorkspaceSku_Name("Standard")
+	WorkspaceSkuNameEnum_CapacityReservation = WorkspaceSkuNameEnum("CapacityReservation")
+	WorkspaceSkuNameEnum_Free                = WorkspaceSkuNameEnum("Free")
+	WorkspaceSkuNameEnum_LACluster           = WorkspaceSkuNameEnum("LACluster")
+	WorkspaceSkuNameEnum_PerGB2018           = WorkspaceSkuNameEnum("PerGB2018")
+	WorkspaceSkuNameEnum_PerNode             = WorkspaceSkuNameEnum("PerNode")
+	WorkspaceSkuNameEnum_Premium             = WorkspaceSkuNameEnum("Premium")
+	WorkspaceSkuNameEnum_Standalone          = WorkspaceSkuNameEnum("Standalone")
+	WorkspaceSkuNameEnum_Standard            = WorkspaceSkuNameEnum("Standard")
 )
 
-// Mapping from string to WorkspaceSku_Name
-var workspaceSku_Name_Values = map[string]WorkspaceSku_Name{
-	"capacityreservation": WorkspaceSku_Name_CapacityReservation,
-	"free":                WorkspaceSku_Name_Free,
-	"lacluster":           WorkspaceSku_Name_LACluster,
-	"pergb2018":           WorkspaceSku_Name_PerGB2018,
-	"pernode":             WorkspaceSku_Name_PerNode,
-	"premium":             WorkspaceSku_Name_Premium,
-	"standalone":          WorkspaceSku_Name_Standalone,
-	"standard":            WorkspaceSku_Name_Standard,
+// Mapping from string to WorkspaceSkuNameEnum
+var workspaceSkuNameEnum_Values = map[string]WorkspaceSkuNameEnum{
+	"capacityreservation": WorkspaceSkuNameEnum_CapacityReservation,
+	"free":                WorkspaceSkuNameEnum_Free,
+	"lacluster":           WorkspaceSkuNameEnum_LACluster,
+	"pergb2018":           WorkspaceSkuNameEnum_PerGB2018,
+	"pernode":             WorkspaceSkuNameEnum_PerNode,
+	"premium":             WorkspaceSkuNameEnum_Premium,
+	"standalone":          WorkspaceSkuNameEnum_Standalone,
+	"standard":            WorkspaceSkuNameEnum_Standard,
 }

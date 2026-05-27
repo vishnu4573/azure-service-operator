@@ -91,7 +91,7 @@ type DiskProperties struct {
 	EncryptionSettingsCollection *EncryptionSettingsCollection `json:"encryptionSettingsCollection,omitempty"`
 
 	// HyperVGeneration: The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-	HyperVGeneration *HyperVGeneration `json:"hyperVGeneration,omitempty"`
+	HyperVGeneration *CommonHyperVGeneration `json:"hyperVGeneration,omitempty"`
 
 	// MaxShares: The maximum number of VMs that can attach to the disk at the same time. Value greater than one indicates a
 	// disk that can be mounted on multiple VMs at the same time.
@@ -107,7 +107,7 @@ type DiskProperties struct {
 	OptimizedForFrequentAttach *bool `json:"optimizedForFrequentAttach,omitempty"`
 
 	// OsType: The Operating System type.
-	OsType *OperatingSystemTypes `json:"osType,omitempty"`
+	OsType *CommonOperatingSystemTypes `json:"osType,omitempty"`
 
 	// PublicNetworkAccess: Policy for controlling export on the disk.
 	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
@@ -135,6 +135,37 @@ type DiskProperties struct {
 type DiskSku struct {
 	// Name: The sku name.
 	Name *DiskStorageAccountTypes `json:"name,omitempty"`
+}
+
+// The hypervisor generation of the Virtual Machine.
+// +kubebuilder:validation:Enum={"V1","V2"}
+type CommonHyperVGeneration string
+
+const (
+	CommonHyperVGeneration_V1 = CommonHyperVGeneration("V1")
+	CommonHyperVGeneration_V2 = CommonHyperVGeneration("V2")
+)
+
+// Mapping from string to CommonHyperVGeneration
+var commonHyperVGeneration_Values = map[string]CommonHyperVGeneration{
+	"v1": CommonHyperVGeneration_V1,
+	"v2": CommonHyperVGeneration_V2,
+}
+
+// This property allows you to specify the type of the OS that is included in the disk if creating a VM from user-image or
+// a specialized VHD. Possible values are: Windows, Linux.
+// +kubebuilder:validation:Enum={"Linux","Windows"}
+type CommonOperatingSystemTypes string
+
+const (
+	CommonOperatingSystemTypes_Linux   = CommonOperatingSystemTypes("Linux")
+	CommonOperatingSystemTypes_Windows = CommonOperatingSystemTypes("Windows")
+)
+
+// Mapping from string to CommonOperatingSystemTypes
+var commonOperatingSystemTypes_Values = map[string]CommonOperatingSystemTypes{
+	"linux":   CommonOperatingSystemTypes_Linux,
+	"windows": CommonOperatingSystemTypes_Windows,
 }
 
 // Data used when creating a disk.
@@ -273,21 +304,6 @@ type EncryptionSettingsCollection struct {
 	EncryptionSettingsVersion *string `json:"encryptionSettingsVersion,omitempty"`
 }
 
-// The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-// +kubebuilder:validation:Enum={"V1","V2"}
-type HyperVGeneration string
-
-const (
-	HyperVGeneration_V1 = HyperVGeneration("V1")
-	HyperVGeneration_V2 = HyperVGeneration("V2")
-)
-
-// Mapping from string to HyperVGeneration
-var hyperVGeneration_Values = map[string]HyperVGeneration{
-	"v1": HyperVGeneration_V1,
-	"v2": HyperVGeneration_V2,
-}
-
 // Policy for accessing the disk via network.
 // +kubebuilder:validation:Enum={"AllowAll","AllowPrivate","DenyAll"}
 type NetworkAccessPolicy string
@@ -303,21 +319,6 @@ var networkAccessPolicy_Values = map[string]NetworkAccessPolicy{
 	"allowall":     NetworkAccessPolicy_AllowAll,
 	"allowprivate": NetworkAccessPolicy_AllowPrivate,
 	"denyall":      NetworkAccessPolicy_DenyAll,
-}
-
-// The Operating System type.
-// +kubebuilder:validation:Enum={"Linux","Windows"}
-type OperatingSystemTypes string
-
-const (
-	OperatingSystemTypes_Linux   = OperatingSystemTypes("Linux")
-	OperatingSystemTypes_Windows = OperatingSystemTypes("Windows")
-)
-
-// Mapping from string to OperatingSystemTypes
-var operatingSystemTypes_Values = map[string]OperatingSystemTypes{
-	"linux":   OperatingSystemTypes_Linux,
-	"windows": OperatingSystemTypes_Windows,
 }
 
 // Policy for controlling export on the disk.
@@ -341,7 +342,7 @@ type SupportedCapabilities struct {
 	AcceleratedNetwork *bool `json:"acceleratedNetwork,omitempty"`
 
 	// Architecture: CPU architecture supported by an OS disk.
-	Architecture *Architecture `json:"architecture,omitempty"`
+	Architecture *CommonArchitecture `json:"architecture,omitempty"`
 
 	// DiskControllerTypes: The disk controllers that an OS disk supports. If set it can be SCSI or SCSI, NVME or NVME, SCSI.
 	DiskControllerTypes *string `json:"diskControllerTypes,omitempty"`
@@ -349,17 +350,17 @@ type SupportedCapabilities struct {
 
 // CPU architecture supported by an OS disk.
 // +kubebuilder:validation:Enum={"Arm64","x64"}
-type Architecture string
+type CommonArchitecture string
 
 const (
-	Architecture_Arm64 = Architecture("Arm64")
-	Architecture_X64   = Architecture("x64")
+	CommonArchitecture_Arm64 = CommonArchitecture("Arm64")
+	CommonArchitecture_X64   = CommonArchitecture("x64")
 )
 
-// Mapping from string to Architecture
-var architecture_Values = map[string]Architecture{
-	"arm64": Architecture_Arm64,
-	"x64":   Architecture_X64,
+// Mapping from string to CommonArchitecture
+var commonArchitecture_Values = map[string]CommonArchitecture{
+	"arm64": CommonArchitecture_Arm64,
+	"x64":   CommonArchitecture_X64,
 }
 
 // This enumerates the possible sources of a disk's creation.

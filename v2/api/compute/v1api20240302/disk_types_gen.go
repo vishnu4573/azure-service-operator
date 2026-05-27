@@ -26,7 +26,7 @@ import (
 // +kubebuilder:printcolumn:name="Reason",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].reason"
 // +kubebuilder:printcolumn:name="Message",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].message"
 // Generator information:
-// - Generated from: /compute/resource-manager/Microsoft.Compute/DiskRP/stable/2024-03-02/DiskRP.json
+// - Generated from: /compute/resource-manager/Microsoft.Compute/Compute/stable/2024-03-02/DiskRP.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/disks/{diskName}
 type Disk struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -238,7 +238,7 @@ func (disk *Disk) OriginalGVK() *schema.GroupVersionKind {
 
 // +kubebuilder:object:root=true
 // Generator information:
-// - Generated from: /compute/resource-manager/Microsoft.Compute/DiskRP/stable/2024-03-02/DiskRP.json
+// - Generated from: /compute/resource-manager/Microsoft.Compute/Compute/stable/2024-03-02/DiskRP.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/disks/{diskName}
 type DiskList struct {
 	metav1.TypeMeta `json:",inline"`
@@ -305,7 +305,7 @@ type Disk_Spec struct {
 	ExtendedLocation *ExtendedLocation `json:"extendedLocation,omitempty"`
 
 	// HyperVGeneration: The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-	HyperVGeneration *HyperVGeneration `json:"hyperVGeneration,omitempty"`
+	HyperVGeneration *CommonHyperVGeneration `json:"hyperVGeneration,omitempty"`
 
 	// +kubebuilder:validation:Required
 	// Location: The geo-location where the resource lives
@@ -329,7 +329,7 @@ type Disk_Spec struct {
 	OptimizedForFrequentAttach *bool `json:"optimizedForFrequentAttach,omitempty"`
 
 	// OsType: The Operating System type.
-	OsType *OperatingSystemTypes `json:"osType,omitempty"`
+	OsType *CommonOperatingSystemTypes `json:"osType,omitempty"`
 
 	// +kubebuilder:validation:Required
 	// Owner: The owner of the resource. The owner controls where the resource goes when it is deployed. The owner also
@@ -491,7 +491,7 @@ func (disk *Disk_Spec) ConvertToARM(resolved genruntime.ConvertToARMResolvedDeta
 	if disk.HyperVGeneration != nil {
 		var temp string
 		temp = string(*disk.HyperVGeneration)
-		hyperVGeneration := arm.HyperVGeneration(temp)
+		hyperVGeneration := arm.CommonHyperVGeneration(temp)
 		result.Properties.HyperVGeneration = &hyperVGeneration
 	}
 	if disk.MaxShares != nil {
@@ -511,7 +511,7 @@ func (disk *Disk_Spec) ConvertToARM(resolved genruntime.ConvertToARMResolvedDeta
 	if disk.OsType != nil {
 		var temp string
 		temp = string(*disk.OsType)
-		osType := arm.OperatingSystemTypes(temp)
+		osType := arm.CommonOperatingSystemTypes(temp)
 		result.Properties.OsType = &osType
 	}
 	if disk.PublicNetworkAccess != nil {
@@ -728,7 +728,7 @@ func (disk *Disk_Spec) PopulateFromARM(owner genruntime.ArbitraryOwnerReference,
 		if typedInput.Properties.HyperVGeneration != nil {
 			var temp string
 			temp = string(*typedInput.Properties.HyperVGeneration)
-			hyperVGeneration := HyperVGeneration(temp)
+			hyperVGeneration := CommonHyperVGeneration(temp)
 			disk.HyperVGeneration = &hyperVGeneration
 		}
 	}
@@ -776,7 +776,7 @@ func (disk *Disk_Spec) PopulateFromARM(owner genruntime.ArbitraryOwnerReference,
 		if typedInput.Properties.OsType != nil {
 			var temp string
 			temp = string(*typedInput.Properties.OsType)
-			osType := OperatingSystemTypes(temp)
+			osType := CommonOperatingSystemTypes(temp)
 			disk.OsType = &osType
 		}
 	}
@@ -1041,7 +1041,7 @@ func (disk *Disk_Spec) AssignProperties_From_Disk_Spec(source *storage.Disk_Spec
 	// HyperVGeneration
 	if source.HyperVGeneration != nil {
 		hyperVGeneration := *source.HyperVGeneration
-		hyperVGenerationTemp := genruntime.ToEnum(hyperVGeneration, hyperVGeneration_Values)
+		hyperVGenerationTemp := genruntime.ToEnum(hyperVGeneration, commonHyperVGeneration_Values)
 		disk.HyperVGeneration = &hyperVGenerationTemp
 	} else {
 		disk.HyperVGeneration = nil
@@ -1085,7 +1085,7 @@ func (disk *Disk_Spec) AssignProperties_From_Disk_Spec(source *storage.Disk_Spec
 	// OsType
 	if source.OsType != nil {
 		osType := *source.OsType
-		osTypeTemp := genruntime.ToEnum(osType, operatingSystemTypes_Values)
+		osTypeTemp := genruntime.ToEnum(osType, commonOperatingSystemTypes_Values)
 		disk.OsType = &osTypeTemp
 	} else {
 		disk.OsType = nil
@@ -1525,7 +1525,7 @@ func (disk *Disk_Spec) Initialize_From_Disk_STATUS(source *Disk_STATUS) error {
 
 	// HyperVGeneration
 	if source.HyperVGeneration != nil {
-		hyperVGeneration := genruntime.ToEnum(string(*source.HyperVGeneration), hyperVGeneration_Values)
+		hyperVGeneration := genruntime.ToEnum(string(*source.HyperVGeneration), commonHyperVGeneration_Values)
 		disk.HyperVGeneration = &hyperVGeneration
 	} else {
 		disk.HyperVGeneration = nil
@@ -1555,7 +1555,7 @@ func (disk *Disk_Spec) Initialize_From_Disk_STATUS(source *Disk_STATUS) error {
 
 	// OsType
 	if source.OsType != nil {
-		osType := genruntime.ToEnum(string(*source.OsType), operatingSystemTypes_Values)
+		osType := genruntime.ToEnum(string(*source.OsType), commonOperatingSystemTypes_Values)
 		disk.OsType = &osType
 	} else {
 		disk.OsType = nil
@@ -1708,7 +1708,7 @@ type Disk_STATUS struct {
 	ExtendedLocation *ExtendedLocation_STATUS `json:"extendedLocation,omitempty"`
 
 	// HyperVGeneration: The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-	HyperVGeneration *HyperVGeneration_STATUS `json:"hyperVGeneration,omitempty"`
+	HyperVGeneration *CommonHyperVGeneration_STATUS `json:"hyperVGeneration,omitempty"`
 
 	// Id: Fully qualified resource ID for the resource. Ex -
 	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -1745,7 +1745,7 @@ type Disk_STATUS struct {
 	OptimizedForFrequentAttach *bool `json:"optimizedForFrequentAttach,omitempty"`
 
 	// OsType: The Operating System type.
-	OsType *OperatingSystemTypes_STATUS `json:"osType,omitempty"`
+	OsType *CommonOperatingSystemTypes_STATUS `json:"osType,omitempty"`
 
 	// PropertyUpdatesInProgress: Properties of the disk for which update is pending.
 	PropertyUpdatesInProgress *PropertyUpdatesInProgress_STATUS `json:"propertyUpdatesInProgress,omitempty"`
@@ -2037,7 +2037,7 @@ func (disk *Disk_STATUS) PopulateFromARM(owner genruntime.ArbitraryOwnerReferenc
 		if typedInput.Properties.HyperVGeneration != nil {
 			var temp string
 			temp = string(*typedInput.Properties.HyperVGeneration)
-			hyperVGeneration := HyperVGeneration_STATUS(temp)
+			hyperVGeneration := CommonHyperVGeneration_STATUS(temp)
 			disk.HyperVGeneration = &hyperVGeneration
 		}
 	}
@@ -2115,7 +2115,7 @@ func (disk *Disk_STATUS) PopulateFromARM(owner genruntime.ArbitraryOwnerReferenc
 		if typedInput.Properties.OsType != nil {
 			var temp string
 			temp = string(*typedInput.Properties.OsType)
-			osType := OperatingSystemTypes_STATUS(temp)
+			osType := CommonOperatingSystemTypes_STATUS(temp)
 			disk.OsType = &osType
 		}
 	}
@@ -2405,7 +2405,7 @@ func (disk *Disk_STATUS) AssignProperties_From_Disk_STATUS(source *storage.Disk_
 	// HyperVGeneration
 	if source.HyperVGeneration != nil {
 		hyperVGeneration := *source.HyperVGeneration
-		hyperVGenerationTemp := genruntime.ToEnum(hyperVGeneration, hyperVGeneration_STATUS_Values)
+		hyperVGenerationTemp := genruntime.ToEnum(hyperVGeneration, commonHyperVGeneration_STATUS_Values)
 		disk.HyperVGeneration = &hyperVGenerationTemp
 	} else {
 		disk.HyperVGeneration = nil
@@ -2452,7 +2452,7 @@ func (disk *Disk_STATUS) AssignProperties_From_Disk_STATUS(source *storage.Disk_
 	// OsType
 	if source.OsType != nil {
 		osType := *source.OsType
-		osTypeTemp := genruntime.ToEnum(osType, operatingSystemTypes_STATUS_Values)
+		osTypeTemp := genruntime.ToEnum(osType, commonOperatingSystemTypes_STATUS_Values)
 		disk.OsType = &osTypeTemp
 	} else {
 		disk.OsType = nil
@@ -2887,6 +2887,66 @@ func (disk *Disk_STATUS) AssignProperties_To_Disk_STATUS(destination *storage.Di
 
 	// No error
 	return nil
+}
+
+// The hypervisor generation of the Virtual Machine.
+// +kubebuilder:validation:Enum={"V1","V2"}
+type CommonHyperVGeneration string
+
+const (
+	CommonHyperVGeneration_V1 = CommonHyperVGeneration("V1")
+	CommonHyperVGeneration_V2 = CommonHyperVGeneration("V2")
+)
+
+// Mapping from string to CommonHyperVGeneration
+var commonHyperVGeneration_Values = map[string]CommonHyperVGeneration{
+	"v1": CommonHyperVGeneration_V1,
+	"v2": CommonHyperVGeneration_V2,
+}
+
+// The hypervisor generation of the Virtual Machine.
+type CommonHyperVGeneration_STATUS string
+
+const (
+	CommonHyperVGeneration_STATUS_V1 = CommonHyperVGeneration_STATUS("V1")
+	CommonHyperVGeneration_STATUS_V2 = CommonHyperVGeneration_STATUS("V2")
+)
+
+// Mapping from string to CommonHyperVGeneration_STATUS
+var commonHyperVGeneration_STATUS_Values = map[string]CommonHyperVGeneration_STATUS{
+	"v1": CommonHyperVGeneration_STATUS_V1,
+	"v2": CommonHyperVGeneration_STATUS_V2,
+}
+
+// This property allows you to specify the type of the OS that is included in the disk if creating a VM from user-image or
+// a specialized VHD. Possible values are: Windows, Linux.
+// +kubebuilder:validation:Enum={"Linux","Windows"}
+type CommonOperatingSystemTypes string
+
+const (
+	CommonOperatingSystemTypes_Linux   = CommonOperatingSystemTypes("Linux")
+	CommonOperatingSystemTypes_Windows = CommonOperatingSystemTypes("Windows")
+)
+
+// Mapping from string to CommonOperatingSystemTypes
+var commonOperatingSystemTypes_Values = map[string]CommonOperatingSystemTypes{
+	"linux":   CommonOperatingSystemTypes_Linux,
+	"windows": CommonOperatingSystemTypes_Windows,
+}
+
+// This property allows you to specify the type of the OS that is included in the disk if creating a VM from user-image or
+// a specialized VHD. Possible values are: Windows, Linux.
+type CommonOperatingSystemTypes_STATUS string
+
+const (
+	CommonOperatingSystemTypes_STATUS_Linux   = CommonOperatingSystemTypes_STATUS("Linux")
+	CommonOperatingSystemTypes_STATUS_Windows = CommonOperatingSystemTypes_STATUS("Windows")
+)
+
+// Mapping from string to CommonOperatingSystemTypes_STATUS
+var commonOperatingSystemTypes_STATUS_Values = map[string]CommonOperatingSystemTypes_STATUS{
+	"linux":   CommonOperatingSystemTypes_STATUS_Linux,
+	"windows": CommonOperatingSystemTypes_STATUS_Windows,
 }
 
 // Data used when creating a disk.
@@ -5345,35 +5405,6 @@ func (location *ExtendedLocation_STATUS) AssignProperties_To_ExtendedLocation_ST
 	return nil
 }
 
-// The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-// +kubebuilder:validation:Enum={"V1","V2"}
-type HyperVGeneration string
-
-const (
-	HyperVGeneration_V1 = HyperVGeneration("V1")
-	HyperVGeneration_V2 = HyperVGeneration("V2")
-)
-
-// Mapping from string to HyperVGeneration
-var hyperVGeneration_Values = map[string]HyperVGeneration{
-	"v1": HyperVGeneration_V1,
-	"v2": HyperVGeneration_V2,
-}
-
-// The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-type HyperVGeneration_STATUS string
-
-const (
-	HyperVGeneration_STATUS_V1 = HyperVGeneration_STATUS("V1")
-	HyperVGeneration_STATUS_V2 = HyperVGeneration_STATUS("V2")
-)
-
-// Mapping from string to HyperVGeneration_STATUS
-var hyperVGeneration_STATUS_Values = map[string]HyperVGeneration_STATUS{
-	"v1": HyperVGeneration_STATUS_V1,
-	"v2": HyperVGeneration_STATUS_V2,
-}
-
 // Policy for accessing the disk via network.
 // +kubebuilder:validation:Enum={"AllowAll","AllowPrivate","DenyAll"}
 type NetworkAccessPolicy string
@@ -5405,35 +5436,6 @@ var networkAccessPolicy_STATUS_Values = map[string]NetworkAccessPolicy_STATUS{
 	"allowall":     NetworkAccessPolicy_STATUS_AllowAll,
 	"allowprivate": NetworkAccessPolicy_STATUS_AllowPrivate,
 	"denyall":      NetworkAccessPolicy_STATUS_DenyAll,
-}
-
-// The Operating System type.
-// +kubebuilder:validation:Enum={"Linux","Windows"}
-type OperatingSystemTypes string
-
-const (
-	OperatingSystemTypes_Linux   = OperatingSystemTypes("Linux")
-	OperatingSystemTypes_Windows = OperatingSystemTypes("Windows")
-)
-
-// Mapping from string to OperatingSystemTypes
-var operatingSystemTypes_Values = map[string]OperatingSystemTypes{
-	"linux":   OperatingSystemTypes_Linux,
-	"windows": OperatingSystemTypes_Windows,
-}
-
-// The Operating System type.
-type OperatingSystemTypes_STATUS string
-
-const (
-	OperatingSystemTypes_STATUS_Linux   = OperatingSystemTypes_STATUS("Linux")
-	OperatingSystemTypes_STATUS_Windows = OperatingSystemTypes_STATUS("Windows")
-)
-
-// Mapping from string to OperatingSystemTypes_STATUS
-var operatingSystemTypes_STATUS_Values = map[string]OperatingSystemTypes_STATUS{
-	"linux":   OperatingSystemTypes_STATUS_Linux,
-	"windows": OperatingSystemTypes_STATUS_Windows,
 }
 
 // Properties of the disk for which update is pending.
@@ -5588,7 +5590,7 @@ type SupportedCapabilities struct {
 	AcceleratedNetwork *bool `json:"acceleratedNetwork,omitempty"`
 
 	// Architecture: CPU architecture supported by an OS disk.
-	Architecture *Architecture `json:"architecture,omitempty"`
+	Architecture *CommonArchitecture `json:"architecture,omitempty"`
 
 	// DiskControllerTypes: The disk controllers that an OS disk supports. If set it can be SCSI or SCSI, NVME or NVME, SCSI.
 	DiskControllerTypes *string `json:"diskControllerTypes,omitempty"`
@@ -5613,7 +5615,7 @@ func (capabilities *SupportedCapabilities) ConvertToARM(resolved genruntime.Conv
 	if capabilities.Architecture != nil {
 		var temp string
 		temp = string(*capabilities.Architecture)
-		architecture := arm.Architecture(temp)
+		architecture := arm.CommonArchitecture(temp)
 		result.Architecture = &architecture
 	}
 
@@ -5647,7 +5649,7 @@ func (capabilities *SupportedCapabilities) PopulateFromARM(owner genruntime.Arbi
 	if typedInput.Architecture != nil {
 		var temp string
 		temp = string(*typedInput.Architecture)
-		architecture := Architecture(temp)
+		architecture := CommonArchitecture(temp)
 		capabilities.Architecture = &architecture
 	}
 
@@ -5675,7 +5677,7 @@ func (capabilities *SupportedCapabilities) AssignProperties_From_SupportedCapabi
 	// Architecture
 	if source.Architecture != nil {
 		architecture := *source.Architecture
-		architectureTemp := genruntime.ToEnum(architecture, architecture_Values)
+		architectureTemp := genruntime.ToEnum(architecture, commonArchitecture_Values)
 		capabilities.Architecture = &architectureTemp
 	} else {
 		capabilities.Architecture = nil
@@ -5736,7 +5738,7 @@ func (capabilities *SupportedCapabilities) Initialize_From_SupportedCapabilities
 
 	// Architecture
 	if source.Architecture != nil {
-		architecture := genruntime.ToEnum(string(*source.Architecture), architecture_Values)
+		architecture := genruntime.ToEnum(string(*source.Architecture), commonArchitecture_Values)
 		capabilities.Architecture = &architecture
 	} else {
 		capabilities.Architecture = nil
@@ -5755,7 +5757,7 @@ type SupportedCapabilities_STATUS struct {
 	AcceleratedNetwork *bool `json:"acceleratedNetwork,omitempty"`
 
 	// Architecture: CPU architecture supported by an OS disk.
-	Architecture *Architecture_STATUS `json:"architecture,omitempty"`
+	Architecture *CommonArchitecture_STATUS `json:"architecture,omitempty"`
 
 	// DiskControllerTypes: The disk controllers that an OS disk supports. If set it can be SCSI or SCSI, NVME or NVME, SCSI.
 	DiskControllerTypes *string `json:"diskControllerTypes,omitempty"`
@@ -5785,7 +5787,7 @@ func (capabilities *SupportedCapabilities_STATUS) PopulateFromARM(owner genrunti
 	if typedInput.Architecture != nil {
 		var temp string
 		temp = string(*typedInput.Architecture)
-		architecture := Architecture_STATUS(temp)
+		architecture := CommonArchitecture_STATUS(temp)
 		capabilities.Architecture = &architecture
 	}
 
@@ -5813,7 +5815,7 @@ func (capabilities *SupportedCapabilities_STATUS) AssignProperties_From_Supporte
 	// Architecture
 	if source.Architecture != nil {
 		architecture := *source.Architecture
-		architectureTemp := genruntime.ToEnum(architecture, architecture_STATUS_Values)
+		architectureTemp := genruntime.ToEnum(architecture, commonArchitecture_STATUS_Values)
 		capabilities.Architecture = &architectureTemp
 	} else {
 		capabilities.Architecture = nil
@@ -6023,31 +6025,31 @@ func (data *SystemData_STATUS) AssignProperties_To_SystemData_STATUS(destination
 
 // CPU architecture supported by an OS disk.
 // +kubebuilder:validation:Enum={"Arm64","x64"}
-type Architecture string
+type CommonArchitecture string
 
 const (
-	Architecture_Arm64 = Architecture("Arm64")
-	Architecture_X64   = Architecture("x64")
+	CommonArchitecture_Arm64 = CommonArchitecture("Arm64")
+	CommonArchitecture_X64   = CommonArchitecture("x64")
 )
 
-// Mapping from string to Architecture
-var architecture_Values = map[string]Architecture{
-	"arm64": Architecture_Arm64,
-	"x64":   Architecture_X64,
+// Mapping from string to CommonArchitecture
+var commonArchitecture_Values = map[string]CommonArchitecture{
+	"arm64": CommonArchitecture_Arm64,
+	"x64":   CommonArchitecture_X64,
 }
 
 // CPU architecture supported by an OS disk.
-type Architecture_STATUS string
+type CommonArchitecture_STATUS string
 
 const (
-	Architecture_STATUS_Arm64 = Architecture_STATUS("Arm64")
-	Architecture_STATUS_X64   = Architecture_STATUS("x64")
+	CommonArchitecture_STATUS_Arm64 = CommonArchitecture_STATUS("Arm64")
+	CommonArchitecture_STATUS_X64   = CommonArchitecture_STATUS("x64")
 )
 
-// Mapping from string to Architecture_STATUS
-var architecture_STATUS_Values = map[string]Architecture_STATUS{
-	"arm64": Architecture_STATUS_Arm64,
-	"x64":   Architecture_STATUS_X64,
+// Mapping from string to CommonArchitecture_STATUS
+var commonArchitecture_STATUS_Values = map[string]CommonArchitecture_STATUS{
+	"arm64": CommonArchitecture_STATUS_Arm64,
+	"x64":   CommonArchitecture_STATUS_X64,
 }
 
 // This enumerates the possible sources of a disk's creation.

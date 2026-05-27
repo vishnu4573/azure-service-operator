@@ -1,4 +1,9 @@
 typeFilters:
+  # The 2024-03-01-preview metricAlert swagger currently contains a malformed schema
+  # that causes stage-1 type loading to fail during generation.
+  - action: prune
+    version: v*20240301preview
+    because: Exclude this preview API version due malformed MetricAlertCriteria swagger that breaks generator loading.
   - action: include
     version: v*20180501preview
     because: We're using webTests from this. There is a "newer" version but it's not actually supported, see https://github.com/Azure/azure-rest-api-specs/issues/14827
@@ -6,12 +11,6 @@ typeFilters:
     version: v*20210501preview
     because: We're using DiagnosticSetting from this.
     # Latest non-preview version is not supported, see https://github.com/Azure/bicep-types-az/issues/2185
-  - action: include
-    version: v*20240101preview
-    because: We need ScheduledQueryRules from this.
-  - action: include
-    version: v*20250101preview
-    because: We need the latest ScheduledQueryRules from this.
 typeTransformers:
   #
   # In the group 'insights'
@@ -71,6 +70,10 @@ groupModelConfiguration:
     WebTestGeolocation:
       Id:
         $referenceType: simple
+    WebTestProperties_Request:
+      $nameInNextVersion: WebTestPropertiesRequest
+    WebTestProperties_Request_STATUS:
+      $nameInNextVersion: WebTestPropertiesRequest_STATUS
   2020-02-02:
     ApplicationInsightsComponentProperties:
       HockeyAppToken:
@@ -145,6 +148,11 @@ groupModelConfiguration:
     Condition:
       ResourceIdColumn:
         $referenceType: arm
+      FailingPeriods:
+        $conversionStrategy: manual
+    Condition_STATUS:
+      FailingPeriods:
+        $conversionStrategy: manual
     ScheduledQueryRuleProperties:
       Scopes:
         $referenceType: arm
@@ -266,6 +274,11 @@ groupModelConfiguration:
     Condition:
       ResourceIdColumn:
         $referenceType: arm
+      FailingPeriods:
+        $conversionStrategy: manual
+    Condition_STATUS:
+      FailingPeriods:
+        $conversionStrategy: manual
     ScheduledQueryRuleProperties:
       Scopes:
         $referenceType: arm

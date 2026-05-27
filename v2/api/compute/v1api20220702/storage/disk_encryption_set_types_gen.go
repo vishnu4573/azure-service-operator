@@ -26,7 +26,7 @@ import (
 // +kubebuilder:printcolumn:name="Message",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].message"
 // Storage version of v1api20220702.DiskEncryptionSet
 // Generator information:
-// - Generated from: /compute/resource-manager/Microsoft.Compute/DiskRP/stable/2022-07-02/diskEncryptionSet.json
+// - Generated from: /compute/resource-manager/Microsoft.Compute/Compute/stable/2022-07-02/diskEncryptionSet.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets/{diskEncryptionSetName}
 type DiskEncryptionSet struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -246,7 +246,7 @@ func (encryptionSet *DiskEncryptionSet) OriginalGVK() *schema.GroupVersionKind {
 // +kubebuilder:object:root=true
 // Storage version of v1api20220702.DiskEncryptionSet
 // Generator information:
-// - Generated from: /compute/resource-manager/Microsoft.Compute/DiskRP/stable/2022-07-02/diskEncryptionSet.json
+// - Generated from: /compute/resource-manager/Microsoft.Compute/Compute/stable/2022-07-02/diskEncryptionSet.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets/{diskEncryptionSetName}
 type DiskEncryptionSetList struct {
 	metav1.TypeMeta `json:",inline"`
@@ -1261,9 +1261,9 @@ func (identity *EncryptionSetIdentity_STATUS) AssignProperties_From_EncryptionSe
 		userAssignedIdentityMap := make(map[string]UserAssignedIdentitiesValue_STATUS, len(source.UserAssignedIdentities))
 		for userAssignedIdentityKey, userAssignedIdentityValue := range source.UserAssignedIdentities {
 			var userAssignedIdentity UserAssignedIdentitiesValue_STATUS
-			err := userAssignedIdentity.AssignProperties_From_UserAssignedIdentitiesValue_STATUS(&userAssignedIdentityValue)
+			err := userAssignedIdentity.AssignProperties_From_CommonUserAssignedIdentitiesValue_STATUS(&userAssignedIdentityValue)
 			if err != nil {
-				return eris.Wrap(err, "calling AssignProperties_From_UserAssignedIdentitiesValue_STATUS() to populate field UserAssignedIdentities")
+				return eris.Wrap(err, "calling AssignProperties_From_CommonUserAssignedIdentitiesValue_STATUS() to populate field UserAssignedIdentities")
 			}
 			userAssignedIdentityMap[userAssignedIdentityKey] = userAssignedIdentity
 		}
@@ -1308,12 +1308,12 @@ func (identity *EncryptionSetIdentity_STATUS) AssignProperties_To_EncryptionSetI
 
 	// UserAssignedIdentities
 	if identity.UserAssignedIdentities != nil {
-		userAssignedIdentityMap := make(map[string]storage.UserAssignedIdentitiesValue_STATUS, len(identity.UserAssignedIdentities))
+		userAssignedIdentityMap := make(map[string]storage.CommonUserAssignedIdentitiesValue_STATUS, len(identity.UserAssignedIdentities))
 		for userAssignedIdentityKey, userAssignedIdentityValue := range identity.UserAssignedIdentities {
-			var userAssignedIdentity storage.UserAssignedIdentitiesValue_STATUS
-			err := userAssignedIdentityValue.AssignProperties_To_UserAssignedIdentitiesValue_STATUS(&userAssignedIdentity)
+			var userAssignedIdentity storage.CommonUserAssignedIdentitiesValue_STATUS
+			err := userAssignedIdentityValue.AssignProperties_To_CommonUserAssignedIdentitiesValue_STATUS(&userAssignedIdentity)
 			if err != nil {
-				return eris.Wrap(err, "calling AssignProperties_To_UserAssignedIdentitiesValue_STATUS() to populate field UserAssignedIdentities")
+				return eris.Wrap(err, "calling AssignProperties_To_CommonUserAssignedIdentitiesValue_STATUS() to populate field UserAssignedIdentities")
 			}
 			userAssignedIdentityMap[userAssignedIdentityKey] = userAssignedIdentity
 		}
@@ -1859,8 +1859,8 @@ type UserAssignedIdentitiesValue_STATUS struct {
 	PropertyBag genruntime.PropertyBag `json:"$propertyBag,omitempty"`
 }
 
-// AssignProperties_From_UserAssignedIdentitiesValue_STATUS populates our UserAssignedIdentitiesValue_STATUS from the provided source UserAssignedIdentitiesValue_STATUS
-func (value *UserAssignedIdentitiesValue_STATUS) AssignProperties_From_UserAssignedIdentitiesValue_STATUS(source *storage.UserAssignedIdentitiesValue_STATUS) error {
+// AssignProperties_From_CommonUserAssignedIdentitiesValue_STATUS populates our UserAssignedIdentitiesValue_STATUS from the provided source CommonUserAssignedIdentitiesValue_STATUS
+func (value *UserAssignedIdentitiesValue_STATUS) AssignProperties_From_CommonUserAssignedIdentitiesValue_STATUS(source *storage.CommonUserAssignedIdentitiesValue_STATUS) error {
 	// Clone the existing property bag
 	propertyBag := genruntime.NewPropertyBag(source.PropertyBag)
 
@@ -1890,8 +1890,8 @@ func (value *UserAssignedIdentitiesValue_STATUS) AssignProperties_From_UserAssig
 	return nil
 }
 
-// AssignProperties_To_UserAssignedIdentitiesValue_STATUS populates the provided destination UserAssignedIdentitiesValue_STATUS from our UserAssignedIdentitiesValue_STATUS
-func (value *UserAssignedIdentitiesValue_STATUS) AssignProperties_To_UserAssignedIdentitiesValue_STATUS(destination *storage.UserAssignedIdentitiesValue_STATUS) error {
+// AssignProperties_To_CommonUserAssignedIdentitiesValue_STATUS populates the provided destination CommonUserAssignedIdentitiesValue_STATUS from our UserAssignedIdentitiesValue_STATUS
+func (value *UserAssignedIdentitiesValue_STATUS) AssignProperties_To_CommonUserAssignedIdentitiesValue_STATUS(destination *storage.CommonUserAssignedIdentitiesValue_STATUS) error {
 	// Clone the existing property bag
 	propertyBag := genruntime.NewPropertyBag(value.PropertyBag)
 
@@ -2005,8 +2005,8 @@ type augmentConversionForSourceVault_STATUS interface {
 }
 
 type augmentConversionForUserAssignedIdentitiesValue_STATUS interface {
-	AssignPropertiesFrom(src *storage.UserAssignedIdentitiesValue_STATUS) error
-	AssignPropertiesTo(dst *storage.UserAssignedIdentitiesValue_STATUS) error
+	AssignPropertiesFrom(src *storage.CommonUserAssignedIdentitiesValue_STATUS) error
+	AssignPropertiesTo(dst *storage.CommonUserAssignedIdentitiesValue_STATUS) error
 }
 
 type augmentConversionForUserAssignedIdentityDetails interface {

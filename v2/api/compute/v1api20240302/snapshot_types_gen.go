@@ -26,7 +26,7 @@ import (
 // +kubebuilder:printcolumn:name="Reason",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].reason"
 // +kubebuilder:printcolumn:name="Message",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].message"
 // Generator information:
-// - Generated from: /compute/resource-manager/Microsoft.Compute/DiskRP/stable/2024-03-02/DiskRP.json
+// - Generated from: /compute/resource-manager/Microsoft.Compute/Compute/stable/2024-03-02/DiskRP.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}
 type Snapshot struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -238,7 +238,7 @@ func (snapshot *Snapshot) OriginalGVK() *schema.GroupVersionKind {
 
 // +kubebuilder:object:root=true
 // Generator information:
-// - Generated from: /compute/resource-manager/Microsoft.Compute/DiskRP/stable/2024-03-02/DiskRP.json
+// - Generated from: /compute/resource-manager/Microsoft.Compute/Compute/stable/2024-03-02/DiskRP.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/snapshots/{snapshotName}
 type SnapshotList struct {
 	metav1.TypeMeta `json:",inline"`
@@ -284,7 +284,7 @@ type Snapshot_Spec struct {
 	ExtendedLocation *ExtendedLocation `json:"extendedLocation,omitempty"`
 
 	// HyperVGeneration: The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-	HyperVGeneration *HyperVGeneration `json:"hyperVGeneration,omitempty"`
+	HyperVGeneration *CommonHyperVGeneration `json:"hyperVGeneration,omitempty"`
 
 	// Incremental: Whether a snapshot is incremental. Incremental snapshots on the same disk occupy less space than full
 	// snapshots and can be diffed.
@@ -302,7 +302,7 @@ type Snapshot_Spec struct {
 	OperatorSpec *SnapshotOperatorSpec `json:"operatorSpec,omitempty"`
 
 	// OsType: The Operating System type.
-	OsType *OperatingSystemTypes `json:"osType,omitempty"`
+	OsType *CommonOperatingSystemTypes `json:"osType,omitempty"`
 
 	// +kubebuilder:validation:Required
 	// Owner: The owner of the resource. The owner controls where the resource goes when it is deployed. The owner also
@@ -439,7 +439,7 @@ func (snapshot *Snapshot_Spec) ConvertToARM(resolved genruntime.ConvertToARMReso
 	if snapshot.HyperVGeneration != nil {
 		var temp string
 		temp = string(*snapshot.HyperVGeneration)
-		hyperVGeneration := arm.HyperVGeneration(temp)
+		hyperVGeneration := arm.CommonHyperVGeneration(temp)
 		result.Properties.HyperVGeneration = &hyperVGeneration
 	}
 	if snapshot.Incremental != nil {
@@ -455,7 +455,7 @@ func (snapshot *Snapshot_Spec) ConvertToARM(resolved genruntime.ConvertToARMReso
 	if snapshot.OsType != nil {
 		var temp string
 		temp = string(*snapshot.OsType)
-		osType := arm.OperatingSystemTypes(temp)
+		osType := arm.CommonOperatingSystemTypes(temp)
 		result.Properties.OsType = &osType
 	}
 	if snapshot.PublicNetworkAccess != nil {
@@ -632,7 +632,7 @@ func (snapshot *Snapshot_Spec) PopulateFromARM(owner genruntime.ArbitraryOwnerRe
 		if typedInput.Properties.HyperVGeneration != nil {
 			var temp string
 			temp = string(*typedInput.Properties.HyperVGeneration)
-			hyperVGeneration := HyperVGeneration(temp)
+			hyperVGeneration := CommonHyperVGeneration(temp)
 			snapshot.HyperVGeneration = &hyperVGeneration
 		}
 	}
@@ -671,7 +671,7 @@ func (snapshot *Snapshot_Spec) PopulateFromARM(owner genruntime.ArbitraryOwnerRe
 		if typedInput.Properties.OsType != nil {
 			var temp string
 			temp = string(*typedInput.Properties.OsType)
-			osType := OperatingSystemTypes(temp)
+			osType := CommonOperatingSystemTypes(temp)
 			snapshot.OsType = &osType
 		}
 	}
@@ -914,7 +914,7 @@ func (snapshot *Snapshot_Spec) AssignProperties_From_Snapshot_Spec(source *stora
 	// HyperVGeneration
 	if source.HyperVGeneration != nil {
 		hyperVGeneration := *source.HyperVGeneration
-		hyperVGenerationTemp := genruntime.ToEnum(hyperVGeneration, hyperVGeneration_Values)
+		hyperVGenerationTemp := genruntime.ToEnum(hyperVGeneration, commonHyperVGeneration_Values)
 		snapshot.HyperVGeneration = &hyperVGenerationTemp
 	} else {
 		snapshot.HyperVGeneration = nil
@@ -955,7 +955,7 @@ func (snapshot *Snapshot_Spec) AssignProperties_From_Snapshot_Spec(source *stora
 	// OsType
 	if source.OsType != nil {
 		osType := *source.OsType
-		osTypeTemp := genruntime.ToEnum(osType, operatingSystemTypes_Values)
+		osTypeTemp := genruntime.ToEnum(osType, commonOperatingSystemTypes_Values)
 		snapshot.OsType = &osTypeTemp
 	} else {
 		snapshot.OsType = nil
@@ -1364,7 +1364,7 @@ func (snapshot *Snapshot_Spec) Initialize_From_Snapshot_STATUS(source *Snapshot_
 
 	// HyperVGeneration
 	if source.HyperVGeneration != nil {
-		hyperVGeneration := genruntime.ToEnum(string(*source.HyperVGeneration), hyperVGeneration_Values)
+		hyperVGeneration := genruntime.ToEnum(string(*source.HyperVGeneration), commonHyperVGeneration_Values)
 		snapshot.HyperVGeneration = &hyperVGeneration
 	} else {
 		snapshot.HyperVGeneration = nil
@@ -1391,7 +1391,7 @@ func (snapshot *Snapshot_Spec) Initialize_From_Snapshot_STATUS(source *Snapshot_
 
 	// OsType
 	if source.OsType != nil {
-		osType := genruntime.ToEnum(string(*source.OsType), operatingSystemTypes_Values)
+		osType := genruntime.ToEnum(string(*source.OsType), commonOperatingSystemTypes_Values)
 		snapshot.OsType = &osType
 	} else {
 		snapshot.OsType = nil
@@ -1519,7 +1519,7 @@ type Snapshot_STATUS struct {
 	ExtendedLocation *ExtendedLocation_STATUS `json:"extendedLocation,omitempty"`
 
 	// HyperVGeneration: The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-	HyperVGeneration *HyperVGeneration_STATUS `json:"hyperVGeneration,omitempty"`
+	HyperVGeneration *CommonHyperVGeneration_STATUS `json:"hyperVGeneration,omitempty"`
 
 	// Id: Fully qualified resource ID for the resource. Ex -
 	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -1546,7 +1546,7 @@ type Snapshot_STATUS struct {
 	NetworkAccessPolicy *NetworkAccessPolicy_STATUS `json:"networkAccessPolicy,omitempty"`
 
 	// OsType: The Operating System type.
-	OsType *OperatingSystemTypes_STATUS `json:"osType,omitempty"`
+	OsType *CommonOperatingSystemTypes_STATUS `json:"osType,omitempty"`
 
 	// ProvisioningState: The disk provisioning state.
 	ProvisioningState *string `json:"provisioningState,omitempty"`
@@ -1784,7 +1784,7 @@ func (snapshot *Snapshot_STATUS) PopulateFromARM(owner genruntime.ArbitraryOwner
 		if typedInput.Properties.HyperVGeneration != nil {
 			var temp string
 			temp = string(*typedInput.Properties.HyperVGeneration)
-			hyperVGeneration := HyperVGeneration_STATUS(temp)
+			hyperVGeneration := CommonHyperVGeneration_STATUS(temp)
 			snapshot.HyperVGeneration = &hyperVGeneration
 		}
 	}
@@ -1848,7 +1848,7 @@ func (snapshot *Snapshot_STATUS) PopulateFromARM(owner genruntime.ArbitraryOwner
 		if typedInput.Properties.OsType != nil {
 			var temp string
 			temp = string(*typedInput.Properties.OsType)
-			osType := OperatingSystemTypes_STATUS(temp)
+			osType := CommonOperatingSystemTypes_STATUS(temp)
 			snapshot.OsType = &osType
 		}
 	}
@@ -2086,7 +2086,7 @@ func (snapshot *Snapshot_STATUS) AssignProperties_From_Snapshot_STATUS(source *s
 	// HyperVGeneration
 	if source.HyperVGeneration != nil {
 		hyperVGeneration := *source.HyperVGeneration
-		hyperVGenerationTemp := genruntime.ToEnum(hyperVGeneration, hyperVGeneration_STATUS_Values)
+		hyperVGenerationTemp := genruntime.ToEnum(hyperVGeneration, commonHyperVGeneration_STATUS_Values)
 		snapshot.HyperVGeneration = &hyperVGenerationTemp
 	} else {
 		snapshot.HyperVGeneration = nil
@@ -2127,7 +2127,7 @@ func (snapshot *Snapshot_STATUS) AssignProperties_From_Snapshot_STATUS(source *s
 	// OsType
 	if source.OsType != nil {
 		osType := *source.OsType
-		osTypeTemp := genruntime.ToEnum(osType, operatingSystemTypes_STATUS_Values)
+		osTypeTemp := genruntime.ToEnum(osType, commonOperatingSystemTypes_STATUS_Values)
 		snapshot.OsType = &osTypeTemp
 	} else {
 		snapshot.OsType = nil

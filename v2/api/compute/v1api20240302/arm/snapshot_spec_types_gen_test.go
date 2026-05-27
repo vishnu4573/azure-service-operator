@@ -149,10 +149,10 @@ func AddIndependentPropertyGeneratorsForSnapshotProperties(gens map[string]gopte
 	gens["DataAccessAuthMode"] = gen.PtrOf(gen.OneConstOf(DataAccessAuthMode_AzureActiveDirectory, DataAccessAuthMode_None))
 	gens["DiskAccessId"] = gen.PtrOf(gen.AlphaString())
 	gens["DiskSizeGB"] = gen.PtrOf(gen.Int())
-	gens["HyperVGeneration"] = gen.PtrOf(gen.OneConstOf(HyperVGeneration_V1, HyperVGeneration_V2))
+	gens["HyperVGeneration"] = gen.PtrOf(gen.OneConstOf(CommonHyperVGeneration_V1, CommonHyperVGeneration_V2))
 	gens["Incremental"] = gen.PtrOf(gen.Bool())
 	gens["NetworkAccessPolicy"] = gen.PtrOf(gen.OneConstOf(NetworkAccessPolicy_AllowAll, NetworkAccessPolicy_AllowPrivate, NetworkAccessPolicy_DenyAll))
-	gens["OsType"] = gen.PtrOf(gen.OneConstOf(OperatingSystemTypes_Linux, OperatingSystemTypes_Windows))
+	gens["OsType"] = gen.PtrOf(gen.OneConstOf(CommonOperatingSystemTypes_Linux, CommonOperatingSystemTypes_Windows))
 	gens["PublicNetworkAccess"] = gen.PtrOf(gen.OneConstOf(PublicNetworkAccess_Disabled, PublicNetworkAccess_Enabled))
 	gens["SupportsHibernation"] = gen.PtrOf(gen.Bool())
 }

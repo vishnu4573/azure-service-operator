@@ -281,9 +281,6 @@ func RunJSONSerializationTestForFactoryIdentity(subject FactoryIdentity) string 
 var factoryIdentityGenerator gopter.Gen
 
 // FactoryIdentityGenerator returns a generator of FactoryIdentity instances for property testing.
-// We first initialize factoryIdentityGenerator with a simplified generator based on the
-// fields with primitive types then replacing it with a more complex one that also handles complex fields
-// to ensure any cycles in the object graph properly terminate.
 func FactoryIdentityGenerator() gopter.Gen {
 	if factoryIdentityGenerator != nil {
 		return factoryIdentityGenerator
@@ -293,25 +290,12 @@ func FactoryIdentityGenerator() gopter.Gen {
 	AddIndependentPropertyGeneratorsForFactoryIdentity(generators)
 	factoryIdentityGenerator = gen.Struct(reflect.TypeOf(FactoryIdentity{}), generators)
 
-	// The above call to gen.Struct() captures the map, so create a new one
-	generators = make(map[string]gopter.Gen)
-	AddIndependentPropertyGeneratorsForFactoryIdentity(generators)
-	AddRelatedPropertyGeneratorsForFactoryIdentity(generators)
-	factoryIdentityGenerator = gen.Struct(reflect.TypeOf(FactoryIdentity{}), generators)
-
 	return factoryIdentityGenerator
 }
 
 // AddIndependentPropertyGeneratorsForFactoryIdentity is a factory method for creating gopter generators
 func AddIndependentPropertyGeneratorsForFactoryIdentity(gens map[string]gopter.Gen) {
-	gens["Type"] = gen.PtrOf(gen.OneConstOf(FactoryIdentity_Type_SystemAssigned, FactoryIdentity_Type_SystemAssignedUserAssigned, FactoryIdentity_Type_UserAssigned))
-}
-
-// AddRelatedPropertyGeneratorsForFactoryIdentity is a factory method for creating gopter generators
-func AddRelatedPropertyGeneratorsForFactoryIdentity(gens map[string]gopter.Gen) {
-	gens["UserAssignedIdentities"] = gen.MapOf(
-		gen.AlphaString(),
-		UserAssignedIdentityDetailsGenerator())
+	gens["Type"] = gen.PtrOf(gen.OneConstOf(FactoryIdentityType_SystemAssigned, FactoryIdentityType_SystemAssignedUserAssigned, FactoryIdentityType_UserAssigned))
 }
 
 func Test_FactoryProperties_WhenSerializedToJson_DeserializesAsEqual(t *testing.T) {
@@ -380,7 +364,7 @@ func FactoryPropertiesGenerator() gopter.Gen {
 
 // AddIndependentPropertyGeneratorsForFactoryProperties is a factory method for creating gopter generators
 func AddIndependentPropertyGeneratorsForFactoryProperties(gens map[string]gopter.Gen) {
-	gens["PublicNetworkAccess"] = gen.PtrOf(gen.OneConstOf(FactoryProperties_PublicNetworkAccess_Disabled, FactoryProperties_PublicNetworkAccess_Enabled))
+	gens["PublicNetworkAccess"] = gen.PtrOf(gen.OneConstOf(PublicNetworkAccess_Disabled, PublicNetworkAccess_Enabled))
 }
 
 // AddRelatedPropertyGeneratorsForFactoryProperties is a factory method for creating gopter generators
@@ -734,12 +718,12 @@ func GlobalParameterSpecificationGenerator() gopter.Gen {
 // AddIndependentPropertyGeneratorsForGlobalParameterSpecification is a factory method for creating gopter generators
 func AddIndependentPropertyGeneratorsForGlobalParameterSpecification(gens map[string]gopter.Gen) {
 	gens["Type"] = gen.PtrOf(gen.OneConstOf(
-		GlobalParameterSpecification_Type_Array,
-		GlobalParameterSpecification_Type_Bool,
-		GlobalParameterSpecification_Type_Float,
-		GlobalParameterSpecification_Type_Int,
-		GlobalParameterSpecification_Type_Object,
-		GlobalParameterSpecification_Type_String))
+		GlobalParameterType_Array,
+		GlobalParameterType_Bool,
+		GlobalParameterType_Float,
+		GlobalParameterType_Int,
+		GlobalParameterType_Object,
+		GlobalParameterType_String))
 }
 
 func Test_PurviewConfiguration_WhenSerializedToJson_DeserializesAsEqual(t *testing.T) {
@@ -801,59 +785,4 @@ func PurviewConfigurationGenerator() gopter.Gen {
 // AddIndependentPropertyGeneratorsForPurviewConfiguration is a factory method for creating gopter generators
 func AddIndependentPropertyGeneratorsForPurviewConfiguration(gens map[string]gopter.Gen) {
 	gens["PurviewResourceId"] = gen.PtrOf(gen.AlphaString())
-}
-
-func Test_UserAssignedIdentityDetails_WhenSerializedToJson_DeserializesAsEqual(t *testing.T) {
-	t.Parallel()
-	parameters := gopter.DefaultTestParameters()
-	parameters.MinSuccessfulTests = 100
-	parameters.MaxSize = 3
-	properties := gopter.NewProperties(parameters)
-	properties.Property(
-		"Round trip of UserAssignedIdentityDetails via JSON returns original",
-		prop.ForAll(RunJSONSerializationTestForUserAssignedIdentityDetails, UserAssignedIdentityDetailsGenerator()))
-	properties.TestingRun(t, gopter.NewFormatedReporter(true, 240, os.Stdout))
-}
-
-// RunJSONSerializationTestForUserAssignedIdentityDetails runs a test to see if a specific instance of UserAssignedIdentityDetails round trips to JSON and back losslessly
-func RunJSONSerializationTestForUserAssignedIdentityDetails(subject UserAssignedIdentityDetails) string {
-	// Serialize to JSON
-	bin, err := json.Marshal(subject)
-	if err != nil {
-		return err.Error()
-	}
-
-	// Deserialize back into memory
-	var actual UserAssignedIdentityDetails
-	err = json.Unmarshal(bin, &actual)
-	if err != nil {
-		return err.Error()
-	}
-
-	// Check for outcome
-	match := cmp.Equal(subject, actual, cmpopts.EquateEmpty())
-	if !match {
-		actualFmt := pretty.Sprint(actual)
-		subjectFmt := pretty.Sprint(subject)
-		result := diff.Diff(subjectFmt, actualFmt)
-		return result
-	}
-
-	return ""
-}
-
-// Generator of UserAssignedIdentityDetails instances for property testing - lazily instantiated by
-// UserAssignedIdentityDetailsGenerator()
-var userAssignedIdentityDetailsGenerator gopter.Gen
-
-// UserAssignedIdentityDetailsGenerator returns a generator of UserAssignedIdentityDetails instances for property testing.
-func UserAssignedIdentityDetailsGenerator() gopter.Gen {
-	if userAssignedIdentityDetailsGenerator != nil {
-		return userAssignedIdentityDetailsGenerator
-	}
-
-	generators := make(map[string]gopter.Gen)
-	userAssignedIdentityDetailsGenerator = gen.Struct(reflect.TypeOf(UserAssignedIdentityDetails{}), generators)
-
-	return userAssignedIdentityDetailsGenerator
 }

@@ -1,3 +1,8 @@
+typeFilters:
+  - action: prune
+    version: v*20260101
+    because: App 2026-01-01 currently produces conflicting ManagedServiceIdentity shapes during cross-group reference processing
+
 groupModelConfiguration:
   2025-01-01:
     ContainerApp:

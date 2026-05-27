@@ -14,6 +14,13 @@ groupModelConfiguration:
       $supportedFrom: v2.4.0
       $generatedConfigs:
         PrincipalId: $.Status.AksAssignedIdentity.PrincipalId
+    Extension_Spec:
+      ConfigurationProtectedSettings:
+        $conversionStrategy: manual
+    Extension_Properties_AksAssignedIdentity_Spec:
+      $nameInNextVersion: ExtensionPropertiesAksAssignedIdentity
+    Extension_Properties_AksAssignedIdentity_STATUS:
+      $nameInNextVersion: ExtensionPropertiesAksAssignedIdentity_STATUS
     FluxConfiguration:
       $exportAs: FluxConfiguration
       $supportedFrom: v2.10.0
@@ -34,6 +41,9 @@ groupModelConfiguration:
       $supportedFrom: v2.13.0
       $generatedConfigs:
         PrincipalId: $.Status.AksAssignedIdentity.PrincipalId
+    Extension_Spec:
+      ConfigurationProtectedSettings:
+        $conversionStrategy: manual
     FluxConfiguration:
       $exportAs: FluxConfiguration
       $supportedFrom: v2.13.0

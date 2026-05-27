@@ -22,13 +22,10 @@ func Test_Data_Factory_CRUD(t *testing.T) {
 	tc := globalTestContext.ForTest(t)
 	rg := tc.CreateTestResourceGroupAndWait()
 
+	// Use current generated enum/value types after model shape updates in the generator output.
 	globalParameterSpecification := datafactory.GlobalParameterSpecification{
-		Type: to.Ptr(datafactory.GlobalParameterSpecification_Type_String),
-		Value: map[string]v1.JSON{
-			"foo": {
-				Raw: []byte(`"value"`),
-			},
-		},
+		Type:  to.Ptr(datafactory.GlobalParameterType_String),
+		Value: &v1.JSON{Raw: []byte(`"value"`)},
 	}
 
 	// Create a data factory instance
@@ -36,7 +33,7 @@ func Test_Data_Factory_CRUD(t *testing.T) {
 		ObjectMeta: tc.MakeObjectMetaWithName(tc.NoSpaceNamer.GenerateName("datafactory")),
 		Spec: datafactory.Factory_Spec{
 			Identity: &datafactory.FactoryIdentity{
-				Type: to.Ptr(datafactory.FactoryIdentity_Type_SystemAssigned),
+				Type: to.Ptr(datafactory.FactoryIdentityType_SystemAssigned),
 			},
 			Location:         tc.AzureRegion,
 			Owner:            testcommon.AsOwner(rg),

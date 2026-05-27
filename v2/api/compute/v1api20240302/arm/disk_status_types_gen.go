@@ -101,7 +101,7 @@ type DiskProperties_STATUS struct {
 	EncryptionSettingsCollection *EncryptionSettingsCollection_STATUS `json:"encryptionSettingsCollection,omitempty"`
 
 	// HyperVGeneration: The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-	HyperVGeneration *HyperVGeneration_STATUS `json:"hyperVGeneration,omitempty"`
+	HyperVGeneration *CommonHyperVGeneration_STATUS `json:"hyperVGeneration,omitempty"`
 
 	// LastOwnershipUpdateTime: The UTC time when the ownership state of the disk was last changed i.e., the time the disk was
 	// last attached or detached from a VM or the time when the VM to which the disk was attached was deallocated or started.
@@ -121,7 +121,7 @@ type DiskProperties_STATUS struct {
 	OptimizedForFrequentAttach *bool `json:"optimizedForFrequentAttach,omitempty"`
 
 	// OsType: The Operating System type.
-	OsType *OperatingSystemTypes_STATUS `json:"osType,omitempty"`
+	OsType *CommonOperatingSystemTypes_STATUS `json:"osType,omitempty"`
 
 	// PropertyUpdatesInProgress: Properties of the disk for which update is pending.
 	PropertyUpdatesInProgress *PropertyUpdatesInProgress_STATUS `json:"propertyUpdatesInProgress,omitempty"`
@@ -168,6 +168,35 @@ type DiskSku_STATUS struct {
 
 	// Tier: The sku tier.
 	Tier *string `json:"tier,omitempty"`
+}
+
+// The hypervisor generation of the Virtual Machine.
+type CommonHyperVGeneration_STATUS string
+
+const (
+	CommonHyperVGeneration_STATUS_V1 = CommonHyperVGeneration_STATUS("V1")
+	CommonHyperVGeneration_STATUS_V2 = CommonHyperVGeneration_STATUS("V2")
+)
+
+// Mapping from string to CommonHyperVGeneration_STATUS
+var commonHyperVGeneration_STATUS_Values = map[string]CommonHyperVGeneration_STATUS{
+	"v1": CommonHyperVGeneration_STATUS_V1,
+	"v2": CommonHyperVGeneration_STATUS_V2,
+}
+
+// This property allows you to specify the type of the OS that is included in the disk if creating a VM from user-image or
+// a specialized VHD. Possible values are: Windows, Linux.
+type CommonOperatingSystemTypes_STATUS string
+
+const (
+	CommonOperatingSystemTypes_STATUS_Linux   = CommonOperatingSystemTypes_STATUS("Linux")
+	CommonOperatingSystemTypes_STATUS_Windows = CommonOperatingSystemTypes_STATUS("Windows")
+)
+
+// Mapping from string to CommonOperatingSystemTypes_STATUS
+var commonOperatingSystemTypes_STATUS_Values = map[string]CommonOperatingSystemTypes_STATUS{
+	"linux":   CommonOperatingSystemTypes_STATUS_Linux,
+	"windows": CommonOperatingSystemTypes_STATUS_Windows,
 }
 
 // Data used when creating a disk.
@@ -333,20 +362,6 @@ type EncryptionSettingsCollection_STATUS struct {
 	EncryptionSettingsVersion *string `json:"encryptionSettingsVersion,omitempty"`
 }
 
-// The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-type HyperVGeneration_STATUS string
-
-const (
-	HyperVGeneration_STATUS_V1 = HyperVGeneration_STATUS("V1")
-	HyperVGeneration_STATUS_V2 = HyperVGeneration_STATUS("V2")
-)
-
-// Mapping from string to HyperVGeneration_STATUS
-var hyperVGeneration_STATUS_Values = map[string]HyperVGeneration_STATUS{
-	"v1": HyperVGeneration_STATUS_V1,
-	"v2": HyperVGeneration_STATUS_V2,
-}
-
 // Policy for accessing the disk via network.
 type NetworkAccessPolicy_STATUS string
 
@@ -361,20 +376,6 @@ var networkAccessPolicy_STATUS_Values = map[string]NetworkAccessPolicy_STATUS{
 	"allowall":     NetworkAccessPolicy_STATUS_AllowAll,
 	"allowprivate": NetworkAccessPolicy_STATUS_AllowPrivate,
 	"denyall":      NetworkAccessPolicy_STATUS_DenyAll,
-}
-
-// The Operating System type.
-type OperatingSystemTypes_STATUS string
-
-const (
-	OperatingSystemTypes_STATUS_Linux   = OperatingSystemTypes_STATUS("Linux")
-	OperatingSystemTypes_STATUS_Windows = OperatingSystemTypes_STATUS("Windows")
-)
-
-// Mapping from string to OperatingSystemTypes_STATUS
-var operatingSystemTypes_STATUS_Values = map[string]OperatingSystemTypes_STATUS{
-	"linux":   OperatingSystemTypes_STATUS_Linux,
-	"windows": OperatingSystemTypes_STATUS_Windows,
 }
 
 // Properties of the disk for which update is pending.
@@ -408,24 +409,24 @@ type SupportedCapabilities_STATUS struct {
 	AcceleratedNetwork *bool `json:"acceleratedNetwork,omitempty"`
 
 	// Architecture: CPU architecture supported by an OS disk.
-	Architecture *Architecture_STATUS `json:"architecture,omitempty"`
+	Architecture *CommonArchitecture_STATUS `json:"architecture,omitempty"`
 
 	// DiskControllerTypes: The disk controllers that an OS disk supports. If set it can be SCSI or SCSI, NVME or NVME, SCSI.
 	DiskControllerTypes *string `json:"diskControllerTypes,omitempty"`
 }
 
 // CPU architecture supported by an OS disk.
-type Architecture_STATUS string
+type CommonArchitecture_STATUS string
 
 const (
-	Architecture_STATUS_Arm64 = Architecture_STATUS("Arm64")
-	Architecture_STATUS_X64   = Architecture_STATUS("x64")
+	CommonArchitecture_STATUS_Arm64 = CommonArchitecture_STATUS("Arm64")
+	CommonArchitecture_STATUS_X64   = CommonArchitecture_STATUS("x64")
 )
 
-// Mapping from string to Architecture_STATUS
-var architecture_STATUS_Values = map[string]Architecture_STATUS{
-	"arm64": Architecture_STATUS_Arm64,
-	"x64":   Architecture_STATUS_X64,
+// Mapping from string to CommonArchitecture_STATUS
+var commonArchitecture_STATUS_Values = map[string]CommonArchitecture_STATUS{
+	"arm64": CommonArchitecture_STATUS_Arm64,
+	"x64":   CommonArchitecture_STATUS_X64,
 }
 
 // This enumerates the possible sources of a disk's creation.

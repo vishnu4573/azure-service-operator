@@ -13,6 +13,10 @@ import (
 	"github.com/Azure/azure-service-operator/v2/pkg/genruntime/extensions"
 )
 
+// Keep this type explicitly declared so customizations continue to compile even
+// when generated extension scaffolding changes between generator runs.
+type DataCollectionRuleExtension struct{}
+
 var _ extensions.ErrorClassifier = &DataCollectionRuleExtension{}
 
 // ClassifyError evaluates the provided error, returning whether it is fatal or can be retried.

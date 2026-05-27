@@ -27,7 +27,7 @@ import (
 // +kubebuilder:printcolumn:name="Message",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].message"
 // Storage version of v1api20180601.Factory
 // Generator information:
-// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/datafactory.json
+// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/openapi.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}
 type Factory struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -247,7 +247,7 @@ func (factory *Factory) OriginalGVK() *schema.GroupVersionKind {
 // +kubebuilder:object:root=true
 // Storage version of v1api20180601.Factory
 // Generator information:
-// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/datafactory.json
+// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/openapi.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}
 type FactoryList struct {
 	metav1.TypeMeta `json:",inline"`
@@ -268,8 +268,6 @@ type augmentConversionForFactory interface {
 
 // Storage version of v1api20180601.Factory_Spec
 type Factory_Spec struct {
-	AdditionalProperties map[string]v1.JSON `json:"additionalProperties,omitempty"`
-
 	// AzureName: The name of the resource in Azure. This is often the same as the name of the resource in Kubernetes but it
 	// doesn't have to be.
 	AzureName        string                                  `json:"azureName,omitempty"`
@@ -346,17 +344,6 @@ func (factory *Factory_Spec) ConvertSpecTo(destination genruntime.ConvertibleSpe
 func (factory *Factory_Spec) AssignProperties_From_Factory_Spec(source *storage.Factory_Spec) error {
 	// Clone the existing property bag
 	propertyBag := genruntime.NewPropertyBag(source.PropertyBag)
-
-	// AdditionalProperties
-	if source.AdditionalProperties != nil {
-		additionalPropertyMap := make(map[string]v1.JSON, len(source.AdditionalProperties))
-		for additionalPropertyKey, additionalPropertyValue := range source.AdditionalProperties {
-			additionalPropertyMap[additionalPropertyKey] = *additionalPropertyValue.DeepCopy()
-		}
-		factory.AdditionalProperties = additionalPropertyMap
-	} else {
-		factory.AdditionalProperties = nil
-	}
 
 	// AzureName
 	factory.AzureName = source.AzureName
@@ -482,17 +469,6 @@ func (factory *Factory_Spec) AssignProperties_To_Factory_Spec(destination *stora
 	// Clone the existing property bag
 	propertyBag := genruntime.NewPropertyBag(factory.PropertyBag)
 
-	// AdditionalProperties
-	if factory.AdditionalProperties != nil {
-		additionalPropertyMap := make(map[string]v1.JSON, len(factory.AdditionalProperties))
-		for additionalPropertyKey, additionalPropertyValue := range factory.AdditionalProperties {
-			additionalPropertyMap[additionalPropertyKey] = *additionalPropertyValue.DeepCopy()
-		}
-		destination.AdditionalProperties = additionalPropertyMap
-	} else {
-		destination.AdditionalProperties = nil
-	}
-
 	// AzureName
 	destination.AzureName = factory.AzureName
 
@@ -615,7 +591,6 @@ func (factory *Factory_Spec) AssignProperties_To_Factory_Spec(destination *stora
 // Storage version of v1api20180601.Factory_STATUS
 // Factory resource type.
 type Factory_STATUS struct {
-	AdditionalProperties map[string]v1.JSON                             `json:"additionalProperties,omitempty"`
 	Conditions           []conditions.Condition                         `json:"conditions,omitempty"`
 	CreateTime           *string                                        `json:"createTime,omitempty"`
 	ETag                 *string                                        `json:"eTag,omitempty"`
@@ -630,6 +605,7 @@ type Factory_STATUS struct {
 	PublicNetworkAccess  *string                                        `json:"publicNetworkAccess,omitempty"`
 	PurviewConfiguration *PurviewConfiguration_STATUS                   `json:"purviewConfiguration,omitempty"`
 	RepoConfiguration    *FactoryRepoConfiguration_STATUS               `json:"repoConfiguration,omitempty"`
+	SystemData           *SystemData_STATUS                             `json:"systemData,omitempty"`
 	Tags                 map[string]string                              `json:"tags,omitempty"`
 	Type                 *string                                        `json:"type,omitempty"`
 	Version              *string                                        `json:"version,omitempty"`
@@ -689,17 +665,6 @@ func (factory *Factory_STATUS) ConvertStatusTo(destination genruntime.Convertibl
 func (factory *Factory_STATUS) AssignProperties_From_Factory_STATUS(source *storage.Factory_STATUS) error {
 	// Clone the existing property bag
 	propertyBag := genruntime.NewPropertyBag(source.PropertyBag)
-
-	// AdditionalProperties
-	if source.AdditionalProperties != nil {
-		additionalPropertyMap := make(map[string]v1.JSON, len(source.AdditionalProperties))
-		for additionalPropertyKey, additionalPropertyValue := range source.AdditionalProperties {
-			additionalPropertyMap[additionalPropertyKey] = *additionalPropertyValue.DeepCopy()
-		}
-		factory.AdditionalProperties = additionalPropertyMap
-	} else {
-		factory.AdditionalProperties = nil
-	}
 
 	// Conditions
 	factory.Conditions = genruntime.CloneSliceOfCondition(source.Conditions)
@@ -789,6 +754,18 @@ func (factory *Factory_STATUS) AssignProperties_From_Factory_STATUS(source *stor
 		factory.RepoConfiguration = nil
 	}
 
+	// SystemData
+	if source.SystemData != nil {
+		var systemDatum SystemData_STATUS
+		err := systemDatum.AssignProperties_From_SystemData_STATUS(source.SystemData)
+		if err != nil {
+			return eris.Wrap(err, "calling AssignProperties_From_SystemData_STATUS() to populate field SystemData")
+		}
+		factory.SystemData = &systemDatum
+	} else {
+		factory.SystemData = nil
+	}
+
 	// Tags
 	factory.Tags = genruntime.CloneMapOfStringToString(source.Tags)
 
@@ -822,17 +799,6 @@ func (factory *Factory_STATUS) AssignProperties_From_Factory_STATUS(source *stor
 func (factory *Factory_STATUS) AssignProperties_To_Factory_STATUS(destination *storage.Factory_STATUS) error {
 	// Clone the existing property bag
 	propertyBag := genruntime.NewPropertyBag(factory.PropertyBag)
-
-	// AdditionalProperties
-	if factory.AdditionalProperties != nil {
-		additionalPropertyMap := make(map[string]v1.JSON, len(factory.AdditionalProperties))
-		for additionalPropertyKey, additionalPropertyValue := range factory.AdditionalProperties {
-			additionalPropertyMap[additionalPropertyKey] = *additionalPropertyValue.DeepCopy()
-		}
-		destination.AdditionalProperties = additionalPropertyMap
-	} else {
-		destination.AdditionalProperties = nil
-	}
 
 	// Conditions
 	destination.Conditions = genruntime.CloneSliceOfCondition(factory.Conditions)
@@ -920,6 +886,18 @@ func (factory *Factory_STATUS) AssignProperties_To_Factory_STATUS(destination *s
 		destination.RepoConfiguration = &repoConfiguration
 	} else {
 		destination.RepoConfiguration = nil
+	}
+
+	// SystemData
+	if factory.SystemData != nil {
+		var systemDatum storage.SystemData_STATUS
+		err := factory.SystemData.AssignProperties_To_SystemData_STATUS(&systemDatum)
+		if err != nil {
+			return eris.Wrap(err, "calling AssignProperties_To_SystemData_STATUS() to populate field SystemData")
+		}
+		destination.SystemData = &systemDatum
+	} else {
+		destination.SystemData = nil
 	}
 
 	// Tags
@@ -1168,9 +1146,9 @@ func (configuration *EncryptionConfiguration_STATUS) AssignProperties_To_Encrypt
 // Storage version of v1api20180601.FactoryIdentity
 // Identity properties of the factory resource.
 type FactoryIdentity struct {
-	PropertyBag            genruntime.PropertyBag        `json:"$propertyBag,omitempty"`
-	Type                   *string                       `json:"type,omitempty"`
-	UserAssignedIdentities []UserAssignedIdentityDetails `json:"userAssignedIdentities,omitempty"`
+	PropertyBag            genruntime.PropertyBag `json:"$propertyBag,omitempty"`
+	Type                   *string                `json:"type,omitempty"`
+	UserAssignedIdentities *v1.JSON               `json:"userAssignedIdentities,omitempty"`
 }
 
 // AssignProperties_From_FactoryIdentity populates our FactoryIdentity from the provided source FactoryIdentity
@@ -1183,16 +1161,8 @@ func (identity *FactoryIdentity) AssignProperties_From_FactoryIdentity(source *s
 
 	// UserAssignedIdentities
 	if source.UserAssignedIdentities != nil {
-		userAssignedIdentityList := make([]UserAssignedIdentityDetails, len(source.UserAssignedIdentities))
-		for userAssignedIdentityIndex, userAssignedIdentityItem := range source.UserAssignedIdentities {
-			var userAssignedIdentity UserAssignedIdentityDetails
-			err := userAssignedIdentity.AssignProperties_From_UserAssignedIdentityDetails(&userAssignedIdentityItem)
-			if err != nil {
-				return eris.Wrap(err, "calling AssignProperties_From_UserAssignedIdentityDetails() to populate field UserAssignedIdentities")
-			}
-			userAssignedIdentityList[userAssignedIdentityIndex] = userAssignedIdentity
-		}
-		identity.UserAssignedIdentities = userAssignedIdentityList
+		userAssignedIdentity := *source.UserAssignedIdentities.DeepCopy()
+		identity.UserAssignedIdentities = &userAssignedIdentity
 	} else {
 		identity.UserAssignedIdentities = nil
 	}
@@ -1227,16 +1197,8 @@ func (identity *FactoryIdentity) AssignProperties_To_FactoryIdentity(destination
 
 	// UserAssignedIdentities
 	if identity.UserAssignedIdentities != nil {
-		userAssignedIdentityList := make([]storage.UserAssignedIdentityDetails, len(identity.UserAssignedIdentities))
-		for userAssignedIdentityIndex, userAssignedIdentityItem := range identity.UserAssignedIdentities {
-			var userAssignedIdentity storage.UserAssignedIdentityDetails
-			err := userAssignedIdentityItem.AssignProperties_To_UserAssignedIdentityDetails(&userAssignedIdentity)
-			if err != nil {
-				return eris.Wrap(err, "calling AssignProperties_To_UserAssignedIdentityDetails() to populate field UserAssignedIdentities")
-			}
-			userAssignedIdentityList[userAssignedIdentityIndex] = userAssignedIdentity
-		}
-		destination.UserAssignedIdentities = userAssignedIdentityList
+		userAssignedIdentity := *identity.UserAssignedIdentities.DeepCopy()
+		destination.UserAssignedIdentities = &userAssignedIdentity
 	} else {
 		destination.UserAssignedIdentities = nil
 	}
@@ -1268,7 +1230,7 @@ type FactoryIdentity_STATUS struct {
 	PropertyBag            genruntime.PropertyBag `json:"$propertyBag,omitempty"`
 	TenantId               *string                `json:"tenantId,omitempty"`
 	Type                   *string                `json:"type,omitempty"`
-	UserAssignedIdentities map[string]v1.JSON     `json:"userAssignedIdentities,omitempty"`
+	UserAssignedIdentities *v1.JSON               `json:"userAssignedIdentities,omitempty"`
 }
 
 // AssignProperties_From_FactoryIdentity_STATUS populates our FactoryIdentity_STATUS from the provided source FactoryIdentity_STATUS
@@ -1287,11 +1249,8 @@ func (identity *FactoryIdentity_STATUS) AssignProperties_From_FactoryIdentity_ST
 
 	// UserAssignedIdentities
 	if source.UserAssignedIdentities != nil {
-		userAssignedIdentityMap := make(map[string]v1.JSON, len(source.UserAssignedIdentities))
-		for userAssignedIdentityKey, userAssignedIdentityValue := range source.UserAssignedIdentities {
-			userAssignedIdentityMap[userAssignedIdentityKey] = *userAssignedIdentityValue.DeepCopy()
-		}
-		identity.UserAssignedIdentities = userAssignedIdentityMap
+		userAssignedIdentity := *source.UserAssignedIdentities.DeepCopy()
+		identity.UserAssignedIdentities = &userAssignedIdentity
 	} else {
 		identity.UserAssignedIdentities = nil
 	}
@@ -1332,11 +1291,8 @@ func (identity *FactoryIdentity_STATUS) AssignProperties_To_FactoryIdentity_STAT
 
 	// UserAssignedIdentities
 	if identity.UserAssignedIdentities != nil {
-		userAssignedIdentityMap := make(map[string]v1.JSON, len(identity.UserAssignedIdentities))
-		for userAssignedIdentityKey, userAssignedIdentityValue := range identity.UserAssignedIdentities {
-			userAssignedIdentityMap[userAssignedIdentityKey] = *userAssignedIdentityValue.DeepCopy()
-		}
-		destination.UserAssignedIdentities = userAssignedIdentityMap
+		userAssignedIdentity := *identity.UserAssignedIdentities.DeepCopy()
+		destination.UserAssignedIdentities = &userAssignedIdentity
 	} else {
 		destination.UserAssignedIdentities = nil
 	}
@@ -1698,7 +1654,7 @@ func (configuration *FactoryRepoConfiguration_STATUS) AssignProperties_To_Factor
 type GlobalParameterSpecification struct {
 	PropertyBag genruntime.PropertyBag `json:"$propertyBag,omitempty"`
 	Type        *string                `json:"type,omitempty"`
-	Value       map[string]v1.JSON     `json:"value,omitempty"`
+	Value       *v1.JSON               `json:"value,omitempty"`
 }
 
 // AssignProperties_From_GlobalParameterSpecification populates our GlobalParameterSpecification from the provided source GlobalParameterSpecification
@@ -1711,11 +1667,8 @@ func (specification *GlobalParameterSpecification) AssignProperties_From_GlobalP
 
 	// Value
 	if source.Value != nil {
-		valueMap := make(map[string]v1.JSON, len(source.Value))
-		for valueKey, value := range source.Value {
-			valueMap[valueKey] = *value.DeepCopy()
-		}
-		specification.Value = valueMap
+		value := *source.Value.DeepCopy()
+		specification.Value = &value
 	} else {
 		specification.Value = nil
 	}
@@ -1750,11 +1703,8 @@ func (specification *GlobalParameterSpecification) AssignProperties_To_GlobalPar
 
 	// Value
 	if specification.Value != nil {
-		valueMap := make(map[string]v1.JSON, len(specification.Value))
-		for valueKey, value := range specification.Value {
-			valueMap[valueKey] = *value.DeepCopy()
-		}
-		destination.Value = valueMap
+		value := *specification.Value.DeepCopy()
+		destination.Value = &value
 	} else {
 		destination.Value = nil
 	}
@@ -1784,7 +1734,7 @@ func (specification *GlobalParameterSpecification) AssignProperties_To_GlobalPar
 type GlobalParameterSpecification_STATUS struct {
 	PropertyBag genruntime.PropertyBag `json:"$propertyBag,omitempty"`
 	Type        *string                `json:"type,omitempty"`
-	Value       map[string]v1.JSON     `json:"value,omitempty"`
+	Value       *v1.JSON               `json:"value,omitempty"`
 }
 
 // AssignProperties_From_GlobalParameterSpecification_STATUS populates our GlobalParameterSpecification_STATUS from the provided source GlobalParameterSpecification_STATUS
@@ -1797,11 +1747,8 @@ func (specification *GlobalParameterSpecification_STATUS) AssignProperties_From_
 
 	// Value
 	if source.Value != nil {
-		valueMap := make(map[string]v1.JSON, len(source.Value))
-		for valueKey, value := range source.Value {
-			valueMap[valueKey] = *value.DeepCopy()
-		}
-		specification.Value = valueMap
+		value := *source.Value.DeepCopy()
+		specification.Value = &value
 	} else {
 		specification.Value = nil
 	}
@@ -1836,11 +1783,8 @@ func (specification *GlobalParameterSpecification_STATUS) AssignProperties_To_Gl
 
 	// Value
 	if specification.Value != nil {
-		valueMap := make(map[string]v1.JSON, len(specification.Value))
-		for valueKey, value := range specification.Value {
-			valueMap[valueKey] = *value.DeepCopy()
-		}
-		destination.Value = valueMap
+		value := *specification.Value.DeepCopy()
+		destination.Value = &value
 	} else {
 		destination.Value = nil
 	}
@@ -2003,6 +1947,104 @@ func (configuration *PurviewConfiguration_STATUS) AssignProperties_To_PurviewCon
 	return nil
 }
 
+// Storage version of v1api20180601.SystemData_STATUS
+// Metadata pertaining to creation and last modification of the resource.
+type SystemData_STATUS struct {
+	CreatedAt          *string                `json:"createdAt,omitempty"`
+	CreatedBy          *string                `json:"createdBy,omitempty"`
+	CreatedByType      *string                `json:"createdByType,omitempty"`
+	LastModifiedAt     *string                `json:"lastModifiedAt,omitempty"`
+	LastModifiedBy     *string                `json:"lastModifiedBy,omitempty"`
+	LastModifiedByType *string                `json:"lastModifiedByType,omitempty"`
+	PropertyBag        genruntime.PropertyBag `json:"$propertyBag,omitempty"`
+}
+
+// AssignProperties_From_SystemData_STATUS populates our SystemData_STATUS from the provided source SystemData_STATUS
+func (data *SystemData_STATUS) AssignProperties_From_SystemData_STATUS(source *storage.SystemData_STATUS) error {
+	// Clone the existing property bag
+	propertyBag := genruntime.NewPropertyBag(source.PropertyBag)
+
+	// CreatedAt
+	data.CreatedAt = genruntime.ClonePointerToString(source.CreatedAt)
+
+	// CreatedBy
+	data.CreatedBy = genruntime.ClonePointerToString(source.CreatedBy)
+
+	// CreatedByType
+	data.CreatedByType = genruntime.ClonePointerToString(source.CreatedByType)
+
+	// LastModifiedAt
+	data.LastModifiedAt = genruntime.ClonePointerToString(source.LastModifiedAt)
+
+	// LastModifiedBy
+	data.LastModifiedBy = genruntime.ClonePointerToString(source.LastModifiedBy)
+
+	// LastModifiedByType
+	data.LastModifiedByType = genruntime.ClonePointerToString(source.LastModifiedByType)
+
+	// Update the property bag
+	if len(propertyBag) > 0 {
+		data.PropertyBag = propertyBag
+	} else {
+		data.PropertyBag = nil
+	}
+
+	// Invoke the augmentConversionForSystemData_STATUS interface (if implemented) to customize the conversion
+	var dataAsAny any = data
+	if augmentedData, ok := dataAsAny.(augmentConversionForSystemData_STATUS); ok {
+		err := augmentedData.AssignPropertiesFrom(source)
+		if err != nil {
+			return eris.Wrap(err, "calling augmented AssignPropertiesFrom() for conversion")
+		}
+	}
+
+	// No error
+	return nil
+}
+
+// AssignProperties_To_SystemData_STATUS populates the provided destination SystemData_STATUS from our SystemData_STATUS
+func (data *SystemData_STATUS) AssignProperties_To_SystemData_STATUS(destination *storage.SystemData_STATUS) error {
+	// Clone the existing property bag
+	propertyBag := genruntime.NewPropertyBag(data.PropertyBag)
+
+	// CreatedAt
+	destination.CreatedAt = genruntime.ClonePointerToString(data.CreatedAt)
+
+	// CreatedBy
+	destination.CreatedBy = genruntime.ClonePointerToString(data.CreatedBy)
+
+	// CreatedByType
+	destination.CreatedByType = genruntime.ClonePointerToString(data.CreatedByType)
+
+	// LastModifiedAt
+	destination.LastModifiedAt = genruntime.ClonePointerToString(data.LastModifiedAt)
+
+	// LastModifiedBy
+	destination.LastModifiedBy = genruntime.ClonePointerToString(data.LastModifiedBy)
+
+	// LastModifiedByType
+	destination.LastModifiedByType = genruntime.ClonePointerToString(data.LastModifiedByType)
+
+	// Update the property bag
+	if len(propertyBag) > 0 {
+		destination.PropertyBag = propertyBag
+	} else {
+		destination.PropertyBag = nil
+	}
+
+	// Invoke the augmentConversionForSystemData_STATUS interface (if implemented) to customize the conversion
+	var dataAsAny any = data
+	if augmentedData, ok := dataAsAny.(augmentConversionForSystemData_STATUS); ok {
+		err := augmentedData.AssignPropertiesTo(destination)
+		if err != nil {
+			return eris.Wrap(err, "calling augmented AssignPropertiesTo() for conversion")
+		}
+	}
+
+	// No error
+	return nil
+}
+
 type augmentConversionForEncryptionConfiguration interface {
 	AssignPropertiesFrom(src *storage.EncryptionConfiguration) error
 	AssignPropertiesTo(dst *storage.EncryptionConfiguration) error
@@ -2056,6 +2098,11 @@ type augmentConversionForPurviewConfiguration interface {
 type augmentConversionForPurviewConfiguration_STATUS interface {
 	AssignPropertiesFrom(src *storage.PurviewConfiguration_STATUS) error
 	AssignPropertiesTo(dst *storage.PurviewConfiguration_STATUS) error
+}
+
+type augmentConversionForSystemData_STATUS interface {
+	AssignPropertiesFrom(src *storage.SystemData_STATUS) error
+	AssignPropertiesTo(dst *storage.SystemData_STATUS) error
 }
 
 // Storage version of v1api20180601.CMKIdentityDefinition
@@ -2758,69 +2805,6 @@ func (configuration *FactoryVSTSConfiguration_STATUS) AssignProperties_To_Factor
 	return nil
 }
 
-// Storage version of v1api20180601.UserAssignedIdentityDetails
-// Information about the user assigned identity for the resource
-type UserAssignedIdentityDetails struct {
-	PropertyBag genruntime.PropertyBag       `json:"$propertyBag,omitempty"`
-	Reference   genruntime.ResourceReference `armReference:"Reference" json:"reference,omitempty"`
-}
-
-// AssignProperties_From_UserAssignedIdentityDetails populates our UserAssignedIdentityDetails from the provided source UserAssignedIdentityDetails
-func (details *UserAssignedIdentityDetails) AssignProperties_From_UserAssignedIdentityDetails(source *storage.UserAssignedIdentityDetails) error {
-	// Clone the existing property bag
-	propertyBag := genruntime.NewPropertyBag(source.PropertyBag)
-
-	// Reference
-	details.Reference = source.Reference.Copy()
-
-	// Update the property bag
-	if len(propertyBag) > 0 {
-		details.PropertyBag = propertyBag
-	} else {
-		details.PropertyBag = nil
-	}
-
-	// Invoke the augmentConversionForUserAssignedIdentityDetails interface (if implemented) to customize the conversion
-	var detailsAsAny any = details
-	if augmentedDetails, ok := detailsAsAny.(augmentConversionForUserAssignedIdentityDetails); ok {
-		err := augmentedDetails.AssignPropertiesFrom(source)
-		if err != nil {
-			return eris.Wrap(err, "calling augmented AssignPropertiesFrom() for conversion")
-		}
-	}
-
-	// No error
-	return nil
-}
-
-// AssignProperties_To_UserAssignedIdentityDetails populates the provided destination UserAssignedIdentityDetails from our UserAssignedIdentityDetails
-func (details *UserAssignedIdentityDetails) AssignProperties_To_UserAssignedIdentityDetails(destination *storage.UserAssignedIdentityDetails) error {
-	// Clone the existing property bag
-	propertyBag := genruntime.NewPropertyBag(details.PropertyBag)
-
-	// Reference
-	destination.Reference = details.Reference.Copy()
-
-	// Update the property bag
-	if len(propertyBag) > 0 {
-		destination.PropertyBag = propertyBag
-	} else {
-		destination.PropertyBag = nil
-	}
-
-	// Invoke the augmentConversionForUserAssignedIdentityDetails interface (if implemented) to customize the conversion
-	var detailsAsAny any = details
-	if augmentedDetails, ok := detailsAsAny.(augmentConversionForUserAssignedIdentityDetails); ok {
-		err := augmentedDetails.AssignPropertiesTo(destination)
-		if err != nil {
-			return eris.Wrap(err, "calling augmented AssignPropertiesTo() for conversion")
-		}
-	}
-
-	// No error
-	return nil
-}
-
 type augmentConversionForCMKIdentityDefinition interface {
 	AssignPropertiesFrom(src *storage.CMKIdentityDefinition) error
 	AssignPropertiesTo(dst *storage.CMKIdentityDefinition) error
@@ -2849,11 +2833,6 @@ type augmentConversionForFactoryVSTSConfiguration interface {
 type augmentConversionForFactoryVSTSConfiguration_STATUS interface {
 	AssignPropertiesFrom(src *storage.FactoryVSTSConfiguration_STATUS) error
 	AssignPropertiesTo(dst *storage.FactoryVSTSConfiguration_STATUS) error
-}
-
-type augmentConversionForUserAssignedIdentityDetails interface {
-	AssignPropertiesFrom(src *storage.UserAssignedIdentityDetails) error
-	AssignPropertiesTo(dst *storage.UserAssignedIdentityDetails) error
 }
 
 // Storage version of v1api20180601.GitHubClientSecret

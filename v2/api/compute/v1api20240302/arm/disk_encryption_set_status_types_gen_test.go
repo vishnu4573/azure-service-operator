@@ -157,6 +157,68 @@ func AddRelatedPropertyGeneratorsForApiError_STATUS(gens map[string]gopter.Gen) 
 	gens["Innererror"] = gen.PtrOf(InnerError_STATUSGenerator())
 }
 
+func Test_CommonUserAssignedIdentitiesValue_STATUS_WhenSerializedToJson_DeserializesAsEqual(t *testing.T) {
+	t.Parallel()
+	parameters := gopter.DefaultTestParameters()
+	parameters.MinSuccessfulTests = 80
+	parameters.MaxSize = 3
+	properties := gopter.NewProperties(parameters)
+	properties.Property(
+		"Round trip of CommonUserAssignedIdentitiesValue_STATUS via JSON returns original",
+		prop.ForAll(RunJSONSerializationTestForCommonUserAssignedIdentitiesValue_STATUS, CommonUserAssignedIdentitiesValue_STATUSGenerator()))
+	properties.TestingRun(t, gopter.NewFormatedReporter(true, 240, os.Stdout))
+}
+
+// RunJSONSerializationTestForCommonUserAssignedIdentitiesValue_STATUS runs a test to see if a specific instance of CommonUserAssignedIdentitiesValue_STATUS round trips to JSON and back losslessly
+func RunJSONSerializationTestForCommonUserAssignedIdentitiesValue_STATUS(subject CommonUserAssignedIdentitiesValue_STATUS) string {
+	// Serialize to JSON
+	bin, err := json.Marshal(subject)
+	if err != nil {
+		return err.Error()
+	}
+
+	// Deserialize back into memory
+	var actual CommonUserAssignedIdentitiesValue_STATUS
+	err = json.Unmarshal(bin, &actual)
+	if err != nil {
+		return err.Error()
+	}
+
+	// Check for outcome
+	match := cmp.Equal(subject, actual, cmpopts.EquateEmpty())
+	if !match {
+		actualFmt := pretty.Sprint(actual)
+		subjectFmt := pretty.Sprint(subject)
+		result := diff.Diff(subjectFmt, actualFmt)
+		return result
+	}
+
+	return ""
+}
+
+// Generator of CommonUserAssignedIdentitiesValue_STATUS instances for property testing - lazily instantiated by
+// CommonUserAssignedIdentitiesValue_STATUSGenerator()
+var commonUserAssignedIdentitiesValue_STATUSGenerator gopter.Gen
+
+// CommonUserAssignedIdentitiesValue_STATUSGenerator returns a generator of CommonUserAssignedIdentitiesValue_STATUS instances for property testing.
+func CommonUserAssignedIdentitiesValue_STATUSGenerator() gopter.Gen {
+	if commonUserAssignedIdentitiesValue_STATUSGenerator != nil {
+		return commonUserAssignedIdentitiesValue_STATUSGenerator
+	}
+
+	generators := make(map[string]gopter.Gen)
+	AddIndependentPropertyGeneratorsForCommonUserAssignedIdentitiesValue_STATUS(generators)
+	commonUserAssignedIdentitiesValue_STATUSGenerator = gen.Struct(reflect.TypeOf(CommonUserAssignedIdentitiesValue_STATUS{}), generators)
+
+	return commonUserAssignedIdentitiesValue_STATUSGenerator
+}
+
+// AddIndependentPropertyGeneratorsForCommonUserAssignedIdentitiesValue_STATUS is a factory method for creating gopter generators
+func AddIndependentPropertyGeneratorsForCommonUserAssignedIdentitiesValue_STATUS(gens map[string]gopter.Gen) {
+	gens["ClientId"] = gen.PtrOf(gen.AlphaString())
+	gens["PrincipalId"] = gen.PtrOf(gen.AlphaString())
+}
+
 func Test_DiskEncryptionSet_STATUS_WhenSerializedToJson_DeserializesAsEqual(t *testing.T) {
 	t.Parallel()
 	parameters := gopter.DefaultTestParameters()
@@ -320,7 +382,7 @@ func AddIndependentPropertyGeneratorsForEncryptionSetIdentity_STATUS(gens map[st
 func AddRelatedPropertyGeneratorsForEncryptionSetIdentity_STATUS(gens map[string]gopter.Gen) {
 	gens["UserAssignedIdentities"] = gen.MapOf(
 		gen.AlphaString(),
-		UserAssignedIdentitiesValue_STATUSGenerator())
+		CommonUserAssignedIdentitiesValue_STATUSGenerator())
 }
 
 func Test_EncryptionSetProperties_STATUS_WhenSerializedToJson_DeserializesAsEqual(t *testing.T) {
@@ -598,66 +660,4 @@ func SourceVault_STATUSGenerator() gopter.Gen {
 // AddIndependentPropertyGeneratorsForSourceVault_STATUS is a factory method for creating gopter generators
 func AddIndependentPropertyGeneratorsForSourceVault_STATUS(gens map[string]gopter.Gen) {
 	gens["Id"] = gen.PtrOf(gen.AlphaString())
-}
-
-func Test_UserAssignedIdentitiesValue_STATUS_WhenSerializedToJson_DeserializesAsEqual(t *testing.T) {
-	t.Parallel()
-	parameters := gopter.DefaultTestParameters()
-	parameters.MinSuccessfulTests = 80
-	parameters.MaxSize = 3
-	properties := gopter.NewProperties(parameters)
-	properties.Property(
-		"Round trip of UserAssignedIdentitiesValue_STATUS via JSON returns original",
-		prop.ForAll(RunJSONSerializationTestForUserAssignedIdentitiesValue_STATUS, UserAssignedIdentitiesValue_STATUSGenerator()))
-	properties.TestingRun(t, gopter.NewFormatedReporter(true, 240, os.Stdout))
-}
-
-// RunJSONSerializationTestForUserAssignedIdentitiesValue_STATUS runs a test to see if a specific instance of UserAssignedIdentitiesValue_STATUS round trips to JSON and back losslessly
-func RunJSONSerializationTestForUserAssignedIdentitiesValue_STATUS(subject UserAssignedIdentitiesValue_STATUS) string {
-	// Serialize to JSON
-	bin, err := json.Marshal(subject)
-	if err != nil {
-		return err.Error()
-	}
-
-	// Deserialize back into memory
-	var actual UserAssignedIdentitiesValue_STATUS
-	err = json.Unmarshal(bin, &actual)
-	if err != nil {
-		return err.Error()
-	}
-
-	// Check for outcome
-	match := cmp.Equal(subject, actual, cmpopts.EquateEmpty())
-	if !match {
-		actualFmt := pretty.Sprint(actual)
-		subjectFmt := pretty.Sprint(subject)
-		result := diff.Diff(subjectFmt, actualFmt)
-		return result
-	}
-
-	return ""
-}
-
-// Generator of UserAssignedIdentitiesValue_STATUS instances for property testing - lazily instantiated by
-// UserAssignedIdentitiesValue_STATUSGenerator()
-var userAssignedIdentitiesValue_STATUSGenerator gopter.Gen
-
-// UserAssignedIdentitiesValue_STATUSGenerator returns a generator of UserAssignedIdentitiesValue_STATUS instances for property testing.
-func UserAssignedIdentitiesValue_STATUSGenerator() gopter.Gen {
-	if userAssignedIdentitiesValue_STATUSGenerator != nil {
-		return userAssignedIdentitiesValue_STATUSGenerator
-	}
-
-	generators := make(map[string]gopter.Gen)
-	AddIndependentPropertyGeneratorsForUserAssignedIdentitiesValue_STATUS(generators)
-	userAssignedIdentitiesValue_STATUSGenerator = gen.Struct(reflect.TypeOf(UserAssignedIdentitiesValue_STATUS{}), generators)
-
-	return userAssignedIdentitiesValue_STATUSGenerator
-}
-
-// AddIndependentPropertyGeneratorsForUserAssignedIdentitiesValue_STATUS is a factory method for creating gopter generators
-func AddIndependentPropertyGeneratorsForUserAssignedIdentitiesValue_STATUS(gens map[string]gopter.Gen) {
-	gens["ClientId"] = gen.PtrOf(gen.AlphaString())
-	gens["PrincipalId"] = gen.PtrOf(gen.AlphaString())
 }

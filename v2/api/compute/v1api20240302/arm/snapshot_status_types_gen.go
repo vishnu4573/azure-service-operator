@@ -75,7 +75,7 @@ type SnapshotProperties_STATUS struct {
 	EncryptionSettingsCollection *EncryptionSettingsCollection_STATUS `json:"encryptionSettingsCollection,omitempty"`
 
 	// HyperVGeneration: The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
-	HyperVGeneration *HyperVGeneration_STATUS `json:"hyperVGeneration,omitempty"`
+	HyperVGeneration *CommonHyperVGeneration_STATUS `json:"hyperVGeneration,omitempty"`
 
 	// Incremental: Whether a snapshot is incremental. Incremental snapshots on the same disk occupy less space than full
 	// snapshots and can be diffed.
@@ -89,7 +89,7 @@ type SnapshotProperties_STATUS struct {
 	NetworkAccessPolicy *NetworkAccessPolicy_STATUS `json:"networkAccessPolicy,omitempty"`
 
 	// OsType: The Operating System type.
-	OsType *OperatingSystemTypes_STATUS `json:"osType,omitempty"`
+	OsType *CommonOperatingSystemTypes_STATUS `json:"osType,omitempty"`
 
 	// ProvisioningState: The disk provisioning state.
 	ProvisioningState *string `json:"provisioningState,omitempty"`

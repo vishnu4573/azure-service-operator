@@ -1522,7 +1522,7 @@ func Test_UserAssignedIdentitiesValue_STATUS_WhenPropertiesConverted_RoundTripsW
 	parameters.MaxSize = 10
 	properties := gopter.NewProperties(parameters)
 	properties.Property(
-		"Round trip from UserAssignedIdentitiesValue_STATUS to UserAssignedIdentitiesValue_STATUS via AssignProperties_To_UserAssignedIdentitiesValue_STATUS & AssignProperties_From_UserAssignedIdentitiesValue_STATUS returns original",
+		"Round trip from UserAssignedIdentitiesValue_STATUS to CommonUserAssignedIdentitiesValue_STATUS via AssignProperties_To_CommonUserAssignedIdentitiesValue_STATUS & AssignProperties_From_CommonUserAssignedIdentitiesValue_STATUS returns original",
 		prop.ForAll(RunPropertyAssignmentTestForUserAssignedIdentitiesValue_STATUS, UserAssignedIdentitiesValue_STATUSGenerator()))
 	properties.TestingRun(t, gopter.NewFormatedReporter(false, 240, os.Stdout))
 }
@@ -1533,15 +1533,15 @@ func RunPropertyAssignmentTestForUserAssignedIdentitiesValue_STATUS(subject User
 	copied := subject.DeepCopy()
 
 	// Use AssignPropertiesTo() for the first stage of conversion
-	var other storage.UserAssignedIdentitiesValue_STATUS
-	err := copied.AssignProperties_To_UserAssignedIdentitiesValue_STATUS(&other)
+	var other storage.CommonUserAssignedIdentitiesValue_STATUS
+	err := copied.AssignProperties_To_CommonUserAssignedIdentitiesValue_STATUS(&other)
 	if err != nil {
 		return err.Error()
 	}
 
 	// Use AssignPropertiesFrom() to convert back to our original type
 	var actual UserAssignedIdentitiesValue_STATUS
-	err = actual.AssignProperties_From_UserAssignedIdentitiesValue_STATUS(&other)
+	err = actual.AssignProperties_From_CommonUserAssignedIdentitiesValue_STATUS(&other)
 	if err != nil {
 		return err.Error()
 	}

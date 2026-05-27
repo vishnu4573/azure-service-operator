@@ -28,7 +28,7 @@ import (
 // +kubebuilder:printcolumn:name="Message",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].message"
 // Storage version of v20180601.Factory
 // Generator information:
-// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/datafactory.json
+// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/openapi.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}
 type Factory struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -159,7 +159,7 @@ func (factory *Factory) OriginalGVK() *schema.GroupVersionKind {
 // +kubebuilder:object:root=true
 // Storage version of v20180601.Factory
 // Generator information:
-// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/datafactory.json
+// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/openapi.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}
 type FactoryList struct {
 	metav1.TypeMeta `json:",inline"`
@@ -175,8 +175,6 @@ const APIVersion_Value = APIVersion("2018-06-01")
 
 // Storage version of v20180601.Factory_Spec
 type Factory_Spec struct {
-	AdditionalProperties map[string]v1.JSON `json:"additionalProperties,omitempty"`
-
 	// AzureName: The name of the resource in Azure. This is often the same as the name of the resource in Kubernetes but it
 	// doesn't have to be.
 	AzureName        string                                  `json:"azureName,omitempty"`
@@ -222,7 +220,6 @@ func (factory *Factory_Spec) ConvertSpecTo(destination genruntime.ConvertibleSpe
 // Storage version of v20180601.Factory_STATUS
 // Factory resource type.
 type Factory_STATUS struct {
-	AdditionalProperties map[string]v1.JSON                             `json:"additionalProperties,omitempty"`
 	Conditions           []conditions.Condition                         `json:"conditions,omitempty"`
 	CreateTime           *string                                        `json:"createTime,omitempty"`
 	ETag                 *string                                        `json:"eTag,omitempty"`
@@ -237,6 +234,7 @@ type Factory_STATUS struct {
 	PublicNetworkAccess  *string                                        `json:"publicNetworkAccess,omitempty"`
 	PurviewConfiguration *PurviewConfiguration_STATUS                   `json:"purviewConfiguration,omitempty"`
 	RepoConfiguration    *FactoryRepoConfiguration_STATUS               `json:"repoConfiguration,omitempty"`
+	SystemData           *SystemData_STATUS                             `json:"systemData,omitempty"`
 	Tags                 map[string]string                              `json:"tags,omitempty"`
 	Type                 *string                                        `json:"type,omitempty"`
 	Version              *string                                        `json:"version,omitempty"`
@@ -285,9 +283,9 @@ type EncryptionConfiguration_STATUS struct {
 // Storage version of v20180601.FactoryIdentity
 // Identity properties of the factory resource.
 type FactoryIdentity struct {
-	PropertyBag            genruntime.PropertyBag        `json:"$propertyBag,omitempty"`
-	Type                   *string                       `json:"type,omitempty"`
-	UserAssignedIdentities []UserAssignedIdentityDetails `json:"userAssignedIdentities,omitempty"`
+	PropertyBag            genruntime.PropertyBag `json:"$propertyBag,omitempty"`
+	Type                   *string                `json:"type,omitempty"`
+	UserAssignedIdentities *v1.JSON               `json:"userAssignedIdentities,omitempty"`
 }
 
 // Storage version of v20180601.FactoryIdentity_STATUS
@@ -297,7 +295,7 @@ type FactoryIdentity_STATUS struct {
 	PropertyBag            genruntime.PropertyBag `json:"$propertyBag,omitempty"`
 	TenantId               *string                `json:"tenantId,omitempty"`
 	Type                   *string                `json:"type,omitempty"`
-	UserAssignedIdentities map[string]v1.JSON     `json:"userAssignedIdentities,omitempty"`
+	UserAssignedIdentities *v1.JSON               `json:"userAssignedIdentities,omitempty"`
 }
 
 // Storage version of v20180601.FactoryOperatorSpec
@@ -327,7 +325,7 @@ type FactoryRepoConfiguration_STATUS struct {
 type GlobalParameterSpecification struct {
 	PropertyBag genruntime.PropertyBag `json:"$propertyBag,omitempty"`
 	Type        *string                `json:"type,omitempty"`
-	Value       map[string]v1.JSON     `json:"value,omitempty"`
+	Value       *v1.JSON               `json:"value,omitempty"`
 }
 
 // Storage version of v20180601.GlobalParameterSpecification_STATUS
@@ -335,7 +333,7 @@ type GlobalParameterSpecification struct {
 type GlobalParameterSpecification_STATUS struct {
 	PropertyBag genruntime.PropertyBag `json:"$propertyBag,omitempty"`
 	Type        *string                `json:"type,omitempty"`
-	Value       map[string]v1.JSON     `json:"value,omitempty"`
+	Value       *v1.JSON               `json:"value,omitempty"`
 }
 
 // Storage version of v20180601.PurviewConfiguration
@@ -352,6 +350,18 @@ type PurviewConfiguration struct {
 type PurviewConfiguration_STATUS struct {
 	PropertyBag       genruntime.PropertyBag `json:"$propertyBag,omitempty"`
 	PurviewResourceId *string                `json:"purviewResourceId,omitempty"`
+}
+
+// Storage version of v20180601.SystemData_STATUS
+// Metadata pertaining to creation and last modification of the resource.
+type SystemData_STATUS struct {
+	CreatedAt          *string                `json:"createdAt,omitempty"`
+	CreatedBy          *string                `json:"createdBy,omitempty"`
+	CreatedByType      *string                `json:"createdByType,omitempty"`
+	LastModifiedAt     *string                `json:"lastModifiedAt,omitempty"`
+	LastModifiedBy     *string                `json:"lastModifiedBy,omitempty"`
+	LastModifiedByType *string                `json:"lastModifiedByType,omitempty"`
+	PropertyBag        genruntime.PropertyBag `json:"$propertyBag,omitempty"`
 }
 
 // Storage version of v20180601.CMKIdentityDefinition
@@ -426,13 +436,6 @@ type FactoryVSTSConfiguration_STATUS struct {
 	RootFolder          *string                `json:"rootFolder,omitempty"`
 	TenantId            *string                `json:"tenantId,omitempty"`
 	Type                *string                `json:"type,omitempty"`
-}
-
-// Storage version of v20180601.UserAssignedIdentityDetails
-// Information about the user assigned identity for the resource
-type UserAssignedIdentityDetails struct {
-	PropertyBag genruntime.PropertyBag       `json:"$propertyBag,omitempty"`
-	Reference   genruntime.ResourceReference `armReference:"Reference" json:"reference,omitempty"`
 }
 
 // Storage version of v20180601.GitHubClientSecret

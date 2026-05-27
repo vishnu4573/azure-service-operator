@@ -27,7 +27,7 @@ import (
 // +kubebuilder:printcolumn:name="Reason",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].reason"
 // +kubebuilder:printcolumn:name="Message",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].message"
 // Generator information:
-// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/datafactory.json
+// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/openapi.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}
 type Factory struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -239,7 +239,7 @@ func (factory *Factory) OriginalGVK() *schema.GroupVersionKind {
 
 // +kubebuilder:object:root=true
 // Generator information:
-// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/datafactory.json
+// - Generated from: /datafactory/resource-manager/Microsoft.DataFactory/DataFactory/stable/2018-06-01/openapi.json
 // - ARM URI: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}
 type FactoryList struct {
 	metav1.TypeMeta `json:",inline"`
@@ -253,8 +253,6 @@ type APIVersion string
 const APIVersion_Value = APIVersion("2018-06-01")
 
 type Factory_Spec struct {
-	AdditionalProperties map[string]v1.JSON `json:"additionalProperties,omitempty"`
-
 	// +kubebuilder:validation:MaxLength=63
 	// +kubebuilder:validation:MinLength=3
 	// +kubebuilder:validation:Pattern="^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$"
@@ -285,7 +283,7 @@ type Factory_Spec struct {
 	Owner *genruntime.KnownResourceReference `group:"resources.azure.com" json:"owner,omitempty" kind:"ResourceGroup"`
 
 	// PublicNetworkAccess: Whether or not public network access is allowed for the data factory.
-	PublicNetworkAccess *FactoryProperties_PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
+	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 
 	// PurviewConfiguration: Purview information of the factory.
 	PurviewConfiguration *PurviewConfiguration `json:"purviewConfiguration,omitempty"`
@@ -305,14 +303,6 @@ func (factory *Factory_Spec) ConvertToARM(resolved genruntime.ConvertToARMResolv
 		return nil, nil
 	}
 	result := &arm.Factory_Spec{}
-
-	// Set property "AdditionalProperties":
-	if factory.AdditionalProperties != nil {
-		result.AdditionalProperties = make(map[string]v1.JSON, len(factory.AdditionalProperties))
-		for key, value := range factory.AdditionalProperties {
-			result.AdditionalProperties[key] = *value.DeepCopy()
-		}
-	}
 
 	// Set property "Identity":
 	if factory.Identity != nil {
@@ -362,7 +352,7 @@ func (factory *Factory_Spec) ConvertToARM(resolved genruntime.ConvertToARMResolv
 	if factory.PublicNetworkAccess != nil {
 		var temp string
 		temp = string(*factory.PublicNetworkAccess)
-		publicNetworkAccess := arm.FactoryProperties_PublicNetworkAccess(temp)
+		publicNetworkAccess := arm.PublicNetworkAccess(temp)
 		result.Properties.PublicNetworkAccess = &publicNetworkAccess
 	}
 	if factory.PurviewConfiguration != nil {
@@ -402,14 +392,6 @@ func (factory *Factory_Spec) PopulateFromARM(owner genruntime.ArbitraryOwnerRefe
 	typedInput, ok := armInput.(arm.Factory_Spec)
 	if !ok {
 		return fmt.Errorf("unexpected type supplied for PopulateFromARM() function. Expected arm.Factory_Spec, got %T", armInput)
-	}
-
-	// Set property "AdditionalProperties":
-	if typedInput.AdditionalProperties != nil {
-		factory.AdditionalProperties = make(map[string]v1.JSON, len(typedInput.AdditionalProperties))
-		for key, value := range typedInput.AdditionalProperties {
-			factory.AdditionalProperties[key] = *value.DeepCopy()
-		}
 	}
 
 	// Set property "AzureName":
@@ -476,7 +458,7 @@ func (factory *Factory_Spec) PopulateFromARM(owner genruntime.ArbitraryOwnerRefe
 		if typedInput.Properties.PublicNetworkAccess != nil {
 			var temp string
 			temp = string(*typedInput.Properties.PublicNetworkAccess)
-			publicNetworkAccess := FactoryProperties_PublicNetworkAccess(temp)
+			publicNetworkAccess := PublicNetworkAccess(temp)
 			factory.PublicNetworkAccess = &publicNetworkAccess
 		}
 	}
@@ -574,17 +556,6 @@ func (factory *Factory_Spec) ConvertSpecTo(destination genruntime.ConvertibleSpe
 // AssignProperties_From_Factory_Spec populates our Factory_Spec from the provided source Factory_Spec
 func (factory *Factory_Spec) AssignProperties_From_Factory_Spec(source *storage.Factory_Spec) error {
 
-	// AdditionalProperties
-	if source.AdditionalProperties != nil {
-		additionalPropertyMap := make(map[string]v1.JSON, len(source.AdditionalProperties))
-		for additionalPropertyKey, additionalPropertyValue := range source.AdditionalProperties {
-			additionalPropertyMap[additionalPropertyKey] = *additionalPropertyValue.DeepCopy()
-		}
-		factory.AdditionalProperties = additionalPropertyMap
-	} else {
-		factory.AdditionalProperties = nil
-	}
-
 	// AzureName
 	factory.AzureName = source.AzureName
 
@@ -654,7 +625,7 @@ func (factory *Factory_Spec) AssignProperties_From_Factory_Spec(source *storage.
 	// PublicNetworkAccess
 	if source.PublicNetworkAccess != nil {
 		publicNetworkAccess := *source.PublicNetworkAccess
-		publicNetworkAccessTemp := genruntime.ToEnum(publicNetworkAccess, factoryProperties_PublicNetworkAccess_Values)
+		publicNetworkAccessTemp := genruntime.ToEnum(publicNetworkAccess, publicNetworkAccess_Values)
 		factory.PublicNetworkAccess = &publicNetworkAccessTemp
 	} else {
 		factory.PublicNetworkAccess = nil
@@ -695,17 +666,6 @@ func (factory *Factory_Spec) AssignProperties_From_Factory_Spec(source *storage.
 func (factory *Factory_Spec) AssignProperties_To_Factory_Spec(destination *storage.Factory_Spec) error {
 	// Create a new property bag
 	propertyBag := genruntime.NewPropertyBag()
-
-	// AdditionalProperties
-	if factory.AdditionalProperties != nil {
-		additionalPropertyMap := make(map[string]v1.JSON, len(factory.AdditionalProperties))
-		for additionalPropertyKey, additionalPropertyValue := range factory.AdditionalProperties {
-			additionalPropertyMap[additionalPropertyKey] = *additionalPropertyValue.DeepCopy()
-		}
-		destination.AdditionalProperties = additionalPropertyMap
-	} else {
-		destination.AdditionalProperties = nil
-	}
 
 	// AzureName
 	destination.AzureName = factory.AzureName
@@ -825,17 +785,6 @@ func (factory *Factory_Spec) AssignProperties_To_Factory_Spec(destination *stora
 // Initialize_From_Factory_STATUS populates our Factory_Spec from the provided source Factory_STATUS
 func (factory *Factory_Spec) Initialize_From_Factory_STATUS(source *Factory_STATUS) error {
 
-	// AdditionalProperties
-	if source.AdditionalProperties != nil {
-		additionalPropertyMap := make(map[string]v1.JSON, len(source.AdditionalProperties))
-		for additionalPropertyKey, additionalPropertyValue := range source.AdditionalProperties {
-			additionalPropertyMap[additionalPropertyKey] = *additionalPropertyValue.DeepCopy()
-		}
-		factory.AdditionalProperties = additionalPropertyMap
-	} else {
-		factory.AdditionalProperties = nil
-	}
-
 	// Encryption
 	if source.Encryption != nil {
 		var encryption EncryptionConfiguration
@@ -881,7 +830,7 @@ func (factory *Factory_Spec) Initialize_From_Factory_STATUS(source *Factory_STAT
 
 	// PublicNetworkAccess
 	if source.PublicNetworkAccess != nil {
-		publicNetworkAccess := genruntime.ToEnum(string(*source.PublicNetworkAccess), factoryProperties_PublicNetworkAccess_Values)
+		publicNetworkAccess := genruntime.ToEnum(string(*source.PublicNetworkAccess), publicNetworkAccess_Values)
 		factory.PublicNetworkAccess = &publicNetworkAccess
 	} else {
 		factory.PublicNetworkAccess = nil
@@ -928,15 +877,16 @@ func (factory *Factory_Spec) SetAzureName(azureName string) { factory.AzureName 
 
 // Factory resource type.
 type Factory_STATUS struct {
-	AdditionalProperties map[string]v1.JSON `json:"additionalProperties,omitempty"`
-
 	// Conditions: The observed state of the resource
 	Conditions []conditions.Condition `json:"conditions,omitempty"`
 
 	// CreateTime: Time the factory was created in ISO8601 format.
 	CreateTime *string `json:"createTime,omitempty"`
 
-	// ETag: Etag identifies change in the resource.
+	// ETag: If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.
+	// Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in
+	// the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header
+	// fields.
 	ETag *string `json:"eTag,omitempty"`
 
 	// Encryption: Properties to enable Customer Managed Key for the factory.
@@ -945,7 +895,8 @@ type Factory_STATUS struct {
 	// GlobalParameters: List of parameters for factory.
 	GlobalParameters map[string]GlobalParameterSpecification_STATUS `json:"globalParameters,omitempty"`
 
-	// Id: The resource identifier.
+	// Id: Fully qualified resource ID for the resource. E.g.
+	// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	Id *string `json:"id,omitempty"`
 
 	// Identity: Managed service identity of the factory.
@@ -954,14 +905,14 @@ type Factory_STATUS struct {
 	// Location: The resource location.
 	Location *string `json:"location,omitempty"`
 
-	// Name: The resource name.
+	// Name: The name of the resource
 	Name *string `json:"name,omitempty"`
 
 	// ProvisioningState: Factory provisioning state, example Succeeded.
 	ProvisioningState *string `json:"provisioningState,omitempty"`
 
 	// PublicNetworkAccess: Whether or not public network access is allowed for the data factory.
-	PublicNetworkAccess *FactoryProperties_PublicNetworkAccess_STATUS `json:"publicNetworkAccess,omitempty"`
+	PublicNetworkAccess *PublicNetworkAccess_STATUS `json:"publicNetworkAccess,omitempty"`
 
 	// PurviewConfiguration: Purview information of the factory.
 	PurviewConfiguration *PurviewConfiguration_STATUS `json:"purviewConfiguration,omitempty"`
@@ -969,10 +920,13 @@ type Factory_STATUS struct {
 	// RepoConfiguration: Git repo information of the factory.
 	RepoConfiguration *FactoryRepoConfiguration_STATUS `json:"repoConfiguration,omitempty"`
 
+	// SystemData: Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData_STATUS `json:"systemData,omitempty"`
+
 	// Tags: The resource tags.
 	Tags map[string]string `json:"tags,omitempty"`
 
-	// Type: The resource type.
+	// Type: The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty"`
 
 	// Version: Version of the factory.
@@ -1041,14 +995,6 @@ func (factory *Factory_STATUS) PopulateFromARM(owner genruntime.ArbitraryOwnerRe
 	typedInput, ok := armInput.(arm.Factory_STATUS)
 	if !ok {
 		return fmt.Errorf("unexpected type supplied for PopulateFromARM() function. Expected arm.Factory_STATUS, got %T", armInput)
-	}
-
-	// Set property "AdditionalProperties":
-	if typedInput.AdditionalProperties != nil {
-		factory.AdditionalProperties = make(map[string]v1.JSON, len(typedInput.AdditionalProperties))
-		for key, value := range typedInput.AdditionalProperties {
-			factory.AdditionalProperties[key] = *value.DeepCopy()
-		}
 	}
 
 	// no assignment for property "Conditions"
@@ -1142,7 +1088,7 @@ func (factory *Factory_STATUS) PopulateFromARM(owner genruntime.ArbitraryOwnerRe
 		if typedInput.Properties.PublicNetworkAccess != nil {
 			var temp string
 			temp = string(*typedInput.Properties.PublicNetworkAccess)
-			publicNetworkAccess := FactoryProperties_PublicNetworkAccess_STATUS(temp)
+			publicNetworkAccess := PublicNetworkAccess_STATUS(temp)
 			factory.PublicNetworkAccess = &publicNetworkAccess
 		}
 	}
@@ -1175,6 +1121,17 @@ func (factory *Factory_STATUS) PopulateFromARM(owner genruntime.ArbitraryOwnerRe
 		}
 	}
 
+	// Set property "SystemData":
+	if typedInput.SystemData != nil {
+		var systemData1 SystemData_STATUS
+		err := systemData1.PopulateFromARM(owner, *typedInput.SystemData)
+		if err != nil {
+			return err
+		}
+		systemData := systemData1
+		factory.SystemData = &systemData
+	}
+
 	// Set property "Tags":
 	if typedInput.Tags != nil {
 		factory.Tags = make(map[string]string, len(typedInput.Tags))
@@ -1204,17 +1161,6 @@ func (factory *Factory_STATUS) PopulateFromARM(owner genruntime.ArbitraryOwnerRe
 
 // AssignProperties_From_Factory_STATUS populates our Factory_STATUS from the provided source Factory_STATUS
 func (factory *Factory_STATUS) AssignProperties_From_Factory_STATUS(source *storage.Factory_STATUS) error {
-
-	// AdditionalProperties
-	if source.AdditionalProperties != nil {
-		additionalPropertyMap := make(map[string]v1.JSON, len(source.AdditionalProperties))
-		for additionalPropertyKey, additionalPropertyValue := range source.AdditionalProperties {
-			additionalPropertyMap[additionalPropertyKey] = *additionalPropertyValue.DeepCopy()
-		}
-		factory.AdditionalProperties = additionalPropertyMap
-	} else {
-		factory.AdditionalProperties = nil
-	}
 
 	// Conditions
 	factory.Conditions = genruntime.CloneSliceOfCondition(source.Conditions)
@@ -1280,7 +1226,7 @@ func (factory *Factory_STATUS) AssignProperties_From_Factory_STATUS(source *stor
 	// PublicNetworkAccess
 	if source.PublicNetworkAccess != nil {
 		publicNetworkAccess := *source.PublicNetworkAccess
-		publicNetworkAccessTemp := genruntime.ToEnum(publicNetworkAccess, factoryProperties_PublicNetworkAccess_STATUS_Values)
+		publicNetworkAccessTemp := genruntime.ToEnum(publicNetworkAccess, publicNetworkAccess_STATUS_Values)
 		factory.PublicNetworkAccess = &publicNetworkAccessTemp
 	} else {
 		factory.PublicNetworkAccess = nil
@@ -1310,6 +1256,18 @@ func (factory *Factory_STATUS) AssignProperties_From_Factory_STATUS(source *stor
 		factory.RepoConfiguration = nil
 	}
 
+	// SystemData
+	if source.SystemData != nil {
+		var systemDatum SystemData_STATUS
+		err := systemDatum.AssignProperties_From_SystemData_STATUS(source.SystemData)
+		if err != nil {
+			return eris.Wrap(err, "calling AssignProperties_From_SystemData_STATUS() to populate field SystemData")
+		}
+		factory.SystemData = &systemDatum
+	} else {
+		factory.SystemData = nil
+	}
+
 	// Tags
 	factory.Tags = genruntime.CloneMapOfStringToString(source.Tags)
 
@@ -1327,17 +1285,6 @@ func (factory *Factory_STATUS) AssignProperties_From_Factory_STATUS(source *stor
 func (factory *Factory_STATUS) AssignProperties_To_Factory_STATUS(destination *storage.Factory_STATUS) error {
 	// Create a new property bag
 	propertyBag := genruntime.NewPropertyBag()
-
-	// AdditionalProperties
-	if factory.AdditionalProperties != nil {
-		additionalPropertyMap := make(map[string]v1.JSON, len(factory.AdditionalProperties))
-		for additionalPropertyKey, additionalPropertyValue := range factory.AdditionalProperties {
-			additionalPropertyMap[additionalPropertyKey] = *additionalPropertyValue.DeepCopy()
-		}
-		destination.AdditionalProperties = additionalPropertyMap
-	} else {
-		destination.AdditionalProperties = nil
-	}
 
 	// Conditions
 	destination.Conditions = genruntime.CloneSliceOfCondition(factory.Conditions)
@@ -1430,6 +1377,18 @@ func (factory *Factory_STATUS) AssignProperties_To_Factory_STATUS(destination *s
 		destination.RepoConfiguration = &repoConfiguration
 	} else {
 		destination.RepoConfiguration = nil
+	}
+
+	// SystemData
+	if factory.SystemData != nil {
+		var systemDatum storage.SystemData_STATUS
+		err := factory.SystemData.AssignProperties_To_SystemData_STATUS(&systemDatum)
+		if err != nil {
+			return eris.Wrap(err, "calling AssignProperties_To_SystemData_STATUS() to populate field SystemData")
+		}
+		destination.SystemData = &systemDatum
+	} else {
+		destination.SystemData = nil
 	}
 
 	// Tags
@@ -1779,10 +1738,10 @@ func (configuration *EncryptionConfiguration_STATUS) AssignProperties_To_Encrypt
 type FactoryIdentity struct {
 	// +kubebuilder:validation:Required
 	// Type: The identity type.
-	Type *FactoryIdentity_Type `json:"type,omitempty"`
+	Type *FactoryIdentityType `json:"type,omitempty"`
 
 	// UserAssignedIdentities: List of user assigned identities for the factory.
-	UserAssignedIdentities []UserAssignedIdentityDetails `json:"userAssignedIdentities,omitempty"`
+	UserAssignedIdentities *v1.JSON `json:"userAssignedIdentities,omitempty"`
 }
 
 var _ genruntime.ARMTransformer = &FactoryIdentity{}
@@ -1798,19 +1757,14 @@ func (identity *FactoryIdentity) ConvertToARM(resolved genruntime.ConvertToARMRe
 	if identity.Type != nil {
 		var temp string
 		temp = string(*identity.Type)
-		typeVar := arm.FactoryIdentity_Type(temp)
+		typeVar := arm.FactoryIdentityType(temp)
 		result.Type = &typeVar
 	}
 
 	// Set property "UserAssignedIdentities":
-	result.UserAssignedIdentities = make(map[string]arm.UserAssignedIdentityDetails, len(identity.UserAssignedIdentities))
-	for _, ident := range identity.UserAssignedIdentities {
-		identARMID, err := resolved.ResolvedReferences.Lookup(ident.Reference)
-		if err != nil {
-			return nil, err
-		}
-		key := identARMID
-		result.UserAssignedIdentities[key] = arm.UserAssignedIdentityDetails{}
+	if identity.UserAssignedIdentities != nil {
+		userAssignedIdentities := *identity.UserAssignedIdentities.DeepCopy()
+		result.UserAssignedIdentities = &userAssignedIdentities
 	}
 	return result, nil
 }
@@ -1831,11 +1785,15 @@ func (identity *FactoryIdentity) PopulateFromARM(owner genruntime.ArbitraryOwner
 	if typedInput.Type != nil {
 		var temp string
 		temp = string(*typedInput.Type)
-		typeVar := FactoryIdentity_Type(temp)
+		typeVar := FactoryIdentityType(temp)
 		identity.Type = &typeVar
 	}
 
-	// no assignment for property "UserAssignedIdentities"
+	// Set property "UserAssignedIdentities":
+	if typedInput.UserAssignedIdentities != nil {
+		userAssignedIdentities := *typedInput.UserAssignedIdentities.DeepCopy()
+		identity.UserAssignedIdentities = &userAssignedIdentities
+	}
 
 	// No error
 	return nil
@@ -1847,7 +1805,7 @@ func (identity *FactoryIdentity) AssignProperties_From_FactoryIdentity(source *s
 	// Type
 	if source.Type != nil {
 		typeVar := *source.Type
-		typeTemp := genruntime.ToEnum(typeVar, factoryIdentity_Type_Values)
+		typeTemp := genruntime.ToEnum(typeVar, factoryIdentityType_Values)
 		identity.Type = &typeTemp
 	} else {
 		identity.Type = nil
@@ -1855,16 +1813,8 @@ func (identity *FactoryIdentity) AssignProperties_From_FactoryIdentity(source *s
 
 	// UserAssignedIdentities
 	if source.UserAssignedIdentities != nil {
-		userAssignedIdentityList := make([]UserAssignedIdentityDetails, len(source.UserAssignedIdentities))
-		for userAssignedIdentityIndex, userAssignedIdentityItem := range source.UserAssignedIdentities {
-			var userAssignedIdentity UserAssignedIdentityDetails
-			err := userAssignedIdentity.AssignProperties_From_UserAssignedIdentityDetails(&userAssignedIdentityItem)
-			if err != nil {
-				return eris.Wrap(err, "calling AssignProperties_From_UserAssignedIdentityDetails() to populate field UserAssignedIdentities")
-			}
-			userAssignedIdentityList[userAssignedIdentityIndex] = userAssignedIdentity
-		}
-		identity.UserAssignedIdentities = userAssignedIdentityList
+		userAssignedIdentity := *source.UserAssignedIdentities.DeepCopy()
+		identity.UserAssignedIdentities = &userAssignedIdentity
 	} else {
 		identity.UserAssignedIdentities = nil
 	}
@@ -1888,16 +1838,8 @@ func (identity *FactoryIdentity) AssignProperties_To_FactoryIdentity(destination
 
 	// UserAssignedIdentities
 	if identity.UserAssignedIdentities != nil {
-		userAssignedIdentityList := make([]storage.UserAssignedIdentityDetails, len(identity.UserAssignedIdentities))
-		for userAssignedIdentityIndex, userAssignedIdentityItem := range identity.UserAssignedIdentities {
-			var userAssignedIdentity storage.UserAssignedIdentityDetails
-			err := userAssignedIdentityItem.AssignProperties_To_UserAssignedIdentityDetails(&userAssignedIdentity)
-			if err != nil {
-				return eris.Wrap(err, "calling AssignProperties_To_UserAssignedIdentityDetails() to populate field UserAssignedIdentities")
-			}
-			userAssignedIdentityList[userAssignedIdentityIndex] = userAssignedIdentity
-		}
-		destination.UserAssignedIdentities = userAssignedIdentityList
+		userAssignedIdentity := *identity.UserAssignedIdentities.DeepCopy()
+		destination.UserAssignedIdentities = &userAssignedIdentity
 	} else {
 		destination.UserAssignedIdentities = nil
 	}
@@ -1918,7 +1860,7 @@ func (identity *FactoryIdentity) Initialize_From_FactoryIdentity_STATUS(source *
 
 	// Type
 	if source.Type != nil {
-		typeVar := genruntime.ToEnum(string(*source.Type), factoryIdentity_Type_Values)
+		typeVar := genruntime.ToEnum(string(*source.Type), factoryIdentityType_Values)
 		identity.Type = &typeVar
 	} else {
 		identity.Type = nil
@@ -1926,12 +1868,8 @@ func (identity *FactoryIdentity) Initialize_From_FactoryIdentity_STATUS(source *
 
 	// UserAssignedIdentities
 	if source.UserAssignedIdentities != nil {
-		userAssignedIdentityList := make([]UserAssignedIdentityDetails, 0, len(source.UserAssignedIdentities))
-		for userAssignedIdentitiesKey := range source.UserAssignedIdentities {
-			userAssignedIdentitiesRef := genruntime.CreateResourceReferenceFromARMID(userAssignedIdentitiesKey)
-			userAssignedIdentityList = append(userAssignedIdentityList, UserAssignedIdentityDetails{Reference: userAssignedIdentitiesRef})
-		}
-		identity.UserAssignedIdentities = userAssignedIdentityList
+		userAssignedIdentity := *source.UserAssignedIdentities.DeepCopy()
+		identity.UserAssignedIdentities = &userAssignedIdentity
 	} else {
 		identity.UserAssignedIdentities = nil
 	}
@@ -1949,10 +1887,10 @@ type FactoryIdentity_STATUS struct {
 	TenantId *string `json:"tenantId,omitempty"`
 
 	// Type: The identity type.
-	Type *FactoryIdentity_Type_STATUS `json:"type,omitempty"`
+	Type *FactoryIdentityType_STATUS `json:"type,omitempty"`
 
 	// UserAssignedIdentities: List of user assigned identities for the factory.
-	UserAssignedIdentities map[string]v1.JSON `json:"userAssignedIdentities,omitempty"`
+	UserAssignedIdentities *v1.JSON `json:"userAssignedIdentities,omitempty"`
 }
 
 var _ genruntime.FromARMConverter = &FactoryIdentity_STATUS{}
@@ -1985,16 +1923,14 @@ func (identity *FactoryIdentity_STATUS) PopulateFromARM(owner genruntime.Arbitra
 	if typedInput.Type != nil {
 		var temp string
 		temp = string(*typedInput.Type)
-		typeVar := FactoryIdentity_Type_STATUS(temp)
+		typeVar := FactoryIdentityType_STATUS(temp)
 		identity.Type = &typeVar
 	}
 
 	// Set property "UserAssignedIdentities":
 	if typedInput.UserAssignedIdentities != nil {
-		identity.UserAssignedIdentities = make(map[string]v1.JSON, len(typedInput.UserAssignedIdentities))
-		for key, value := range typedInput.UserAssignedIdentities {
-			identity.UserAssignedIdentities[key] = *value.DeepCopy()
-		}
+		userAssignedIdentities := *typedInput.UserAssignedIdentities.DeepCopy()
+		identity.UserAssignedIdentities = &userAssignedIdentities
 	}
 
 	// No error
@@ -2013,7 +1949,7 @@ func (identity *FactoryIdentity_STATUS) AssignProperties_From_FactoryIdentity_ST
 	// Type
 	if source.Type != nil {
 		typeVar := *source.Type
-		typeTemp := genruntime.ToEnum(typeVar, factoryIdentity_Type_STATUS_Values)
+		typeTemp := genruntime.ToEnum(typeVar, factoryIdentityType_STATUS_Values)
 		identity.Type = &typeTemp
 	} else {
 		identity.Type = nil
@@ -2021,11 +1957,8 @@ func (identity *FactoryIdentity_STATUS) AssignProperties_From_FactoryIdentity_ST
 
 	// UserAssignedIdentities
 	if source.UserAssignedIdentities != nil {
-		userAssignedIdentityMap := make(map[string]v1.JSON, len(source.UserAssignedIdentities))
-		for userAssignedIdentityKey, userAssignedIdentityValue := range source.UserAssignedIdentities {
-			userAssignedIdentityMap[userAssignedIdentityKey] = *userAssignedIdentityValue.DeepCopy()
-		}
-		identity.UserAssignedIdentities = userAssignedIdentityMap
+		userAssignedIdentity := *source.UserAssignedIdentities.DeepCopy()
+		identity.UserAssignedIdentities = &userAssignedIdentity
 	} else {
 		identity.UserAssignedIdentities = nil
 	}
@@ -2055,11 +1988,8 @@ func (identity *FactoryIdentity_STATUS) AssignProperties_To_FactoryIdentity_STAT
 
 	// UserAssignedIdentities
 	if identity.UserAssignedIdentities != nil {
-		userAssignedIdentityMap := make(map[string]v1.JSON, len(identity.UserAssignedIdentities))
-		for userAssignedIdentityKey, userAssignedIdentityValue := range identity.UserAssignedIdentities {
-			userAssignedIdentityMap[userAssignedIdentityKey] = *userAssignedIdentityValue.DeepCopy()
-		}
-		destination.UserAssignedIdentities = userAssignedIdentityMap
+		userAssignedIdentity := *identity.UserAssignedIdentities.DeepCopy()
+		destination.UserAssignedIdentities = &userAssignedIdentity
 	} else {
 		destination.UserAssignedIdentities = nil
 	}
@@ -2169,33 +2099,6 @@ func (operator *FactoryOperatorSpec) AssignProperties_To_FactoryOperatorSpec(des
 
 	// No error
 	return nil
-}
-
-// +kubebuilder:validation:Enum={"Disabled","Enabled"}
-type FactoryProperties_PublicNetworkAccess string
-
-const (
-	FactoryProperties_PublicNetworkAccess_Disabled = FactoryProperties_PublicNetworkAccess("Disabled")
-	FactoryProperties_PublicNetworkAccess_Enabled  = FactoryProperties_PublicNetworkAccess("Enabled")
-)
-
-// Mapping from string to FactoryProperties_PublicNetworkAccess
-var factoryProperties_PublicNetworkAccess_Values = map[string]FactoryProperties_PublicNetworkAccess{
-	"disabled": FactoryProperties_PublicNetworkAccess_Disabled,
-	"enabled":  FactoryProperties_PublicNetworkAccess_Enabled,
-}
-
-type FactoryProperties_PublicNetworkAccess_STATUS string
-
-const (
-	FactoryProperties_PublicNetworkAccess_STATUS_Disabled = FactoryProperties_PublicNetworkAccess_STATUS("Disabled")
-	FactoryProperties_PublicNetworkAccess_STATUS_Enabled  = FactoryProperties_PublicNetworkAccess_STATUS("Enabled")
-)
-
-// Mapping from string to FactoryProperties_PublicNetworkAccess_STATUS
-var factoryProperties_PublicNetworkAccess_STATUS_Values = map[string]FactoryProperties_PublicNetworkAccess_STATUS{
-	"disabled": FactoryProperties_PublicNetworkAccess_STATUS_Disabled,
-	"enabled":  FactoryProperties_PublicNetworkAccess_STATUS_Enabled,
 }
 
 type FactoryRepoConfiguration struct {
@@ -2500,11 +2403,11 @@ func (configuration *FactoryRepoConfiguration_STATUS) AssignProperties_To_Factor
 type GlobalParameterSpecification struct {
 	// +kubebuilder:validation:Required
 	// Type: Global Parameter type.
-	Type *GlobalParameterSpecification_Type `json:"type,omitempty"`
+	Type *GlobalParameterType `json:"type,omitempty"`
 
 	// +kubebuilder:validation:Required
 	// Value: Value of parameter.
-	Value map[string]v1.JSON `json:"value,omitempty"`
+	Value *v1.JSON `json:"value,omitempty"`
 }
 
 var _ genruntime.ARMTransformer = &GlobalParameterSpecification{}
@@ -2520,16 +2423,14 @@ func (specification *GlobalParameterSpecification) ConvertToARM(resolved genrunt
 	if specification.Type != nil {
 		var temp string
 		temp = string(*specification.Type)
-		typeVar := arm.GlobalParameterSpecification_Type(temp)
+		typeVar := arm.GlobalParameterType(temp)
 		result.Type = &typeVar
 	}
 
 	// Set property "Value":
 	if specification.Value != nil {
-		result.Value = make(map[string]v1.JSON, len(specification.Value))
-		for key, value := range specification.Value {
-			result.Value[key] = *value.DeepCopy()
-		}
+		value := *specification.Value.DeepCopy()
+		result.Value = &value
 	}
 	return result, nil
 }
@@ -2550,16 +2451,14 @@ func (specification *GlobalParameterSpecification) PopulateFromARM(owner genrunt
 	if typedInput.Type != nil {
 		var temp string
 		temp = string(*typedInput.Type)
-		typeVar := GlobalParameterSpecification_Type(temp)
+		typeVar := GlobalParameterType(temp)
 		specification.Type = &typeVar
 	}
 
 	// Set property "Value":
 	if typedInput.Value != nil {
-		specification.Value = make(map[string]v1.JSON, len(typedInput.Value))
-		for key, value := range typedInput.Value {
-			specification.Value[key] = *value.DeepCopy()
-		}
+		value := *typedInput.Value.DeepCopy()
+		specification.Value = &value
 	}
 
 	// No error
@@ -2572,7 +2471,7 @@ func (specification *GlobalParameterSpecification) AssignProperties_From_GlobalP
 	// Type
 	if source.Type != nil {
 		typeVar := *source.Type
-		typeTemp := genruntime.ToEnum(typeVar, globalParameterSpecification_Type_Values)
+		typeTemp := genruntime.ToEnum(typeVar, globalParameterType_Values)
 		specification.Type = &typeTemp
 	} else {
 		specification.Type = nil
@@ -2580,11 +2479,8 @@ func (specification *GlobalParameterSpecification) AssignProperties_From_GlobalP
 
 	// Value
 	if source.Value != nil {
-		valueMap := make(map[string]v1.JSON, len(source.Value))
-		for valueKey, value := range source.Value {
-			valueMap[valueKey] = *value.DeepCopy()
-		}
-		specification.Value = valueMap
+		value := *source.Value.DeepCopy()
+		specification.Value = &value
 	} else {
 		specification.Value = nil
 	}
@@ -2608,11 +2504,8 @@ func (specification *GlobalParameterSpecification) AssignProperties_To_GlobalPar
 
 	// Value
 	if specification.Value != nil {
-		valueMap := make(map[string]v1.JSON, len(specification.Value))
-		for valueKey, value := range specification.Value {
-			valueMap[valueKey] = *value.DeepCopy()
-		}
-		destination.Value = valueMap
+		value := *specification.Value.DeepCopy()
+		destination.Value = &value
 	} else {
 		destination.Value = nil
 	}
@@ -2633,7 +2526,7 @@ func (specification *GlobalParameterSpecification) Initialize_From_GlobalParamet
 
 	// Type
 	if source.Type != nil {
-		typeVar := genruntime.ToEnum(string(*source.Type), globalParameterSpecification_Type_Values)
+		typeVar := genruntime.ToEnum(string(*source.Type), globalParameterType_Values)
 		specification.Type = &typeVar
 	} else {
 		specification.Type = nil
@@ -2641,11 +2534,8 @@ func (specification *GlobalParameterSpecification) Initialize_From_GlobalParamet
 
 	// Value
 	if source.Value != nil {
-		valueMap := make(map[string]v1.JSON, len(source.Value))
-		for valueKey, value := range source.Value {
-			valueMap[valueKey] = *value.DeepCopy()
-		}
-		specification.Value = valueMap
+		value := *source.Value.DeepCopy()
+		specification.Value = &value
 	} else {
 		specification.Value = nil
 	}
@@ -2657,10 +2547,10 @@ func (specification *GlobalParameterSpecification) Initialize_From_GlobalParamet
 // Definition of a single parameter for an entity.
 type GlobalParameterSpecification_STATUS struct {
 	// Type: Global Parameter type.
-	Type *GlobalParameterSpecification_Type_STATUS `json:"type,omitempty"`
+	Type *GlobalParameterType_STATUS `json:"type,omitempty"`
 
 	// Value: Value of parameter.
-	Value map[string]v1.JSON `json:"value,omitempty"`
+	Value *v1.JSON `json:"value,omitempty"`
 }
 
 var _ genruntime.FromARMConverter = &GlobalParameterSpecification_STATUS{}
@@ -2681,16 +2571,14 @@ func (specification *GlobalParameterSpecification_STATUS) PopulateFromARM(owner 
 	if typedInput.Type != nil {
 		var temp string
 		temp = string(*typedInput.Type)
-		typeVar := GlobalParameterSpecification_Type_STATUS(temp)
+		typeVar := GlobalParameterType_STATUS(temp)
 		specification.Type = &typeVar
 	}
 
 	// Set property "Value":
 	if typedInput.Value != nil {
-		specification.Value = make(map[string]v1.JSON, len(typedInput.Value))
-		for key, value := range typedInput.Value {
-			specification.Value[key] = *value.DeepCopy()
-		}
+		value := *typedInput.Value.DeepCopy()
+		specification.Value = &value
 	}
 
 	// No error
@@ -2703,7 +2591,7 @@ func (specification *GlobalParameterSpecification_STATUS) AssignProperties_From_
 	// Type
 	if source.Type != nil {
 		typeVar := *source.Type
-		typeTemp := genruntime.ToEnum(typeVar, globalParameterSpecification_Type_STATUS_Values)
+		typeTemp := genruntime.ToEnum(typeVar, globalParameterType_STATUS_Values)
 		specification.Type = &typeTemp
 	} else {
 		specification.Type = nil
@@ -2711,11 +2599,8 @@ func (specification *GlobalParameterSpecification_STATUS) AssignProperties_From_
 
 	// Value
 	if source.Value != nil {
-		valueMap := make(map[string]v1.JSON, len(source.Value))
-		for valueKey, value := range source.Value {
-			valueMap[valueKey] = *value.DeepCopy()
-		}
-		specification.Value = valueMap
+		value := *source.Value.DeepCopy()
+		specification.Value = &value
 	} else {
 		specification.Value = nil
 	}
@@ -2739,11 +2624,8 @@ func (specification *GlobalParameterSpecification_STATUS) AssignProperties_To_Gl
 
 	// Value
 	if specification.Value != nil {
-		valueMap := make(map[string]v1.JSON, len(specification.Value))
-		for valueKey, value := range specification.Value {
-			valueMap[valueKey] = *value.DeepCopy()
-		}
-		destination.Value = valueMap
+		value := *specification.Value.DeepCopy()
+		destination.Value = &value
 	} else {
 		destination.Value = nil
 	}
@@ -2757,6 +2639,35 @@ func (specification *GlobalParameterSpecification_STATUS) AssignProperties_To_Gl
 
 	// No error
 	return nil
+}
+
+// Whether or not public network access is allowed for the data factory.
+// +kubebuilder:validation:Enum={"Disabled","Enabled"}
+type PublicNetworkAccess string
+
+const (
+	PublicNetworkAccess_Disabled = PublicNetworkAccess("Disabled")
+	PublicNetworkAccess_Enabled  = PublicNetworkAccess("Enabled")
+)
+
+// Mapping from string to PublicNetworkAccess
+var publicNetworkAccess_Values = map[string]PublicNetworkAccess{
+	"disabled": PublicNetworkAccess_Disabled,
+	"enabled":  PublicNetworkAccess_Enabled,
+}
+
+// Whether or not public network access is allowed for the data factory.
+type PublicNetworkAccess_STATUS string
+
+const (
+	PublicNetworkAccess_STATUS_Disabled = PublicNetworkAccess_STATUS("Disabled")
+	PublicNetworkAccess_STATUS_Enabled  = PublicNetworkAccess_STATUS("Enabled")
+)
+
+// Mapping from string to PublicNetworkAccess_STATUS
+var publicNetworkAccess_STATUS_Values = map[string]PublicNetworkAccess_STATUS{
+	"disabled": PublicNetworkAccess_STATUS_Disabled,
+	"enabled":  PublicNetworkAccess_STATUS_Enabled,
 }
 
 // Purview configuration.
@@ -2905,6 +2816,166 @@ func (configuration *PurviewConfiguration_STATUS) AssignProperties_To_PurviewCon
 
 	// PurviewResourceId
 	destination.PurviewResourceId = genruntime.ClonePointerToString(configuration.PurviewResourceId)
+
+	// Update the property bag
+	if len(propertyBag) > 0 {
+		destination.PropertyBag = propertyBag
+	} else {
+		destination.PropertyBag = nil
+	}
+
+	// No error
+	return nil
+}
+
+// Metadata pertaining to creation and last modification of the resource.
+type SystemData_STATUS struct {
+	// CreatedAt: The timestamp of resource creation (UTC).
+	CreatedAt *string `json:"createdAt,omitempty"`
+
+	// CreatedBy: The identity that created the resource.
+	CreatedBy *string `json:"createdBy,omitempty"`
+
+	// CreatedByType: The type of identity that created the resource.
+	CreatedByType *SystemData_CreatedByType_STATUS `json:"createdByType,omitempty"`
+
+	// LastModifiedAt: The timestamp of resource last modification (UTC)
+	LastModifiedAt *string `json:"lastModifiedAt,omitempty"`
+
+	// LastModifiedBy: The identity that last modified the resource.
+	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
+
+	// LastModifiedByType: The type of identity that last modified the resource.
+	LastModifiedByType *SystemData_LastModifiedByType_STATUS `json:"lastModifiedByType,omitempty"`
+}
+
+var _ genruntime.FromARMConverter = &SystemData_STATUS{}
+
+// NewEmptyARMValue returns an empty ARM value suitable for deserializing into
+func (data *SystemData_STATUS) NewEmptyARMValue() genruntime.ARMResourceStatus {
+	return &arm.SystemData_STATUS{}
+}
+
+// PopulateFromARM populates a Kubernetes CRD object from an Azure ARM object
+func (data *SystemData_STATUS) PopulateFromARM(owner genruntime.ArbitraryOwnerReference, armInput interface{}) error {
+	typedInput, ok := armInput.(arm.SystemData_STATUS)
+	if !ok {
+		return fmt.Errorf("unexpected type supplied for PopulateFromARM() function. Expected arm.SystemData_STATUS, got %T", armInput)
+	}
+
+	// Set property "CreatedAt":
+	if typedInput.CreatedAt != nil {
+		createdAt := *typedInput.CreatedAt
+		data.CreatedAt = &createdAt
+	}
+
+	// Set property "CreatedBy":
+	if typedInput.CreatedBy != nil {
+		createdBy := *typedInput.CreatedBy
+		data.CreatedBy = &createdBy
+	}
+
+	// Set property "CreatedByType":
+	if typedInput.CreatedByType != nil {
+		var temp string
+		temp = string(*typedInput.CreatedByType)
+		createdByType := SystemData_CreatedByType_STATUS(temp)
+		data.CreatedByType = &createdByType
+	}
+
+	// Set property "LastModifiedAt":
+	if typedInput.LastModifiedAt != nil {
+		lastModifiedAt := *typedInput.LastModifiedAt
+		data.LastModifiedAt = &lastModifiedAt
+	}
+
+	// Set property "LastModifiedBy":
+	if typedInput.LastModifiedBy != nil {
+		lastModifiedBy := *typedInput.LastModifiedBy
+		data.LastModifiedBy = &lastModifiedBy
+	}
+
+	// Set property "LastModifiedByType":
+	if typedInput.LastModifiedByType != nil {
+		var temp string
+		temp = string(*typedInput.LastModifiedByType)
+		lastModifiedByType := SystemData_LastModifiedByType_STATUS(temp)
+		data.LastModifiedByType = &lastModifiedByType
+	}
+
+	// No error
+	return nil
+}
+
+// AssignProperties_From_SystemData_STATUS populates our SystemData_STATUS from the provided source SystemData_STATUS
+func (data *SystemData_STATUS) AssignProperties_From_SystemData_STATUS(source *storage.SystemData_STATUS) error {
+
+	// CreatedAt
+	data.CreatedAt = genruntime.ClonePointerToString(source.CreatedAt)
+
+	// CreatedBy
+	data.CreatedBy = genruntime.ClonePointerToString(source.CreatedBy)
+
+	// CreatedByType
+	if source.CreatedByType != nil {
+		createdByType := *source.CreatedByType
+		createdByTypeTemp := genruntime.ToEnum(createdByType, systemData_CreatedByType_STATUS_Values)
+		data.CreatedByType = &createdByTypeTemp
+	} else {
+		data.CreatedByType = nil
+	}
+
+	// LastModifiedAt
+	data.LastModifiedAt = genruntime.ClonePointerToString(source.LastModifiedAt)
+
+	// LastModifiedBy
+	data.LastModifiedBy = genruntime.ClonePointerToString(source.LastModifiedBy)
+
+	// LastModifiedByType
+	if source.LastModifiedByType != nil {
+		lastModifiedByType := *source.LastModifiedByType
+		lastModifiedByTypeTemp := genruntime.ToEnum(lastModifiedByType, systemData_LastModifiedByType_STATUS_Values)
+		data.LastModifiedByType = &lastModifiedByTypeTemp
+	} else {
+		data.LastModifiedByType = nil
+	}
+
+	// No error
+	return nil
+}
+
+// AssignProperties_To_SystemData_STATUS populates the provided destination SystemData_STATUS from our SystemData_STATUS
+func (data *SystemData_STATUS) AssignProperties_To_SystemData_STATUS(destination *storage.SystemData_STATUS) error {
+	// Create a new property bag
+	propertyBag := genruntime.NewPropertyBag()
+
+	// CreatedAt
+	destination.CreatedAt = genruntime.ClonePointerToString(data.CreatedAt)
+
+	// CreatedBy
+	destination.CreatedBy = genruntime.ClonePointerToString(data.CreatedBy)
+
+	// CreatedByType
+	if data.CreatedByType != nil {
+		createdByType := string(*data.CreatedByType)
+		destination.CreatedByType = &createdByType
+	} else {
+		destination.CreatedByType = nil
+	}
+
+	// LastModifiedAt
+	destination.LastModifiedAt = genruntime.ClonePointerToString(data.LastModifiedAt)
+
+	// LastModifiedBy
+	destination.LastModifiedBy = genruntime.ClonePointerToString(data.LastModifiedBy)
+
+	// LastModifiedByType
+	if data.LastModifiedByType != nil {
+		lastModifiedByType := string(*data.LastModifiedByType)
+		destination.LastModifiedByType = &lastModifiedByType
+	} else {
+		destination.LastModifiedByType = nil
+	}
 
 	// Update the property bag
 	if len(propertyBag) > 0 {
@@ -3680,35 +3751,37 @@ func (configuration *FactoryGitHubConfiguration_STATUS) AssignProperties_To_Fact
 	return nil
 }
 
+// The identity type.
 // +kubebuilder:validation:Enum={"SystemAssigned","SystemAssigned,UserAssigned","UserAssigned"}
-type FactoryIdentity_Type string
+type FactoryIdentityType string
 
 const (
-	FactoryIdentity_Type_SystemAssigned             = FactoryIdentity_Type("SystemAssigned")
-	FactoryIdentity_Type_SystemAssignedUserAssigned = FactoryIdentity_Type("SystemAssigned,UserAssigned")
-	FactoryIdentity_Type_UserAssigned               = FactoryIdentity_Type("UserAssigned")
+	FactoryIdentityType_SystemAssigned             = FactoryIdentityType("SystemAssigned")
+	FactoryIdentityType_SystemAssignedUserAssigned = FactoryIdentityType("SystemAssigned,UserAssigned")
+	FactoryIdentityType_UserAssigned               = FactoryIdentityType("UserAssigned")
 )
 
-// Mapping from string to FactoryIdentity_Type
-var factoryIdentity_Type_Values = map[string]FactoryIdentity_Type{
-	"systemassigned":              FactoryIdentity_Type_SystemAssigned,
-	"systemassigned,userassigned": FactoryIdentity_Type_SystemAssignedUserAssigned,
-	"userassigned":                FactoryIdentity_Type_UserAssigned,
+// Mapping from string to FactoryIdentityType
+var factoryIdentityType_Values = map[string]FactoryIdentityType{
+	"systemassigned":              FactoryIdentityType_SystemAssigned,
+	"systemassigned,userassigned": FactoryIdentityType_SystemAssignedUserAssigned,
+	"userassigned":                FactoryIdentityType_UserAssigned,
 }
 
-type FactoryIdentity_Type_STATUS string
+// The identity type.
+type FactoryIdentityType_STATUS string
 
 const (
-	FactoryIdentity_Type_STATUS_SystemAssigned             = FactoryIdentity_Type_STATUS("SystemAssigned")
-	FactoryIdentity_Type_STATUS_SystemAssignedUserAssigned = FactoryIdentity_Type_STATUS("SystemAssigned,UserAssigned")
-	FactoryIdentity_Type_STATUS_UserAssigned               = FactoryIdentity_Type_STATUS("UserAssigned")
+	FactoryIdentityType_STATUS_SystemAssigned             = FactoryIdentityType_STATUS("SystemAssigned")
+	FactoryIdentityType_STATUS_SystemAssignedUserAssigned = FactoryIdentityType_STATUS("SystemAssigned,UserAssigned")
+	FactoryIdentityType_STATUS_UserAssigned               = FactoryIdentityType_STATUS("UserAssigned")
 )
 
-// Mapping from string to FactoryIdentity_Type_STATUS
-var factoryIdentity_Type_STATUS_Values = map[string]FactoryIdentity_Type_STATUS{
-	"systemassigned":              FactoryIdentity_Type_STATUS_SystemAssigned,
-	"systemassigned,userassigned": FactoryIdentity_Type_STATUS_SystemAssignedUserAssigned,
-	"userassigned":                FactoryIdentity_Type_STATUS_UserAssigned,
+// Mapping from string to FactoryIdentityType_STATUS
+var factoryIdentityType_STATUS_Values = map[string]FactoryIdentityType_STATUS{
+	"systemassigned":              FactoryIdentityType_STATUS_SystemAssigned,
+	"systemassigned,userassigned": FactoryIdentityType_STATUS_SystemAssignedUserAssigned,
+	"userassigned":                FactoryIdentityType_STATUS_UserAssigned,
 }
 
 type FactoryVSTSConfiguration struct {
@@ -4227,81 +4300,83 @@ func (configuration *FactoryVSTSConfiguration_STATUS) AssignProperties_To_Factor
 	return nil
 }
 
+// Global Parameter type.
 // +kubebuilder:validation:Enum={"Array","Bool","Float","Int","Object","String"}
-type GlobalParameterSpecification_Type string
+type GlobalParameterType string
 
 const (
-	GlobalParameterSpecification_Type_Array  = GlobalParameterSpecification_Type("Array")
-	GlobalParameterSpecification_Type_Bool   = GlobalParameterSpecification_Type("Bool")
-	GlobalParameterSpecification_Type_Float  = GlobalParameterSpecification_Type("Float")
-	GlobalParameterSpecification_Type_Int    = GlobalParameterSpecification_Type("Int")
-	GlobalParameterSpecification_Type_Object = GlobalParameterSpecification_Type("Object")
-	GlobalParameterSpecification_Type_String = GlobalParameterSpecification_Type("String")
+	GlobalParameterType_Array  = GlobalParameterType("Array")
+	GlobalParameterType_Bool   = GlobalParameterType("Bool")
+	GlobalParameterType_Float  = GlobalParameterType("Float")
+	GlobalParameterType_Int    = GlobalParameterType("Int")
+	GlobalParameterType_Object = GlobalParameterType("Object")
+	GlobalParameterType_String = GlobalParameterType("String")
 )
 
-// Mapping from string to GlobalParameterSpecification_Type
-var globalParameterSpecification_Type_Values = map[string]GlobalParameterSpecification_Type{
-	"array":  GlobalParameterSpecification_Type_Array,
-	"bool":   GlobalParameterSpecification_Type_Bool,
-	"float":  GlobalParameterSpecification_Type_Float,
-	"int":    GlobalParameterSpecification_Type_Int,
-	"object": GlobalParameterSpecification_Type_Object,
-	"string": GlobalParameterSpecification_Type_String,
+// Mapping from string to GlobalParameterType
+var globalParameterType_Values = map[string]GlobalParameterType{
+	"array":  GlobalParameterType_Array,
+	"bool":   GlobalParameterType_Bool,
+	"float":  GlobalParameterType_Float,
+	"int":    GlobalParameterType_Int,
+	"object": GlobalParameterType_Object,
+	"string": GlobalParameterType_String,
 }
 
-type GlobalParameterSpecification_Type_STATUS string
+// Global Parameter type.
+type GlobalParameterType_STATUS string
 
 const (
-	GlobalParameterSpecification_Type_STATUS_Array  = GlobalParameterSpecification_Type_STATUS("Array")
-	GlobalParameterSpecification_Type_STATUS_Bool   = GlobalParameterSpecification_Type_STATUS("Bool")
-	GlobalParameterSpecification_Type_STATUS_Float  = GlobalParameterSpecification_Type_STATUS("Float")
-	GlobalParameterSpecification_Type_STATUS_Int    = GlobalParameterSpecification_Type_STATUS("Int")
-	GlobalParameterSpecification_Type_STATUS_Object = GlobalParameterSpecification_Type_STATUS("Object")
-	GlobalParameterSpecification_Type_STATUS_String = GlobalParameterSpecification_Type_STATUS("String")
+	GlobalParameterType_STATUS_Array  = GlobalParameterType_STATUS("Array")
+	GlobalParameterType_STATUS_Bool   = GlobalParameterType_STATUS("Bool")
+	GlobalParameterType_STATUS_Float  = GlobalParameterType_STATUS("Float")
+	GlobalParameterType_STATUS_Int    = GlobalParameterType_STATUS("Int")
+	GlobalParameterType_STATUS_Object = GlobalParameterType_STATUS("Object")
+	GlobalParameterType_STATUS_String = GlobalParameterType_STATUS("String")
 )
 
-// Mapping from string to GlobalParameterSpecification_Type_STATUS
-var globalParameterSpecification_Type_STATUS_Values = map[string]GlobalParameterSpecification_Type_STATUS{
-	"array":  GlobalParameterSpecification_Type_STATUS_Array,
-	"bool":   GlobalParameterSpecification_Type_STATUS_Bool,
-	"float":  GlobalParameterSpecification_Type_STATUS_Float,
-	"int":    GlobalParameterSpecification_Type_STATUS_Int,
-	"object": GlobalParameterSpecification_Type_STATUS_Object,
-	"string": GlobalParameterSpecification_Type_STATUS_String,
+// Mapping from string to GlobalParameterType_STATUS
+var globalParameterType_STATUS_Values = map[string]GlobalParameterType_STATUS{
+	"array":  GlobalParameterType_STATUS_Array,
+	"bool":   GlobalParameterType_STATUS_Bool,
+	"float":  GlobalParameterType_STATUS_Float,
+	"int":    GlobalParameterType_STATUS_Int,
+	"object": GlobalParameterType_STATUS_Object,
+	"string": GlobalParameterType_STATUS_String,
 }
 
-// Information about the user assigned identity for the resource
-type UserAssignedIdentityDetails struct {
-	Reference genruntime.ResourceReference `armReference:"Reference" json:"reference,omitempty"`
+type SystemData_CreatedByType_STATUS string
+
+const (
+	SystemData_CreatedByType_STATUS_Application     = SystemData_CreatedByType_STATUS("Application")
+	SystemData_CreatedByType_STATUS_Key             = SystemData_CreatedByType_STATUS("Key")
+	SystemData_CreatedByType_STATUS_ManagedIdentity = SystemData_CreatedByType_STATUS("ManagedIdentity")
+	SystemData_CreatedByType_STATUS_User            = SystemData_CreatedByType_STATUS("User")
+)
+
+// Mapping from string to SystemData_CreatedByType_STATUS
+var systemData_CreatedByType_STATUS_Values = map[string]SystemData_CreatedByType_STATUS{
+	"application":     SystemData_CreatedByType_STATUS_Application,
+	"key":             SystemData_CreatedByType_STATUS_Key,
+	"managedidentity": SystemData_CreatedByType_STATUS_ManagedIdentity,
+	"user":            SystemData_CreatedByType_STATUS_User,
 }
 
-// AssignProperties_From_UserAssignedIdentityDetails populates our UserAssignedIdentityDetails from the provided source UserAssignedIdentityDetails
-func (details *UserAssignedIdentityDetails) AssignProperties_From_UserAssignedIdentityDetails(source *storage.UserAssignedIdentityDetails) error {
+type SystemData_LastModifiedByType_STATUS string
 
-	// Reference
-	details.Reference = source.Reference.Copy()
+const (
+	SystemData_LastModifiedByType_STATUS_Application     = SystemData_LastModifiedByType_STATUS("Application")
+	SystemData_LastModifiedByType_STATUS_Key             = SystemData_LastModifiedByType_STATUS("Key")
+	SystemData_LastModifiedByType_STATUS_ManagedIdentity = SystemData_LastModifiedByType_STATUS("ManagedIdentity")
+	SystemData_LastModifiedByType_STATUS_User            = SystemData_LastModifiedByType_STATUS("User")
+)
 
-	// No error
-	return nil
-}
-
-// AssignProperties_To_UserAssignedIdentityDetails populates the provided destination UserAssignedIdentityDetails from our UserAssignedIdentityDetails
-func (details *UserAssignedIdentityDetails) AssignProperties_To_UserAssignedIdentityDetails(destination *storage.UserAssignedIdentityDetails) error {
-	// Create a new property bag
-	propertyBag := genruntime.NewPropertyBag()
-
-	// Reference
-	destination.Reference = details.Reference.Copy()
-
-	// Update the property bag
-	if len(propertyBag) > 0 {
-		destination.PropertyBag = propertyBag
-	} else {
-		destination.PropertyBag = nil
-	}
-
-	// No error
-	return nil
+// Mapping from string to SystemData_LastModifiedByType_STATUS
+var systemData_LastModifiedByType_STATUS_Values = map[string]SystemData_LastModifiedByType_STATUS{
+	"application":     SystemData_LastModifiedByType_STATUS_Application,
+	"key":             SystemData_LastModifiedByType_STATUS_Key,
+	"managedidentity": SystemData_LastModifiedByType_STATUS_ManagedIdentity,
+	"user":            SystemData_LastModifiedByType_STATUS_User,
 }
 
 // +kubebuilder:validation:Enum={"FactoryGitHubConfiguration"}

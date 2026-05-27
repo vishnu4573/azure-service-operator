@@ -49,7 +49,7 @@ type EncryptionSetIdentity_STATUS struct {
 	// UserAssignedIdentities: The list of user identities associated with the disk encryption set. The user identity
 	// dictionary key references will be ARM resource ids in the form:
 	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
-	UserAssignedIdentities map[string]UserAssignedIdentitiesValue_STATUS `json:"userAssignedIdentities,omitempty"`
+	UserAssignedIdentities map[string]CommonUserAssignedIdentitiesValue_STATUS `json:"userAssignedIdentities,omitempty"`
 }
 
 type EncryptionSetProperties_STATUS struct {
@@ -100,6 +100,14 @@ type ApiError_STATUS struct {
 	Target *string `json:"target,omitempty"`
 }
 
+type CommonUserAssignedIdentitiesValue_STATUS struct {
+	// ClientId: The client id of user assigned identity.
+	ClientId *string `json:"clientId,omitempty"`
+
+	// PrincipalId: The principal id of user assigned identity.
+	PrincipalId *string `json:"principalId,omitempty"`
+}
+
 // The type of Managed Identity used by the DiskEncryptionSet. Only SystemAssigned is supported for new creations. Disk
 // Encryption Sets can be updated with Identity type None during migration of subscription to a new Azure Active Directory
 // tenant; it will cause the encrypted resources to lose access to the keys.
@@ -145,14 +153,6 @@ type KeyForDiskEncryptionSet_STATUS struct {
 	// SourceVault: Resource id of the KeyVault containing the key or secret. This property is optional and cannot be used if
 	// the KeyVault subscription is not the same as the Disk Encryption Set subscription.
 	SourceVault *SourceVault_STATUS `json:"sourceVault,omitempty"`
-}
-
-type UserAssignedIdentitiesValue_STATUS struct {
-	// ClientId: The client id of user assigned identity.
-	ClientId *string `json:"clientId,omitempty"`
-
-	// PrincipalId: The principal id of user assigned identity.
-	PrincipalId *string `json:"principalId,omitempty"`
 }
 
 // Api error base.

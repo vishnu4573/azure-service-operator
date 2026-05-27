@@ -1,7 +1,13 @@
+//go:build insights
+// +build insights
+
 /*
 Copyright (c) Microsoft Corporation.
 Licensed under the MIT license.
 */
+
+// Insights tests are opt-in because default quick-check generation currently excludes
+// insights APIs due to an upstream swagger loading issue in 2024-03-01-preview.
 
 package controllers_test
 

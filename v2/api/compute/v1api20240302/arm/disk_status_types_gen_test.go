@@ -201,12 +201,12 @@ func AddIndependentPropertyGeneratorsForDiskProperties_STATUS(gens map[string]go
 		DiskState_STATUS_ReadyToUpload,
 		DiskState_STATUS_Reserved,
 		DiskState_STATUS_Unattached))
-	gens["HyperVGeneration"] = gen.PtrOf(gen.OneConstOf(HyperVGeneration_STATUS_V1, HyperVGeneration_STATUS_V2))
+	gens["HyperVGeneration"] = gen.PtrOf(gen.OneConstOf(CommonHyperVGeneration_STATUS_V1, CommonHyperVGeneration_STATUS_V2))
 	gens["LastOwnershipUpdateTime"] = gen.PtrOf(gen.AlphaString())
 	gens["MaxShares"] = gen.PtrOf(gen.Int())
 	gens["NetworkAccessPolicy"] = gen.PtrOf(gen.OneConstOf(NetworkAccessPolicy_STATUS_AllowAll, NetworkAccessPolicy_STATUS_AllowPrivate, NetworkAccessPolicy_STATUS_DenyAll))
 	gens["OptimizedForFrequentAttach"] = gen.PtrOf(gen.Bool())
-	gens["OsType"] = gen.PtrOf(gen.OneConstOf(OperatingSystemTypes_STATUS_Linux, OperatingSystemTypes_STATUS_Windows))
+	gens["OsType"] = gen.PtrOf(gen.OneConstOf(CommonOperatingSystemTypes_STATUS_Linux, CommonOperatingSystemTypes_STATUS_Windows))
 	gens["ProvisioningState"] = gen.PtrOf(gen.AlphaString())
 	gens["PublicNetworkAccess"] = gen.PtrOf(gen.OneConstOf(PublicNetworkAccess_STATUS_Disabled, PublicNetworkAccess_STATUS_Enabled))
 	gens["SupportsHibernation"] = gen.PtrOf(gen.Bool())
@@ -1106,6 +1106,6 @@ func SupportedCapabilities_STATUSGenerator() gopter.Gen {
 // AddIndependentPropertyGeneratorsForSupportedCapabilities_STATUS is a factory method for creating gopter generators
 func AddIndependentPropertyGeneratorsForSupportedCapabilities_STATUS(gens map[string]gopter.Gen) {
 	gens["AcceleratedNetwork"] = gen.PtrOf(gen.Bool())
-	gens["Architecture"] = gen.PtrOf(gen.OneConstOf(Architecture_STATUS_Arm64, Architecture_STATUS_X64))
+	gens["Architecture"] = gen.PtrOf(gen.OneConstOf(CommonArchitecture_STATUS_Arm64, CommonArchitecture_STATUS_X64))
 	gens["DiskControllerTypes"] = gen.PtrOf(gen.AlphaString())
 }

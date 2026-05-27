@@ -83,7 +83,7 @@ func IdentityGenerator() gopter.Gen {
 
 // AddIndependentPropertyGeneratorsForIdentity is a factory method for creating gopter generators
 func AddIndependentPropertyGeneratorsForIdentity(gens map[string]gopter.Gen) {
-	gens["Type"] = gen.PtrOf(gen.OneConstOf(Identity_Type_None, Identity_Type_SystemAssigned, Identity_Type_UserAssigned))
+	gens["Type"] = gen.PtrOf(gen.OneConstOf(IdentityType_None, IdentityType_SystemAssigned, IdentityType_UserAssigned))
 }
 
 // AddRelatedPropertyGeneratorsForIdentity is a factory method for creating gopter generators
@@ -341,8 +341,8 @@ func WorkspacePropertiesGenerator() gopter.Gen {
 func AddIndependentPropertyGeneratorsForWorkspaceProperties(gens map[string]gopter.Gen) {
 	gens["DefaultDataCollectionRuleResourceId"] = gen.PtrOf(gen.AlphaString())
 	gens["ForceCmkForQuery"] = gen.PtrOf(gen.Bool())
-	gens["PublicNetworkAccessForIngestion"] = gen.PtrOf(gen.OneConstOf(PublicNetworkAccessType_Disabled, PublicNetworkAccessType_Enabled, PublicNetworkAccessType_SecuredByPerimeter))
-	gens["PublicNetworkAccessForQuery"] = gen.PtrOf(gen.OneConstOf(PublicNetworkAccessType_Disabled, PublicNetworkAccessType_Enabled, PublicNetworkAccessType_SecuredByPerimeter))
+	gens["PublicNetworkAccessForIngestion"] = gen.PtrOf(gen.OneConstOf(WorkspaceProperties_PublicNetworkAccessForIngestion_Disabled, WorkspaceProperties_PublicNetworkAccessForIngestion_Enabled, WorkspaceProperties_PublicNetworkAccessForIngestion_SecuredByPerimeter))
+	gens["PublicNetworkAccessForQuery"] = gen.PtrOf(gen.OneConstOf(WorkspaceProperties_PublicNetworkAccessForQuery_Disabled, WorkspaceProperties_PublicNetworkAccessForQuery_Enabled, WorkspaceProperties_PublicNetworkAccessForQuery_SecuredByPerimeter))
 	gens["RetentionInDays"] = gen.PtrOf(gen.Int())
 }
 
@@ -475,14 +475,14 @@ func WorkspaceSkuGenerator() gopter.Gen {
 func AddIndependentPropertyGeneratorsForWorkspaceSku(gens map[string]gopter.Gen) {
 	gens["CapacityReservationLevel"] = gen.PtrOf(gen.Int())
 	gens["Name"] = gen.PtrOf(gen.OneConstOf(
-		WorkspaceSku_Name_CapacityReservation,
-		WorkspaceSku_Name_Free,
-		WorkspaceSku_Name_LACluster,
-		WorkspaceSku_Name_PerGB2018,
-		WorkspaceSku_Name_PerNode,
-		WorkspaceSku_Name_Premium,
-		WorkspaceSku_Name_Standalone,
-		WorkspaceSku_Name_Standard))
+		WorkspaceSkuNameEnum_CapacityReservation,
+		WorkspaceSkuNameEnum_Free,
+		WorkspaceSkuNameEnum_LACluster,
+		WorkspaceSkuNameEnum_PerGB2018,
+		WorkspaceSkuNameEnum_PerNode,
+		WorkspaceSkuNameEnum_Premium,
+		WorkspaceSkuNameEnum_Standalone,
+		WorkspaceSkuNameEnum_Standard))
 }
 
 func Test_Workspace_Spec_WhenSerializedToJson_DeserializesAsEqual(t *testing.T) {

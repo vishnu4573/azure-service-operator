@@ -15,7 +15,6 @@ import (
 
 	kubernetesconfiguration "github.com/Azure/azure-service-operator/v2/api/kubernetesconfiguration/v1api20241101"
 	"github.com/Azure/azure-service-operator/v2/internal/util/to"
-	"github.com/Azure/azure-service-operator/v2/pkg/genruntime"
 )
 
 func Test_KubernetesConfiguration_Extension_20241101_CRUD(t *testing.T) {
@@ -87,6 +86,7 @@ func Test_KubernetesConfiguration_Extension_ProtectedSettings_20241101(t *testin
 		},
 	}
 
+	// This API version models ConfigurationProtectedSettings as map[string]string on Extension_Spec.
 	extension := &kubernetesconfiguration.Extension{
 		ObjectMeta: tc.MakeObjectMeta("extension"),
 		Spec: kubernetesconfiguration.Extension_Spec{
@@ -101,8 +101,9 @@ func Test_KubernetesConfiguration_Extension_ProtectedSettings_20241101(t *testin
 					ReleaseNamespace: to.Ptr("kube-system"),
 				},
 			},
-			ConfigurationProtectedSettings: &genruntime.SecretMapReference{
-				Name: secretName,
+			ConfigurationProtectedSettings: map[string]string{
+				"username": "secret1",
+				"password": "secret2",
 			},
 		},
 	}

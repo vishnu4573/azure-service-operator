@@ -1,3 +1,13 @@
+typeTransformers:
+  - name: ExpressionV2
+    property: Operands
+    remove: true
+    because: ExpressionV2 is directly recursive via Operands and controller-gen cannot handle direct recursion
+  - name: ExpressionV2_STATUS
+    property: Operands
+    remove: true
+    because: ExpressionV2_STATUS is directly recursive via Operands and controller-gen cannot handle direct recursion
+
 groupModelConfiguration:
   2018-06-01:
     PurviewConfiguration:

@@ -862,3 +862,27 @@ groupModelConfiguration:
     VirtualNetworks_VirtualNetworkPeering:
       $exportAs: VirtualNetworksVirtualNetworkPeering
       $supportedFrom: v2.19.0
+  #Testing a new API version here for network security perimeter resources, which are currently in preview and only supported in newer API versions of Microsoft.Network 
+  2025-07-01:
+    NetworkSecurityPerimeter:
+      $exportAs: NetworkSecurityPerimeter
+      $supportedFrom: v2.20.0
+    NetworkSecurityPerimeters_Profile:
+      $exportAs: NetworkSecurityPerimetersProfile
+      $supportedFrom: v2.20.0
+    NetworkSecurityPerimeters_Profiles_AccessRule:
+      $exportAs: NetworkSecurityPerimetersProfilesAccessRule
+      $supportedFrom: v2.20.0
+    NetworkSecurityPerimeters_ResourceAssociation:
+      $exportAs: NetworkSecurityPerimetersResourceAssociation
+      $supportedFrom: v2.20.0
+    NetworkSecurityPerimeters_Link:
+      $exportAs: NetworkSecurityPerimetersLink
+      $supportedFrom: v2.20.0
+    NetworkSecurityPerimeters_LoggingConfiguration:
+      $exportAs: NetworkSecurityPerimetersLoggingConfiguration
+      $supportedFrom: v2.20.0
+    CommonSubResource:
+      Id:
+        $referenceType: arm
+

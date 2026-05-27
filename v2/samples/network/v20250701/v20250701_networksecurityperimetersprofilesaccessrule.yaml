@@ -1,0 +1,7 @@
+apiVersion: network.azure.com/v20250701
+kind: NetworkSecurityPerimetersProfilesAccessRule
+metadata:
+  name: sample-networksecurityperimetersprofilesaccessrule
+spec:
+  owner:
+    name: sample-networksecurityperimetersprofile

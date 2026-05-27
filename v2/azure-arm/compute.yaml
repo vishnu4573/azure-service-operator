@@ -202,6 +202,7 @@ groupModelConfiguration:
       $supportedFrom: v2.3.0
     EncryptionSetIdentity_UserAssignedIdentities_STATUS:
       $renameTo: UserAssignedIdentitiesValue_STATUS
+      $nameInNextVersion: CommonUserAssignedIdentitiesValue_STATUS
     SourceVault:
       Id:
         $referenceType: arm

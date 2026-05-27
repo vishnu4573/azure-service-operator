@@ -160,11 +160,11 @@ func AddIndependentPropertyGeneratorsForSnapshotProperties_STATUS(gens map[strin
 		DiskState_STATUS_ReadyToUpload,
 		DiskState_STATUS_Reserved,
 		DiskState_STATUS_Unattached))
-	gens["HyperVGeneration"] = gen.PtrOf(gen.OneConstOf(HyperVGeneration_STATUS_V1, HyperVGeneration_STATUS_V2))
+	gens["HyperVGeneration"] = gen.PtrOf(gen.OneConstOf(CommonHyperVGeneration_STATUS_V1, CommonHyperVGeneration_STATUS_V2))
 	gens["Incremental"] = gen.PtrOf(gen.Bool())
 	gens["IncrementalSnapshotFamilyId"] = gen.PtrOf(gen.AlphaString())
 	gens["NetworkAccessPolicy"] = gen.PtrOf(gen.OneConstOf(NetworkAccessPolicy_STATUS_AllowAll, NetworkAccessPolicy_STATUS_AllowPrivate, NetworkAccessPolicy_STATUS_DenyAll))
-	gens["OsType"] = gen.PtrOf(gen.OneConstOf(OperatingSystemTypes_STATUS_Linux, OperatingSystemTypes_STATUS_Windows))
+	gens["OsType"] = gen.PtrOf(gen.OneConstOf(CommonOperatingSystemTypes_STATUS_Linux, CommonOperatingSystemTypes_STATUS_Windows))
 	gens["ProvisioningState"] = gen.PtrOf(gen.AlphaString())
 	gens["PublicNetworkAccess"] = gen.PtrOf(gen.OneConstOf(PublicNetworkAccess_STATUS_Disabled, PublicNetworkAccess_STATUS_Enabled))
 	gens["SupportsHibernation"] = gen.PtrOf(gen.Bool())

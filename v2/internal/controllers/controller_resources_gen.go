@@ -267,46 +267,6 @@ import (
 	eventhub_v20240101 "github.com/Azure/azure-service-operator/v2/api/eventhub/v1api20240101"
 	eventhub_v20240101s "github.com/Azure/azure-service-operator/v2/api/eventhub/v1api20240101/storage"
 	eventhub_v20240101w "github.com/Azure/azure-service-operator/v2/api/eventhub/v1api20240101/webhook"
-	insights_customizations "github.com/Azure/azure-service-operator/v2/api/insights/customizations"
-	insights_v20171001 "github.com/Azure/azure-service-operator/v2/api/insights/v1api20171001"
-	insights_v20171001s "github.com/Azure/azure-service-operator/v2/api/insights/v1api20171001/storage"
-	insights_v20171001w "github.com/Azure/azure-service-operator/v2/api/insights/v1api20171001/webhook"
-	insights_v20180301 "github.com/Azure/azure-service-operator/v2/api/insights/v1api20180301"
-	insights_v20180301s "github.com/Azure/azure-service-operator/v2/api/insights/v1api20180301/storage"
-	insights_v20180301w "github.com/Azure/azure-service-operator/v2/api/insights/v1api20180301/webhook"
-	insights_v20180501p "github.com/Azure/azure-service-operator/v2/api/insights/v1api20180501preview"
-	insights_v20180501ps "github.com/Azure/azure-service-operator/v2/api/insights/v1api20180501preview/storage"
-	insights_v20180501pw "github.com/Azure/azure-service-operator/v2/api/insights/v1api20180501preview/webhook"
-	insights_v20200202 "github.com/Azure/azure-service-operator/v2/api/insights/v1api20200202"
-	insights_v20200202s "github.com/Azure/azure-service-operator/v2/api/insights/v1api20200202/storage"
-	insights_v20200202w "github.com/Azure/azure-service-operator/v2/api/insights/v1api20200202/webhook"
-	insights_v20201001 "github.com/Azure/azure-service-operator/v2/api/insights/v1api20201001"
-	insights_v20201001s "github.com/Azure/azure-service-operator/v2/api/insights/v1api20201001/storage"
-	insights_v20201001w "github.com/Azure/azure-service-operator/v2/api/insights/v1api20201001/webhook"
-	insights_v20210501p "github.com/Azure/azure-service-operator/v2/api/insights/v1api20210501preview"
-	insights_v20210501ps "github.com/Azure/azure-service-operator/v2/api/insights/v1api20210501preview/storage"
-	insights_v20210501pw "github.com/Azure/azure-service-operator/v2/api/insights/v1api20210501preview/webhook"
-	insights_v20220615 "github.com/Azure/azure-service-operator/v2/api/insights/v1api20220615"
-	insights_v20220615s "github.com/Azure/azure-service-operator/v2/api/insights/v1api20220615/storage"
-	insights_v20220615w "github.com/Azure/azure-service-operator/v2/api/insights/v1api20220615/webhook"
-	insights_v20221001 "github.com/Azure/azure-service-operator/v2/api/insights/v1api20221001"
-	insights_v20221001s "github.com/Azure/azure-service-operator/v2/api/insights/v1api20221001/storage"
-	insights_v20221001w "github.com/Azure/azure-service-operator/v2/api/insights/v1api20221001/webhook"
-	insights_v20230101 "github.com/Azure/azure-service-operator/v2/api/insights/v1api20230101"
-	insights_v20230101s "github.com/Azure/azure-service-operator/v2/api/insights/v1api20230101/storage"
-	insights_v20230101w "github.com/Azure/azure-service-operator/v2/api/insights/v1api20230101/webhook"
-	insights_v20230311 "github.com/Azure/azure-service-operator/v2/api/insights/v1api20230311"
-	insights_v20230311s "github.com/Azure/azure-service-operator/v2/api/insights/v1api20230311/storage"
-	insights_v20230311w "github.com/Azure/azure-service-operator/v2/api/insights/v1api20230311/webhook"
-	insights_v20230601 "github.com/Azure/azure-service-operator/v2/api/insights/v1api20230601"
-	insights_v20230601s "github.com/Azure/azure-service-operator/v2/api/insights/v1api20230601/storage"
-	insights_v20230601w "github.com/Azure/azure-service-operator/v2/api/insights/v1api20230601/webhook"
-	insights_v20240311 "github.com/Azure/azure-service-operator/v2/api/insights/v1api20240311"
-	insights_v20240311s "github.com/Azure/azure-service-operator/v2/api/insights/v1api20240311/storage"
-	insights_v20240311w "github.com/Azure/azure-service-operator/v2/api/insights/v1api20240311/webhook"
-	insights_v20250101p "github.com/Azure/azure-service-operator/v2/api/insights/v1api20250101preview"
-	insights_v20250101ps "github.com/Azure/azure-service-operator/v2/api/insights/v1api20250101preview/storage"
-	insights_v20250101pw "github.com/Azure/azure-service-operator/v2/api/insights/v1api20250101preview/webhook"
 	keyvault_customizations "github.com/Azure/azure-service-operator/v2/api/keyvault/customizations"
 	keyvault_v20210401p "github.com/Azure/azure-service-operator/v2/api/keyvault/v1api20210401preview"
 	keyvault_v20210401ps "github.com/Azure/azure-service-operator/v2/api/keyvault/v1api20210401preview/storage"
@@ -387,6 +347,9 @@ import (
 	network_v20250301 "github.com/Azure/azure-service-operator/v2/api/network/v20250301"
 	network_v20250301s "github.com/Azure/azure-service-operator/v2/api/network/v20250301/storage"
 	network_v20250301w "github.com/Azure/azure-service-operator/v2/api/network/v20250301/webhook"
+	network_v20250701 "github.com/Azure/azure-service-operator/v2/api/network/v20250701"
+	network_v20250701s "github.com/Azure/azure-service-operator/v2/api/network/v20250701/storage"
+	network_v20250701w "github.com/Azure/azure-service-operator/v2/api/network/v20250701/webhook"
 	notificationhubs_customizations "github.com/Azure/azure-service-operator/v2/api/notificationhubs/customizations"
 	notificationhubs_v20230901 "github.com/Azure/azure-service-operator/v2/api/notificationhubs/v1api20230901"
 	notificationhubs_v20230901s "github.com/Azure/azure-service-operator/v2/api/notificationhubs/v1api20230901/storage"
@@ -1664,19 +1627,6 @@ func getKnownStorageTypes() []*registration.StorageType {
 	result = append(result, &registration.StorageType{Obj: new(eventhub_v20240101s.NamespacesEventhub)})
 	result = append(result, &registration.StorageType{Obj: new(eventhub_v20240101s.NamespacesEventhubsAuthorizationRule)})
 	result = append(result, &registration.StorageType{Obj: new(eventhub_v20240101s.NamespacesEventhubsConsumerGroup)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20171001s.PricingPlan)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20180301s.MetricAlert)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20200202s.Component)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20201001s.ActivityLogAlert)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20210501ps.DiagnosticSetting)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20220615s.ScheduledQueryRule)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20220615s.Webtest)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20221001s.AutoscaleSetting)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20230101s.ActionGroup)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20230601s.Workbook)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20240311s.DataCollectionEndpoint)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20240311s.DataCollectionRule)})
-	result = append(result, &registration.StorageType{Obj: new(insights_v20240311s.DataCollectionRuleAssociation)})
 	result = append(result, &registration.StorageType{
 		Obj: new(keyvault_v20230701s.Vault),
 		Indexes: []registration.Index{
@@ -1711,25 +1661,7 @@ func getKnownStorageTypes() []*registration.StorageType {
 			},
 		},
 	})
-	result = append(result, &registration.StorageType{
-		Obj: new(kubernetesconfiguration_v20241101s.Extension),
-		Indexes: []registration.Index{
-			{
-				Key:  ".spec.configurationProtectedSettings",
-				Func: indexKubernetesconfigurationExtensionConfigurationProtectedSettings,
-			},
-		},
-		Watches: []registration.Watch{
-			{
-				Type: &v1.Secret{},
-				MakeEventHandler: watchSecretsFactory(
-					[]string{
-						".spec.configurationProtectedSettings",
-					},
-					&kubernetesconfiguration_v20241101s.ExtensionList{}),
-			},
-		},
-	})
+	result = append(result, &registration.StorageType{Obj: new(kubernetesconfiguration_v20241101s.Extension)})
 	result = append(result, &registration.StorageType{
 		Obj: new(kubernetesconfiguration_v20241101s.FluxConfiguration),
 		Indexes: []registration.Index{
@@ -2414,6 +2346,12 @@ func getKnownStorageTypes() []*registration.StorageType {
 	})
 	result = append(result, &registration.StorageType{Obj: new(network_v20250301s.VirtualNetworksSubnet)})
 	result = append(result, &registration.StorageType{Obj: new(network_v20250301s.VirtualNetworksVirtualNetworkPeering)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250701s.NetworkSecurityPerimeter)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250701s.NetworkSecurityPerimetersLink)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250701s.NetworkSecurityPerimetersLoggingConfiguration)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250701s.NetworkSecurityPerimetersProfile)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250701s.NetworkSecurityPerimetersProfilesAccessRule)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250701s.NetworkSecurityPerimetersResourceAssociation)})
 	result = append(result, &registration.StorageType{Obj: new(networkfrontdoor_v20220501s.WebApplicationFirewallPolicy)})
 	result = append(result, &registration.StorageType{
 		Obj: new(notificationhubs_v20230901s.Namespace),
@@ -5431,120 +5369,6 @@ func getKnownTypes() []*registration.KnownType {
 		&registration.KnownType{Obj: new(eventhub_v20240101s.NamespacesEventhubsAuthorizationRule)},
 		&registration.KnownType{Obj: new(eventhub_v20240101s.NamespacesEventhubsConsumerGroup)})
 	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20171001.PricingPlan),
-		Defaulter: &insights_v20171001w.PricingPlan{},
-		Validator: &insights_v20171001w.PricingPlan{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20171001s.PricingPlan)})
-	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20180301.MetricAlert),
-		Defaulter: &insights_v20180301w.MetricAlert{},
-		Validator: &insights_v20180301w.MetricAlert{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20180301s.MetricAlert)})
-	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20180501p.Webtest),
-		Defaulter: &insights_v20180501pw.Webtest{},
-		Validator: &insights_v20180501pw.Webtest{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20180501ps.Webtest)})
-	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20200202.Component),
-		Defaulter: &insights_v20200202w.Component{},
-		Validator: &insights_v20200202w.Component{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20200202s.Component)})
-	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20201001.ActivityLogAlert),
-		Defaulter: &insights_v20201001w.ActivityLogAlert{},
-		Validator: &insights_v20201001w.ActivityLogAlert{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20201001s.ActivityLogAlert)})
-	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20210501p.DiagnosticSetting),
-		Defaulter: &insights_v20210501pw.DiagnosticSetting{},
-		Validator: &insights_v20210501pw.DiagnosticSetting{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20210501ps.DiagnosticSetting)})
-	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20220615.ScheduledQueryRule),
-		Defaulter: &insights_v20220615w.ScheduledQueryRule{},
-		Validator: &insights_v20220615w.ScheduledQueryRule{},
-	}, &registration.KnownType{
-		Obj:       new(insights_v20220615.Webtest),
-		Defaulter: &insights_v20220615w.Webtest{},
-		Validator: &insights_v20220615w.Webtest{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20220615s.ScheduledQueryRule)}, &registration.KnownType{Obj: new(insights_v20220615s.Webtest)})
-	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20221001.AutoscaleSetting),
-		Defaulter: &insights_v20221001w.AutoscaleSetting{},
-		Validator: &insights_v20221001w.AutoscaleSetting{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20221001s.AutoscaleSetting)})
-	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20230101.ActionGroup),
-		Defaulter: &insights_v20230101w.ActionGroup{},
-		Validator: &insights_v20230101w.ActionGroup{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20230101s.ActionGroup)})
-	result = append(
-		result,
-		&registration.KnownType{
-			Obj:       new(insights_v20230311.DataCollectionEndpoint),
-			Defaulter: &insights_v20230311w.DataCollectionEndpoint{},
-			Validator: &insights_v20230311w.DataCollectionEndpoint{},
-		},
-		&registration.KnownType{
-			Obj:       new(insights_v20230311.DataCollectionRule),
-			Defaulter: &insights_v20230311w.DataCollectionRule{},
-			Validator: &insights_v20230311w.DataCollectionRule{},
-		},
-		&registration.KnownType{
-			Obj:       new(insights_v20230311.DataCollectionRuleAssociation),
-			Defaulter: &insights_v20230311w.DataCollectionRuleAssociation{},
-			Validator: &insights_v20230311w.DataCollectionRuleAssociation{},
-		})
-	result = append(
-		result,
-		&registration.KnownType{Obj: new(insights_v20230311s.DataCollectionEndpoint)},
-		&registration.KnownType{Obj: new(insights_v20230311s.DataCollectionRule)},
-		&registration.KnownType{Obj: new(insights_v20230311s.DataCollectionRuleAssociation)})
-	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20230601.Workbook),
-		Defaulter: &insights_v20230601w.Workbook{},
-		Validator: &insights_v20230601w.Workbook{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20230601s.Workbook)})
-	result = append(
-		result,
-		&registration.KnownType{
-			Obj:       new(insights_v20240311.DataCollectionEndpoint),
-			Defaulter: &insights_v20240311w.DataCollectionEndpoint{},
-			Validator: &insights_v20240311w.DataCollectionEndpoint{},
-		},
-		&registration.KnownType{
-			Obj:       new(insights_v20240311.DataCollectionRule),
-			Defaulter: &insights_v20240311w.DataCollectionRule{},
-			Validator: &insights_v20240311w.DataCollectionRule{},
-		},
-		&registration.KnownType{
-			Obj:       new(insights_v20240311.DataCollectionRuleAssociation),
-			Defaulter: &insights_v20240311w.DataCollectionRuleAssociation{},
-			Validator: &insights_v20240311w.DataCollectionRuleAssociation{},
-		})
-	result = append(
-		result,
-		&registration.KnownType{Obj: new(insights_v20240311s.DataCollectionEndpoint)},
-		&registration.KnownType{Obj: new(insights_v20240311s.DataCollectionRule)},
-		&registration.KnownType{Obj: new(insights_v20240311s.DataCollectionRuleAssociation)})
-	result = append(result, &registration.KnownType{
-		Obj:       new(insights_v20250101p.ScheduledQueryRule),
-		Defaulter: &insights_v20250101pw.ScheduledQueryRule{},
-		Validator: &insights_v20250101pw.ScheduledQueryRule{},
-	})
-	result = append(result, &registration.KnownType{Obj: new(insights_v20250101ps.ScheduledQueryRule)})
-	result = append(result, &registration.KnownType{
 		Obj:       new(keyvault_v20210401p.Vault),
 		Defaulter: &keyvault_v20210401pw.Vault{},
 		Validator: &keyvault_v20210401pw.Vault{},
@@ -6350,6 +6174,46 @@ func getKnownTypes() []*registration.KnownType {
 		&registration.KnownType{Obj: new(network_v20250301s.VirtualNetworkGateway)},
 		&registration.KnownType{Obj: new(network_v20250301s.VirtualNetworksSubnet)},
 		&registration.KnownType{Obj: new(network_v20250301s.VirtualNetworksVirtualNetworkPeering)})
+	result = append(
+		result,
+		&registration.KnownType{
+			Obj:       new(network_v20250701.NetworkSecurityPerimeter),
+			Defaulter: &network_v20250701w.NetworkSecurityPerimeter{},
+			Validator: &network_v20250701w.NetworkSecurityPerimeter{},
+		},
+		&registration.KnownType{
+			Obj:       new(network_v20250701.NetworkSecurityPerimetersLink),
+			Defaulter: &network_v20250701w.NetworkSecurityPerimetersLink{},
+			Validator: &network_v20250701w.NetworkSecurityPerimetersLink{},
+		},
+		&registration.KnownType{
+			Obj:       new(network_v20250701.NetworkSecurityPerimetersLoggingConfiguration),
+			Defaulter: &network_v20250701w.NetworkSecurityPerimetersLoggingConfiguration{},
+			Validator: &network_v20250701w.NetworkSecurityPerimetersLoggingConfiguration{},
+		},
+		&registration.KnownType{
+			Obj:       new(network_v20250701.NetworkSecurityPerimetersProfile),
+			Defaulter: &network_v20250701w.NetworkSecurityPerimetersProfile{},
+			Validator: &network_v20250701w.NetworkSecurityPerimetersProfile{},
+		},
+		&registration.KnownType{
+			Obj:       new(network_v20250701.NetworkSecurityPerimetersProfilesAccessRule),
+			Defaulter: &network_v20250701w.NetworkSecurityPerimetersProfilesAccessRule{},
+			Validator: &network_v20250701w.NetworkSecurityPerimetersProfilesAccessRule{},
+		},
+		&registration.KnownType{
+			Obj:       new(network_v20250701.NetworkSecurityPerimetersResourceAssociation),
+			Defaulter: &network_v20250701w.NetworkSecurityPerimetersResourceAssociation{},
+			Validator: &network_v20250701w.NetworkSecurityPerimetersResourceAssociation{},
+		})
+	result = append(
+		result,
+		&registration.KnownType{Obj: new(network_v20250701s.NetworkSecurityPerimeter)},
+		&registration.KnownType{Obj: new(network_v20250701s.NetworkSecurityPerimetersLink)},
+		&registration.KnownType{Obj: new(network_v20250701s.NetworkSecurityPerimetersLoggingConfiguration)},
+		&registration.KnownType{Obj: new(network_v20250701s.NetworkSecurityPerimetersProfile)},
+		&registration.KnownType{Obj: new(network_v20250701s.NetworkSecurityPerimetersProfilesAccessRule)},
+		&registration.KnownType{Obj: new(network_v20250701s.NetworkSecurityPerimetersResourceAssociation)})
 	result = append(result, &registration.KnownType{
 		Obj:       new(networkfrontdoor_v20220501.WebApplicationFirewallPolicy),
 		Defaulter: &networkfrontdoor_v20220501w.WebApplicationFirewallPolicy{},
@@ -7399,32 +7263,6 @@ func createScheme() *runtime.Scheme {
 	_ = eventhub_v20211101s.AddToScheme(scheme)
 	_ = eventhub_v20240101.AddToScheme(scheme)
 	_ = eventhub_v20240101s.AddToScheme(scheme)
-	_ = insights_v20171001.AddToScheme(scheme)
-	_ = insights_v20171001s.AddToScheme(scheme)
-	_ = insights_v20180301.AddToScheme(scheme)
-	_ = insights_v20180301s.AddToScheme(scheme)
-	_ = insights_v20180501p.AddToScheme(scheme)
-	_ = insights_v20180501ps.AddToScheme(scheme)
-	_ = insights_v20200202.AddToScheme(scheme)
-	_ = insights_v20200202s.AddToScheme(scheme)
-	_ = insights_v20201001.AddToScheme(scheme)
-	_ = insights_v20201001s.AddToScheme(scheme)
-	_ = insights_v20210501p.AddToScheme(scheme)
-	_ = insights_v20210501ps.AddToScheme(scheme)
-	_ = insights_v20220615.AddToScheme(scheme)
-	_ = insights_v20220615s.AddToScheme(scheme)
-	_ = insights_v20221001.AddToScheme(scheme)
-	_ = insights_v20221001s.AddToScheme(scheme)
-	_ = insights_v20230101.AddToScheme(scheme)
-	_ = insights_v20230101s.AddToScheme(scheme)
-	_ = insights_v20230311.AddToScheme(scheme)
-	_ = insights_v20230311s.AddToScheme(scheme)
-	_ = insights_v20230601.AddToScheme(scheme)
-	_ = insights_v20230601s.AddToScheme(scheme)
-	_ = insights_v20240311.AddToScheme(scheme)
-	_ = insights_v20240311s.AddToScheme(scheme)
-	_ = insights_v20250101p.AddToScheme(scheme)
-	_ = insights_v20250101ps.AddToScheme(scheme)
 	_ = keyvault_v20210401p.AddToScheme(scheme)
 	_ = keyvault_v20210401ps.AddToScheme(scheme)
 	_ = keyvault_v20230701.AddToScheme(scheme)
@@ -7471,6 +7309,8 @@ func createScheme() *runtime.Scheme {
 	_ = network_v20241001s.AddToScheme(scheme)
 	_ = network_v20250301.AddToScheme(scheme)
 	_ = network_v20250301s.AddToScheme(scheme)
+	_ = network_v20250701.AddToScheme(scheme)
+	_ = network_v20250701s.AddToScheme(scheme)
 	_ = networkfrontdoor_v20220501.AddToScheme(scheme)
 	_ = networkfrontdoor_v20220501s.AddToScheme(scheme)
 	_ = notificationhubs_v20230901.AddToScheme(scheme)
@@ -7669,19 +7509,6 @@ func getResourceExtensions() []genruntime.ResourceExtension {
 	result = append(result, &eventhub_customizations.NamespacesEventhubExtension{})
 	result = append(result, &eventhub_customizations.NamespacesEventhubsAuthorizationRuleExtension{})
 	result = append(result, &eventhub_customizations.NamespacesEventhubsConsumerGroupExtension{})
-	result = append(result, &insights_customizations.ActionGroupExtension{})
-	result = append(result, &insights_customizations.ActivityLogAlertExtension{})
-	result = append(result, &insights_customizations.AutoscaleSettingExtension{})
-	result = append(result, &insights_customizations.ComponentExtension{})
-	result = append(result, &insights_customizations.DataCollectionEndpointExtension{})
-	result = append(result, &insights_customizations.DataCollectionRuleAssociationExtension{})
-	result = append(result, &insights_customizations.DataCollectionRuleExtension{})
-	result = append(result, &insights_customizations.DiagnosticSettingExtension{})
-	result = append(result, &insights_customizations.MetricAlertExtension{})
-	result = append(result, &insights_customizations.PricingPlanExtension{})
-	result = append(result, &insights_customizations.ScheduledQueryRuleExtension{})
-	result = append(result, &insights_customizations.WebtestExtension{})
-	result = append(result, &insights_customizations.WorkbookExtension{})
 	result = append(result, &keyvault_customizations.VaultExtension{})
 	result = append(result, &kubernetesconfiguration_customizations.ExtensionExtension{})
 	result = append(result, &kubernetesconfiguration_customizations.FluxConfigurationExtension{})
@@ -7724,6 +7551,12 @@ func getResourceExtensions() []genruntime.ResourceExtension {
 	result = append(result, &network_customizations.NetworkInterfaceExtension{})
 	result = append(result, &network_customizations.NetworkSecurityGroupExtension{})
 	result = append(result, &network_customizations.NetworkSecurityGroupsSecurityRuleExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimeterExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimetersLinkExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimetersLoggingConfigurationExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimetersProfileExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimetersProfilesAccessRuleExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimetersResourceAssociationExtension{})
 	result = append(result, &network_customizations.NetworkWatcherExtension{})
 	result = append(result, &network_customizations.NetworkWatchersFlowLogExtension{})
 	result = append(result, &network_customizations.PrivateDnsZoneExtension{})
@@ -9445,18 +9278,6 @@ func indexKeyvaultVaultPropertiesTenantIdFromConfig(rawObj client.Object) []stri
 		return nil
 	}
 	return obj.Spec.Properties.TenantIdFromConfig.Index()
-}
-
-// indexKubernetesconfigurationExtensionConfigurationProtectedSettings an index function for kubernetesconfiguration_v20241101s.Extension .spec.configurationProtectedSettings
-func indexKubernetesconfigurationExtensionConfigurationProtectedSettings(rawObj client.Object) []string {
-	obj, ok := rawObj.(*kubernetesconfiguration_v20241101s.Extension)
-	if !ok {
-		return nil
-	}
-	if obj.Spec.ConfigurationProtectedSettings == nil {
-		return nil
-	}
-	return obj.Spec.ConfigurationProtectedSettings.Index()
 }
 
 // indexKubernetesconfigurationFluxConfigurationAccessKey an index function for kubernetesconfiguration_v20241101s.FluxConfiguration .spec.bucket.accessKey

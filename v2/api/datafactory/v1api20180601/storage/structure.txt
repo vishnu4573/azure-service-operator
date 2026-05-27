@@ -6,8 +6,7 @@ APIVersion: Enum (1 value)
 
 Factory: Resource
 ├── Owner: resources/v1apiv20191001.ResourceGroup
-├── Spec: Object (14 properties)
-│   ├── AdditionalProperties: map[string]v1.JSON
+├── Spec: Object (13 properties)
 │   ├── AzureName: string
 │   ├── Encryption: *Object (5 properties)
 │   │   ├── Identity: *Object (2 properties)
@@ -20,13 +19,11 @@ Factory: Resource
 │   ├── GlobalParameters: map[string]Object (3 properties)
 │   │   ├── PropertyBag: genruntime.PropertyBag
 │   │   ├── Type: *string
-│   │   └── Value: map[string]v1.JSON
+│   │   └── Value: *v1.JSON
 │   ├── Identity: *Object (3 properties)
 │   │   ├── PropertyBag: genruntime.PropertyBag
 │   │   ├── Type: *string
-│   │   └── UserAssignedIdentities: Object (2 properties)[]
-│   │       ├── PropertyBag: genruntime.PropertyBag
-│   │       └── Reference: genruntime.ResourceReference
+│   │   └── UserAssignedIdentities: *v1.JSON
 │   ├── Location: *string
 │   ├── OperatorSpec: *Object (3 properties)
 │   │   ├── ConfigMapExpressions: *core.DestinationExpression[]
@@ -69,7 +66,6 @@ Factory: Resource
 │   │   └── PropertyBag: genruntime.PropertyBag
 │   └── Tags: map[string]string
 └── Status: Object (18 properties)
-    ├── AdditionalProperties: map[string]v1.JSON
     ├── Conditions: conditions.Condition[]
     ├── CreateTime: *string
     ├── ETag: *string
@@ -84,14 +80,14 @@ Factory: Resource
     ├── GlobalParameters: map[string]Object (3 properties)
     │   ├── PropertyBag: genruntime.PropertyBag
     │   ├── Type: *string
-    │   └── Value: map[string]v1.JSON
+    │   └── Value: *v1.JSON
     ├── Id: *string
     ├── Identity: *Object (5 properties)
     │   ├── PrincipalId: *string
     │   ├── PropertyBag: genruntime.PropertyBag
     │   ├── TenantId: *string
     │   ├── Type: *string
-    │   └── UserAssignedIdentities: map[string]v1.JSON
+    │   └── UserAssignedIdentities: *v1.JSON
     ├── Location: *string
     ├── Name: *string
     ├── PropertyBag: genruntime.PropertyBag
@@ -127,6 +123,14 @@ Factory: Resource
     │   │   ├── RootFolder: *string
     │   │   ├── TenantId: *string
     │   │   └── Type: *string
+    │   └── PropertyBag: genruntime.PropertyBag
+    ├── SystemData: *Object (7 properties)
+    │   ├── CreatedAt: *string
+    │   ├── CreatedBy: *string
+    │   ├── CreatedByType: *string
+    │   ├── LastModifiedAt: *string
+    │   ├── LastModifiedBy: *string
+    │   ├── LastModifiedByType: *string
     │   └── PropertyBag: genruntime.PropertyBag
     ├── Tags: map[string]string
     ├── Type: *string
@@ -176,5 +180,5 @@ augmentConversionForPurviewConfiguration: Interface
 
 augmentConversionForPurviewConfiguration_STATUS: Interface
 
-augmentConversionForUserAssignedIdentityDetails: Interface
+augmentConversionForSystemData_STATUS: Interface
 

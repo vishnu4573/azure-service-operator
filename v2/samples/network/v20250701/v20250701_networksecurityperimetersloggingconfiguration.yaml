@@ -1,0 +1,7 @@
+apiVersion: network.azure.com/v20250701
+kind: NetworkSecurityPerimetersLoggingConfiguration
+metadata:
+  name: sample-networksecurityperimetersloggingconfiguration
+spec:
+  owner:
+    name: sample-networksecurityperimeter

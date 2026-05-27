@@ -69,7 +69,7 @@ imports:
   entra: azure-arm/entra.yaml
   eventgrid: azure-arm/eventgrid.yaml
   eventhub: azure-arm/eventhub.yaml
-  insights: azure-arm/insights.yaml
+  # insights: azure-arm/insights.yaml
   keyvault: azure-arm/keyvault.yaml
   kubernetesconfiguration: azure-arm/kubernetesconfiguration.yaml
   kusto: azure-arm/kusto.yaml
