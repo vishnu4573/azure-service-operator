@@ -910,6 +910,8 @@ tasks:
       - config/crd/generated/patches/**/*.yaml
     cmds:
       - bin/{{.GENERATOR_APP}} gen-kustomize config/crd/generated
+      # Fix for kustomize v5: convert patches from string list to object format
+      - "perl -i -pe 's/^(\\s*)-\\s+(patches\\/)/$1- path: $2/' config/crd/generated/kustomization.yaml"
 
   controller:run-kustomize:
     desc: Generates the CRD & configuration bundle.
