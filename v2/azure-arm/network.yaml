@@ -862,3 +862,38 @@ groupModelConfiguration:
     VirtualNetworks_VirtualNetworkPeering:
       $exportAs: VirtualNetworksVirtualNetworkPeering
       $supportedFrom: v2.19.0
+  2025-05-01:
+    # Network Security Perimeter -- versioned separately from other networking resources
+    # See https://github.com/Azure/azure-rest-api-specs/tree/main/specification/network/resource-manager/Microsoft.Network/stable/2025-05-01/networkSecurityPerimeter.json
+    
+    # ========================================
+    # Main Resource Definitions
+    # ========================================
+    NetworkSecurityPerimeter:
+      $exportAs: NetworkSecurityPerimeter
+      $supportedFrom: v2.20.0
+    
+    NetworkSecurityPerimeters_Profile:
+      $exportAs: NetworkSecurityPerimetersProfile
+      $supportedFrom: v2.20.0
+    
+    NetworkSecurityPerimeters_Profiles_AccessRule:
+      $exportAs: NetworkSecurityPerimetersProfilesAccessRule
+      $supportedFrom: v2.20.0
+    
+    NetworkSecurityPerimeters_ResourceAssociation:
+      $exportAs: NetworkSecurityPerimetersResourceAssociation
+      $supportedFrom: v2.20.0
+    
+    NetworkSecurityPerimeters_Link:
+      $exportAs: NetworkSecurityPerimetersLink
+      $supportedFrom: v2.20.0
+    
+    NetworkSecurityPerimeters_LoggingConfiguration:
+      $exportAs: NetworkSecurityPerimetersLoggingConfiguration
+      $supportedFrom: v2.20.0
+    CommonSubResource:
+      Id:
+        $referenceType: arm
+
+

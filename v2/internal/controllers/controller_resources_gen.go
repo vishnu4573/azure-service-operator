@@ -387,6 +387,9 @@ import (
 	network_v20250301 "github.com/Azure/azure-service-operator/v2/api/network/v20250301"
 	network_v20250301s "github.com/Azure/azure-service-operator/v2/api/network/v20250301/storage"
 	network_v20250301w "github.com/Azure/azure-service-operator/v2/api/network/v20250301/webhook"
+	network_v20250501 "github.com/Azure/azure-service-operator/v2/api/network/v20250501"
+	network_v20250501s "github.com/Azure/azure-service-operator/v2/api/network/v20250501/storage"
+	network_v20250501w "github.com/Azure/azure-service-operator/v2/api/network/v20250501/webhook"
 	notificationhubs_customizations "github.com/Azure/azure-service-operator/v2/api/notificationhubs/customizations"
 	notificationhubs_v20230901 "github.com/Azure/azure-service-operator/v2/api/notificationhubs/v1api20230901"
 	notificationhubs_v20230901s "github.com/Azure/azure-service-operator/v2/api/notificationhubs/v1api20230901/storage"
@@ -2414,6 +2417,12 @@ func getKnownStorageTypes() []*registration.StorageType {
 	})
 	result = append(result, &registration.StorageType{Obj: new(network_v20250301s.VirtualNetworksSubnet)})
 	result = append(result, &registration.StorageType{Obj: new(network_v20250301s.VirtualNetworksVirtualNetworkPeering)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250501s.NetworkSecurityPerimeter)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250501s.NetworkSecurityPerimetersLink)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250501s.NetworkSecurityPerimetersLoggingConfiguration)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250501s.NetworkSecurityPerimetersProfile)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250501s.NetworkSecurityPerimetersProfilesAccessRule)})
+	result = append(result, &registration.StorageType{Obj: new(network_v20250501s.NetworkSecurityPerimetersResourceAssociation)})
 	result = append(result, &registration.StorageType{Obj: new(networkfrontdoor_v20220501s.WebApplicationFirewallPolicy)})
 	result = append(result, &registration.StorageType{
 		Obj: new(notificationhubs_v20230901s.Namespace),
@@ -6350,6 +6359,46 @@ func getKnownTypes() []*registration.KnownType {
 		&registration.KnownType{Obj: new(network_v20250301s.VirtualNetworkGateway)},
 		&registration.KnownType{Obj: new(network_v20250301s.VirtualNetworksSubnet)},
 		&registration.KnownType{Obj: new(network_v20250301s.VirtualNetworksVirtualNetworkPeering)})
+	result = append(
+		result,
+		&registration.KnownType{
+			Obj:       new(network_v20250501.NetworkSecurityPerimeter),
+			Defaulter: &network_v20250501w.NetworkSecurityPerimeter{},
+			Validator: &network_v20250501w.NetworkSecurityPerimeter{},
+		},
+		&registration.KnownType{
+			Obj:       new(network_v20250501.NetworkSecurityPerimetersLink),
+			Defaulter: &network_v20250501w.NetworkSecurityPerimetersLink{},
+			Validator: &network_v20250501w.NetworkSecurityPerimetersLink{},
+		},
+		&registration.KnownType{
+			Obj:       new(network_v20250501.NetworkSecurityPerimetersLoggingConfiguration),
+			Defaulter: &network_v20250501w.NetworkSecurityPerimetersLoggingConfiguration{},
+			Validator: &network_v20250501w.NetworkSecurityPerimetersLoggingConfiguration{},
+		},
+		&registration.KnownType{
+			Obj:       new(network_v20250501.NetworkSecurityPerimetersProfile),
+			Defaulter: &network_v20250501w.NetworkSecurityPerimetersProfile{},
+			Validator: &network_v20250501w.NetworkSecurityPerimetersProfile{},
+		},
+		&registration.KnownType{
+			Obj:       new(network_v20250501.NetworkSecurityPerimetersProfilesAccessRule),
+			Defaulter: &network_v20250501w.NetworkSecurityPerimetersProfilesAccessRule{},
+			Validator: &network_v20250501w.NetworkSecurityPerimetersProfilesAccessRule{},
+		},
+		&registration.KnownType{
+			Obj:       new(network_v20250501.NetworkSecurityPerimetersResourceAssociation),
+			Defaulter: &network_v20250501w.NetworkSecurityPerimetersResourceAssociation{},
+			Validator: &network_v20250501w.NetworkSecurityPerimetersResourceAssociation{},
+		})
+	result = append(
+		result,
+		&registration.KnownType{Obj: new(network_v20250501s.NetworkSecurityPerimeter)},
+		&registration.KnownType{Obj: new(network_v20250501s.NetworkSecurityPerimetersLink)},
+		&registration.KnownType{Obj: new(network_v20250501s.NetworkSecurityPerimetersLoggingConfiguration)},
+		&registration.KnownType{Obj: new(network_v20250501s.NetworkSecurityPerimetersProfile)},
+		&registration.KnownType{Obj: new(network_v20250501s.NetworkSecurityPerimetersProfilesAccessRule)},
+		&registration.KnownType{Obj: new(network_v20250501s.NetworkSecurityPerimetersResourceAssociation)})
 	result = append(result, &registration.KnownType{
 		Obj:       new(networkfrontdoor_v20220501.WebApplicationFirewallPolicy),
 		Defaulter: &networkfrontdoor_v20220501w.WebApplicationFirewallPolicy{},
@@ -7471,6 +7520,8 @@ func createScheme() *runtime.Scheme {
 	_ = network_v20241001s.AddToScheme(scheme)
 	_ = network_v20250301.AddToScheme(scheme)
 	_ = network_v20250301s.AddToScheme(scheme)
+	_ = network_v20250501.AddToScheme(scheme)
+	_ = network_v20250501s.AddToScheme(scheme)
 	_ = networkfrontdoor_v20220501.AddToScheme(scheme)
 	_ = networkfrontdoor_v20220501s.AddToScheme(scheme)
 	_ = notificationhubs_v20230901.AddToScheme(scheme)
@@ -7724,6 +7775,12 @@ func getResourceExtensions() []genruntime.ResourceExtension {
 	result = append(result, &network_customizations.NetworkInterfaceExtension{})
 	result = append(result, &network_customizations.NetworkSecurityGroupExtension{})
 	result = append(result, &network_customizations.NetworkSecurityGroupsSecurityRuleExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimeterExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimetersLinkExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimetersLoggingConfigurationExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimetersProfileExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimetersProfilesAccessRuleExtension{})
+	result = append(result, &network_customizations.NetworkSecurityPerimetersResourceAssociationExtension{})
 	result = append(result, &network_customizations.NetworkWatcherExtension{})
 	result = append(result, &network_customizations.NetworkWatchersFlowLogExtension{})
 	result = append(result, &network_customizations.PrivateDnsZoneExtension{})

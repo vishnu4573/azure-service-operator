@@ -57,6 +57,18 @@ NetworkSecurityGroupExtension: Object (0 properties)
 
 NetworkSecurityGroupsSecurityRuleExtension: Object (0 properties)
 
+NetworkSecurityPerimeterExtension: Object (0 properties)
+
+NetworkSecurityPerimetersLinkExtension: Object (0 properties)
+
+NetworkSecurityPerimetersLoggingConfigurationExtension: Object (0 properties)
+
+NetworkSecurityPerimetersProfileExtension: Object (0 properties)
+
+NetworkSecurityPerimetersProfilesAccessRuleExtension: Object (0 properties)
+
+NetworkSecurityPerimetersResourceAssociationExtension: Object (0 properties)
+
 NetworkWatcherExtension: Object (0 properties)
 
 NetworkWatchersFlowLogExtension: Object (0 properties)
