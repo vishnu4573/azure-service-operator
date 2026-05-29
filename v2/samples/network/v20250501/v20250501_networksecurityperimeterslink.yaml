@@ -1,8 +1,14 @@
 apiVersion: network.azure.com/v20250501
 kind: NetworkSecurityPerimetersLink
 metadata:
-  name: link1
-  namespace: default
+  name: sample-networksecurityperimeterslink
 spec:
+  autoApprovedRemotePerimeterResourceReference:
+    armId: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/aso-sample-rg/providers/Microsoft.Network/networkSecurityPerimeters/sample-networksecurityperimeter-remote
+  description: Auto Approved
+  localInboundProfiles:
+    - "*"
   owner:
-    name: nsp1
+    name: sample-networksecurityperimeter
+  remoteInboundProfiles:
+    - "*"

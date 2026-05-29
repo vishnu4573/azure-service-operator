@@ -1,8 +1,16 @@
 apiVersion: network.azure.com/v20250501
 kind: NetworkSecurityPerimetersProfilesAccessRule
 metadata:
-  name: accessrule1
-  namespace: default
+  name: sample-networksecurityperimetersprofilesaccessrule
 spec:
+  addressPrefixes:
+    - 10.11.0.0/16
+    - 10.10.1.0/24
+  direction: Inbound
+  emailAddresses: []
+  fullyQualifiedDomainNames: []
   owner:
-    name: profile1
+    name: sample-networksecurityperimetersprofile
+  phoneNumbers: []
+  serviceTags: []
+  subscriptions: []

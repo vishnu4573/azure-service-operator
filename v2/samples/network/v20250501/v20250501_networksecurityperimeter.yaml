@@ -1,8 +1,11 @@
 apiVersion: network.azure.com/v20250501
 kind: NetworkSecurityPerimeter
 metadata:
-  name: nsp1
-  namespace: default
+  name: sample-networksecurityperimeter
 spec:
+  location: eastus2
   owner:
     name: aso-sample-rg
+  tags:
+    environment: sample
+    scenario: nsp
