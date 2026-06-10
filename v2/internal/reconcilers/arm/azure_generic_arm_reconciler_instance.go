@@ -957,28 +957,23 @@ func ConvertToARMResourceImpl(
 // skipDeletionPrecheck is a set of resource groups for which we skip the pre-deletion existence check.
 // This is to bypass the need to re-record every test in one go - we enable the extra check group by group.
 var skipDeletionPrecheck = sets.NewString(
-	"cache.azure.com",
 	"compute.azure.com",
 	"containerinstance.azure.com",
 	"containerregistry.azure.com",
 	"containerservice.azure.com",
 	"datafactory.azure.com",
-	"dataprotection.azure.com",
 	"dbformariadb.azure.com",
 	"dbforpostgresql.azure.com",
 	"devices.azure.com",
 	"documentdb.azure.com",
 	"eventgrid.azure.com",
-	"eventhub.azure.com",
 	"insights.azure.com",
 	"keyvault.azure.com",
 	"kubernetesconfiguration.azure.com",
 	"machinelearningservices.azure.com",
-	"monitor.azure.com",
 	"network.azure.com",
 	"network.frontdoor.azure.com",
 	"operationalinsights.azure.com",
-	"quota.azure.com",
 	"redhatopenshift.azure.com",
 	"resources.azure.com",
 	"search.azure.com",
@@ -987,7 +982,6 @@ var skipDeletionPrecheck = sets.NewString(
 	"storage.azure.com",
 	"subscription.azure.com",
 	"synapse.azure.com",
-	"web.azure.com",
 )
 
 // deleteResource deletes a resource in ARM. This function is used as the default deletion handler and can
